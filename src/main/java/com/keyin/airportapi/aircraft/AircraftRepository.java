@@ -1,6 +1,6 @@
 package com.keyin.airportapi.aircraft;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
+public interface AircraftRepository extends CrudRepository<Aircraft, Long> {
 }
