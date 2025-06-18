@@ -45,14 +45,14 @@ public class CityService {
 
             if (city.getAirports() != null) {
                 for (Airport airport : city.getAirports()) {
-                    airport.setCity(cityToUpdate); // Maintain bidirectional link
+                    airport.setCity(cityToUpdate);
                 }
                 cityToUpdate.setAirports(city.getAirports());
             }
 
             if (city.getPassengers() != null) {
                 for (Passenger passenger : city.getPassengers()) {
-                    passenger.setCity(cityToUpdate); // Same here
+                    passenger.setCity(cityToUpdate);
                 }
                 cityToUpdate.setPassengers(city.getPassengers());
             }
