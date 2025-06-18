@@ -1,6 +1,7 @@
 package com.keyin.airportapi.city;
 
-import com.keyin.airportapi.*;
+import com.keyin.airportapi.passenger.Passenger;
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
