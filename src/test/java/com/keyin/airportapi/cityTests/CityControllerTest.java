@@ -183,6 +183,7 @@ public class CityControllerTest {
                     .andExpect(jsonPath("$.id").value(1L))
                     .andExpect(jsonPath("$.name").value("St. John's"));
         }
+    }
 
         @Nested
         @DisplayName("PUT Operations")
@@ -299,4 +300,3 @@ public class CityControllerTest {
             }
         }
     }
-}
