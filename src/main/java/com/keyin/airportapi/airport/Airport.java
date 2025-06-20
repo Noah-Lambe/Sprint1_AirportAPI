@@ -1,10 +1,22 @@
 package com.keyin.airportapi.airport;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "airport")
 public class Airport {
+    @Id
     private int airportId;
+
     private String airportName;
     private String areaCode;
     // private City city;
+
+    public Airport() {
+        // Empty constructor for testing. I read somewhere this is best practice.
+    }
 
     public Airport(int airportId, String airportName, String areaCode) {
         this.airportId = airportId;
@@ -38,6 +50,7 @@ public class Airport {
         this.areaCode = areaCode;
     }
 
+    @Override
     public String toString() {
         return airportId + " " + airportName + " " + areaCode;
     }
