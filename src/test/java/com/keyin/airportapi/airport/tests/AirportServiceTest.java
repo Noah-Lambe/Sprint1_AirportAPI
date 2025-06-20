@@ -1,8 +1,7 @@
-package com.keyin.airportapi.airport;
+package com.keyin.airportapi.airport.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -10,6 +9,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.airport.AirportRepository;
+import com.keyin.airportapi.airport.AirportService;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
