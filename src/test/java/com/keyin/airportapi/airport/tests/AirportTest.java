@@ -21,6 +21,7 @@ public class AirportTest {
         airport.setAirportId(5);
         airport.setAirportName("YVR");
         airport.setAreaCode("605");
+        airport.setCity("Mount Pearl");
 
         assertEquals(5, airport.getAirportId());
         assertEquals("YVR", airport.getAirportName());
@@ -29,7 +30,7 @@ public class AirportTest {
 
     @Test
     void testToString() {
-        Airport airport = new Airport(2, "Airport", "777");
+        Airport airport = new Airport(2, "Airport", "777", "Mount Pearl");
         String expected = "2 Airport 777";
         assertEquals(expected, airport.toString());
     }

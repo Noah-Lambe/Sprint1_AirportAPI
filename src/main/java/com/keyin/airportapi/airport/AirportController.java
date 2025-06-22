@@ -31,8 +31,12 @@ public class AirportController {
     }
 
     @PostMapping
-    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
+    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam int cityId) {
+        City city = cityRepository.findByAId(cityId)
+                .orElseThrow(() -> new RuntimeException("City not found"));
+        airport.setCity(city);
         return new ResponseEntity<>(airportRepository.save(airport), HttpStatus.CREATED);
+        // Add support for cityId
     }
 
     @PutMapping("/{airportId}")
@@ -41,7 +45,7 @@ public class AirportController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Airport> deleteAirport(@RequestBody Airport airport) {
+    public ResponseEntity<Airport> deleteAirport(@PathVariable Airport airport) {
         airportRepository.delete(airport);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AirportRepository extends CrudRepository<Airport, Integer> {
+    //List<Airport> findByCity_CityId(int cityId);
+    //List<Airport> findByCity_Name(String cityName);
 }
