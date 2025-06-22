@@ -1,42 +1,44 @@
 package com.keyin.airportapi.airport;
 
-import com.keyin.airportapi.city.City;
-import jakarta.persistence.*;
-
-@Entity
 public class Airport {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    @ManyToOne
+    private int airportId;
+    private String airportName;
+    private String areaCode;
     private City city;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Airport(int airportId, String airportName, String areaCode) {
+        this.airportId = airportId;
+        this.airportName = airportName;
+        this.areaCode = areaCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // Getters
+    public int getAirportId() {
+        return airportId;
     }
 
-    public String getName() {
-        return name;
+    public String getAirportName() {
+        return airportName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public City getCity() {
-        return city;
+    // Setters
+    public void setAirportId(int airportId) {
+        this.airportId = airportId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String toString() {
+        return airportId + " " + airportName + " " + areaCode;
     }
 }
