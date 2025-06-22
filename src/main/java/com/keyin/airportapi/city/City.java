@@ -1,0 +1,73 @@
+package com.keyin.airportapi.city;
+
+import jakarta.persistence.*;
+import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.passenger.Passenger;
+
+import java.util.List;
+
+@Entity
+public class City {
+    @Id
+    @SequenceGenerator(name = "city_sequence", sequenceName = "city_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(generator = "city_sequence")
+
+    private long id;
+    private String name;
+    private String state;
+    private long population;
+
+    @OneToMany(mappedBy = "city")
+    private List<Airport> airports;
+
+    @OneToMany(mappedBy = "city")
+    private List<Passenger> passengers;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(long population) {
+        this.population = population;
+    }
+
+    public List<Airport> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+}

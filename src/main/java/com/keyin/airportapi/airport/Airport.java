@@ -11,12 +11,14 @@ public class Airport {
 
     private String airportName;
     private String areaCode;
+  
     @ManyToOne
     private City city;
 
     public Airport() {
         // Empty constructor for testing. I read somewhere this is best practice.
     }
+
 
     public Airport(int airportId, String airportName, String areaCode, City city) {
         this.airportId = airportId;
