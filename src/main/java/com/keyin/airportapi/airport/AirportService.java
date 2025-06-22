@@ -13,6 +13,8 @@ import java.util.Optional;
 public class AirportService {
     @Autowired
     private AirportRepository airportRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
     public List<Airport> getAllAirports() {
         List<Airport> airports = new ArrayList<>();
@@ -24,7 +26,10 @@ public class AirportService {
         return airportRepository.findById(id);
     }
 
-    public Airport createAirport(Airport airport) {
+    public Airport createAirport(Airport airport, int cityId) {
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new RuntimeException("City not found"));
+        airport.setCity(city);
         return airportRepository.save(airport);
     }
 
