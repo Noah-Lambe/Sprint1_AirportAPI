@@ -1,6 +1,5 @@
 package com.keyin.airportapi.city;
 
-import com.keyin.airportapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,48 +15,85 @@ public class CityController {
     private CityService cityService;
 
     @GetMapping("/city")
-    public List<City> getAllCities() {
-        return cityService.getAllCities();
+    public ResponseEntity<List<City>> getAllCities() {
+        try {
+            return ResponseEntity.ok(cityService.getAllCities());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/city/{id}")
-    public City getCityById(@PathVariable long id) {
-        return cityService.getCityById(id);
+    public ResponseEntity<City> getCityById(@PathVariable long id) {
+        try {
+            City city = cityService.getCityById(id);
+            if (city != null) {
+                return ResponseEntity.ok(city);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/city_search")
-    public List<City> searchCities(@RequestParam(value = "airport_name", required = false) String airportName,
-                                   @RequestParam(value = "passenger_phone", required = false) String passengerPhone) {
-        List<City> results = new ArrayList<>();
+    public ResponseEntity<List<City>> searchCities(@RequestParam(value = "airport_name", required = false) String airportName,
+                                                   @RequestParam(value = "passenger_phone", required = false) String passengerPhone) {
+        try {
+            List<City> results = new ArrayList<>();
 
-        if (airportName != null) {
-            results = cityService.getCitiesByAirportName(airportName);
-        } else if (passengerPhone != null) {
-            results = cityService.getCitiesByPassengerPhone(passengerPhone);
+            if (airportName != null) {
+                results = cityService.getCitiesByAirportName(airportName);
+            } else if (passengerPhone != null) {
+                results = cityService.getCitiesByPassengerPhone(passengerPhone);
+            }
+
+            return ResponseEntity.ok(results);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return results;
     }
 
     @PostMapping("/city")
-    public City createCity(@RequestBody City city) {
-        return cityService.createCity(city);
+    public ResponseEntity<City> createCity(@RequestBody City city) {
+        try {
+            City createdCity = cityService.createCity(city);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .header("Location", "/city/" + createdCity.getId())
+                    .body(createdCity);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 
     @PutMapping("/city/{id}")
     public ResponseEntity<City> updateCity(@PathVariable long id, @RequestBody City city) {
-        City updatedCity = cityService.updateCity(id, city);
-        if (updatedCity != null) {
-            return ResponseEntity.ok(updatedCity);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        try {
+            City updatedCity = cityService.updateCity(id, city);
+            if (updatedCity != null) {
+                return ResponseEntity.ok(updatedCity);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @DeleteMapping("/city/{id}")
     public ResponseEntity<Void> deleteCityById(@PathVariable long id) {
-        cityService.deleteCityById(id);
-        return ResponseEntity.noContent().build();
+        try {
+            cityService.deleteCityById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            if (e.getMessage() != null && e.getMessage().contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
     }
-
 }

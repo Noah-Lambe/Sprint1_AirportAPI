@@ -4,7 +4,7 @@ public class Airport {
     private int airportId;
     private String airportName;
     private String areaCode;
-    // private City city;
+    private City city;
 
     public Airport(int airportId, String airportName, String areaCode) {
         this.airportId = airportId;
