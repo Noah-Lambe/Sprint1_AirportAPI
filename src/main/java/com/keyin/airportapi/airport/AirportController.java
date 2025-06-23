@@ -1,5 +1,6 @@
 package com.keyin.airportapi.airport;
 
+import com.keyin.airportapi.city.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ public class AirportController {
     private AirportRepository airportRepository;
     @Autowired
     private AirportService airportService;
+    @Autowired
+    private CityRepository cityRepository;
 
     @GetMapping
     public ResponseEntity<List<Airport>> getAllAirports() {
@@ -23,7 +26,7 @@ public class AirportController {
     }
 
     @GetMapping("/{airportId}")
-    public ResponseEntity<Airport> getAirportById(@PathVariable int airportId) {
+    public ResponseEntity<Airport> getAirportById(@PathVariable Long airportId) {
         Optional<Airport> airportOptional = airportRepository.findById(airportId);
         return airportOptional
                 .map(ResponseEntity::ok)

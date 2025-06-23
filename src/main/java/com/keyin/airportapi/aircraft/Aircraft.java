@@ -47,7 +47,7 @@ public class Aircraft {
         return type;
     }
 
-    public void setType(String name) {
+    public void setType(String type) {
         this.type = type;
     }
 
