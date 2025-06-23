@@ -10,8 +10,8 @@ public class AirportTest {
 
     @Test
     void testAirportConstructorAndGetters() {
-        City city = new City(1, "Mount Pearl", "Newfoundland");
-        Airport airport = new Airport(1, "ABC", "416", city);
+        City city = new City(1L, "Mount Pearl", "Newfoundland", 100000L);
+        Airport airport = new Airport(1L, "ABC", "416", city);
 
         assertEquals(1, airport.getAirportId());
         assertEquals("ABC", airport.getAirportName());
@@ -21,17 +21,17 @@ public class AirportTest {
 
     @Test
     void testSetters() {
-        City city = new City(2, "Vancouver", "British Columbia");
-        Airport airport = new Airport(2, "XYZ", "123", city);
+        City city = new City(2L, "Vancouver", "British Columbia", 2500000L);
+        Airport airport = new Airport(2L, "XYZ", "123", city);
 
-        airport.setAirportId(5);
+        airport.setAirportId(5L);
         airport.setAirportName("YVR");
         airport.setAreaCode("605");
 
-        City newCity = new City(3, "Toronto", "Ontario");
+        City newCity = new City(3L, "Toronto", "Ontario", 3000000L);
         airport.setCity(newCity);
 
-        assertEquals(5, airport.getAirportId());
+        assertEquals(5L, airport.getAirportId());
         assertEquals("YVR", airport.getAirportName());
         assertEquals("605", airport.getAreaCode());
         assertEquals(newCity, airport.getCity());
@@ -39,10 +39,10 @@ public class AirportTest {
 
     @Test
     void testToString() {
-        City city = new City(4, "Halifax", "Nova Scotia");
-        Airport airport = new Airport(2, "Airport", "777", city);
+        City city = new City(4L, "Halifax", "Nova Scotia", 500000L);
+        Airport airport = new Airport(2L, "Airport", "777", city);
 
-        String expected = "2 Airport 777"; // Adjust if toString includes city
+        String expected = "ID: 2 Name: Airport Area Code: 777 City: Halifax"; // Adjust if toString includes city
         assertEquals(expected, airport.toString());
     }
 }

@@ -23,6 +23,15 @@ public class City {
     @OneToMany(mappedBy = "city")
     private List<Passenger> passengers;
 
+    public City() {}
+
+    public City(long id, String name, String state, long population) {
+        this.id = id;
+        this.name = name;
+        this.state = state;
+        this.population = population;
+    }
+
     public long getId() {
         return id;
     }

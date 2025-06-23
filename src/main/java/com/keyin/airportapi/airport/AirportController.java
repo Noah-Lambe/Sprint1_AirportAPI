@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.keyin.airportapi.airport.city.*;
+import com.keyin.airportapi.city.City;
 
 @RestController
 @CrossOrigin
@@ -36,15 +36,15 @@ public class AirportController {
     }
 
     @PostMapping
-    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam int cityId) {
-        City city = cityRepository.findByAId(cityId)
+    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam Long cityId) {
+        City city = cityRepository.findById(cityId)
                 .orElseThrow(() -> new RuntimeException("City not found"));
         airport.setCity(city);
         return new ResponseEntity<>(airportRepository.save(airport), HttpStatus.CREATED);
     }
 
     @PutMapping("/{airportId}")
-    public ResponseEntity<Airport> updateAirport(@PathVariable int airportId, @RequestBody Airport airport) {
+    public ResponseEntity<Airport> updateAirport(@PathVariable Long airportId, @RequestBody Airport airport) {
         Airport updated = airportService.updateAirport(airportId, airport);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }

@@ -28,7 +28,7 @@ public class AirportService {
         return airportRepository.findById(id);
     }
 
-    public Airport createAirport(Airport airport, int cityId) {
+    public Airport createAirport(Airport airport, Long cityId) {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() -> new RuntimeException("City not found"));
         airport.setCity(city);

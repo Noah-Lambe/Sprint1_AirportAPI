@@ -39,10 +39,6 @@ public class Aircraft {
         return aircraftId;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setAircraftId(Long aircraftId) {
         this.aircraftId = aircraftId;
     }
