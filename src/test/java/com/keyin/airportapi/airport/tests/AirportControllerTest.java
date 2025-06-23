@@ -3,10 +3,10 @@ package com.keyin.airportapi.airport.tests;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.airport.AirportController;
-import com.keyin.airportapi.airport.AirportRepository;
 import com.keyin.airportapi.airport.AirportService;
 import com.keyin.airportapi.city.City;
 
+import com.keyin.airportapi.city.CityRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.*;
+        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AirportController.class)
 public class AirportControllerTest {
@@ -29,7 +29,7 @@ public class AirportControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private AirportRepository airportRepository;
+    private CityRepository cityRepository;
 
     @MockBean
     private AirportService airportService;
@@ -68,11 +68,11 @@ public class AirportControllerTest {
         City city = createCity();
         Airport airport = new Airport(1L, "Toronto Pearson", "YYZ", city);
 
-        Mockito.when(airportRepository.findById(1L)).thenReturn(Optional.of(airport));
+        Mockito.when(airportService.getAirportById(1L)).thenReturn(Optional.of(airport));
 
         mockMvc.perform(get("/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.airportId").value(1L))
+                .andExpect(jsonPath("$.airportId").value(1))
                 .andExpect(jsonPath("$.airportName").value("Toronto Pearson"))
                 .andExpect(jsonPath("$.areaCode").value("YYZ"))
                 .andExpect(jsonPath("$.city.name").value("Testville"));
@@ -80,7 +80,7 @@ public class AirportControllerTest {
 
     @Test
     public void testGetAirportById_NotFound() throws Exception {
-        Mockito.when(airportRepository.findById(999L)).thenReturn(Optional.empty());
+        Mockito.when(airportService.getAirportById(999L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/999"))
                 .andExpect(status().isNotFound());
@@ -91,9 +91,11 @@ public class AirportControllerTest {
         City city = createCity();
         Airport airport = new Airport(3L, "Heathrow", "LHR", city);
 
-        Mockito.when(airportRepository.save(any(Airport.class))).thenReturn(airport);
+        // Simulate service behavior
+        Mockito.when(airportService.createAirport(any(Airport.class), eq(1L))).thenReturn(airport);
 
         mockMvc.perform(post("/")
+                        .param("cityId", "1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(airport)))
                 .andExpect(status().isCreated())
@@ -108,7 +110,7 @@ public class AirportControllerTest {
         City city = createCity();
         Airport airport = new Airport(3L, "Heathrow", "LHR", city);
 
-        Mockito.when(airportRepository.save(any(Airport.class))).thenReturn(airport);
+        Mockito.when(airportService.updateAirport(eq(3L), any(Airport.class))).thenReturn(airport);
 
         mockMvc.perform(put("/3")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -125,11 +127,9 @@ public class AirportControllerTest {
         City city = createCity();
         Airport airport = new Airport(4L, "Berlin Brandenburg", "BER", city);
 
-        Mockito.doNothing().when(airportRepository).delete(any(Airport.class));
+        Mockito.doNothing().when(airportService).deleteAirport(eq(4L));
 
-        mockMvc.perform(delete("/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(airport)))
+        mockMvc.perform(delete("/4")) // Adjust the URI to match your controller mapping
                 .andExpect(status().isOk());
     }
 }
