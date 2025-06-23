@@ -3,16 +3,20 @@ package com.keyin.airportapi.airport;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.city.CityRepository;
+
 @Service
 public class AirportService {
     @Autowired
     private AirportRepository airportRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
     public List<Airport> getAllAirports() {
         List<Airport> airports = new ArrayList<>();
@@ -24,7 +28,10 @@ public class AirportService {
         return airportRepository.findById(id);
     }
 
-    public Airport createAirport(Airport airport) {
+    public Airport createAirport(Airport airport, int cityId) {
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new RuntimeException("City not found"));
+        airport.setCity(city);
         return airportRepository.save(airport);
     }
 
@@ -35,6 +42,9 @@ public class AirportService {
             airport.setAirportId(updatedAirport.getAirportId());
             airport.setAirportName(updatedAirport.getAirportName());
             airport.setAreaCode(updatedAirport.getAreaCode());
+            if (updatedAirport.getCity() != null) {
+                airport.setCity(updatedAirport.getCity());
+            }
             return airportRepository.save(airport);
         } else {
             updatedAirport.setAirportId(id);
