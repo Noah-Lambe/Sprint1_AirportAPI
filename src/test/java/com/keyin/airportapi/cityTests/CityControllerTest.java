@@ -111,7 +111,7 @@ public class CityControllerTest {
             city1.setPopulation(100000);
 
             Airport airport = new Airport();
-            airport.setName("St. John's International Airport");
+            airport.setAirportName("St. John's International Airport");
             city1.setAirports(Collections.singletonList(airport));
 
             Mockito.when(cityService.getCitiesByAirportName("St. John's International Airport"))
@@ -129,7 +129,7 @@ public class CityControllerTest {
         public void testSearchCitiesByPassengerPhone() throws Exception {
             City city1 = createTestCity(1L, "St. John's", "NL", 100000);
             Passenger passenger = new Passenger();
-            passenger.setPhone("123-456-7890");
+            passenger.setPhoneNumber("123-456-7890");
             city1.setPassengers(Collections.singletonList(passenger));
 
             Mockito.when(cityService.getCitiesByPassengerPhone("123-456-7890"))

@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.keyin.airportapi.aircraft.Aircraft;
+import com.keyin.airportapi.city.City;
+
 @Entity
 public class Passenger {
 

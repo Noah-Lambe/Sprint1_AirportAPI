@@ -10,7 +10,7 @@ import java.util.List;
 public class PassengerController {
 
     @Autowired
-    private PassengerService passengerService;
+    PassengerService passengerService;
 
     @GetMapping
     public List<Passenger> getAllPassengers() {
