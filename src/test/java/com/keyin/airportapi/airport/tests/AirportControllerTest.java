@@ -1,23 +1,22 @@
 package com.keyin.airportapi.airport.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
+import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.airport.AirportController;
+import com.keyin.airportapi.airport.AirportRepository;
+import com.keyin.airportapi.airport.AirportService;
+import com.keyin.airportapi.city.City;
 
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.Optional;
-
-import com.keyin.airportapi.airport.Airport;
-import com.keyin.airportapi.airport.AirportRepository;
-import com.keyin.airportapi.airport.AirportService;
-import com.keyin.airportapi.airport.AirportController;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,10 +36,21 @@ public class AirportControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private City createCity() {
+        City city = new City();
+        city.setId(1L);
+        city.setName("Testville");
+        city.setState("Testland");
+        city.setPopulation(100000L);
+        return city;
+    }
+
     @Test
     public void testGetAllAirports() throws Exception {
-        Airport airport1 = new Airport(1, "Toronto Pearson", "YYZ");
-        Airport airport2 = new Airport(2, "John F Kennedy", "JFK");
+        City city = createCity();
+
+        Airport airport1 = new Airport(1, "Toronto Pearson", "YYZ", city);
+        Airport airport2 = new Airport(2, "John F Kennedy", "JFK", city);
 
         Mockito.when(airportService.getAllAirports()).thenReturn(Arrays.asList(airport1, airport2));
 
@@ -49,12 +59,14 @@ public class AirportControllerTest {
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].airportId").value(1))
                 .andExpect(jsonPath("$[0].airportName").value("Toronto Pearson"))
-                .andExpect(jsonPath("$[0].areaCode").value("YYZ"));
+                .andExpect(jsonPath("$[0].areaCode").value("YYZ"))
+                .andExpect(jsonPath("$[0].city.name").value("Testville"));
     }
 
     @Test
     public void testGetAirportById_Found() throws Exception {
-        Airport airport = new Airport(1, "Toronto Pearson", "YYZ");
+        City city = createCity();
+        Airport airport = new Airport(1, "Toronto Pearson", "YYZ", city);
 
         Mockito.when(airportRepository.findById(1)).thenReturn(Optional.of(airport));
 
@@ -62,7 +74,8 @@ public class AirportControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.airportId").value(1))
                 .andExpect(jsonPath("$.airportName").value("Toronto Pearson"))
-                .andExpect(jsonPath("$.areaCode").value("YYZ"));
+                .andExpect(jsonPath("$.areaCode").value("YYZ"))
+                .andExpect(jsonPath("$.city.name").value("Testville"));
     }
 
     @Test
@@ -75,7 +88,8 @@ public class AirportControllerTest {
 
     @Test
     public void testCreateAirport() throws Exception {
-        Airport airport = new Airport(3, "Heathrow", "LHR");
+        City city = createCity();
+        Airport airport = new Airport(3, "Heathrow", "LHR", city);
 
         Mockito.when(airportRepository.save(any(Airport.class))).thenReturn(airport);
 
@@ -85,12 +99,14 @@ public class AirportControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.airportId").value(3))
                 .andExpect(jsonPath("$.airportName").value("Heathrow"))
-                .andExpect(jsonPath("$.areaCode").value("LHR"));
+                .andExpect(jsonPath("$.areaCode").value("LHR"))
+                .andExpect(jsonPath("$.city.name").value("Testville"));
     }
 
     @Test
     public void testUpdateAirport() throws Exception {
-        Airport airport = new Airport(3, "Heathrow", "LHR");
+        City city = createCity();
+        Airport airport = new Airport(3, "Heathrow", "LHR", city);
 
         Mockito.when(airportRepository.save(any(Airport.class))).thenReturn(airport);
 
@@ -100,12 +116,14 @@ public class AirportControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.airportId").value(3))
                 .andExpect(jsonPath("$.airportName").value("Heathrow"))
-                .andExpect(jsonPath("$.areaCode").value("LHR"));
+                .andExpect(jsonPath("$.areaCode").value("LHR"))
+                .andExpect(jsonPath("$.city.name").value("Testville"));
     }
 
     @Test
     public void testDeleteAirport() throws Exception {
-        Airport airport = new Airport(4, "Berlin Brandenburg", "BER");
+        City city = createCity();
+        Airport airport = new Airport(4, "Berlin Brandenburg", "BER", city);
 
         Mockito.doNothing().when(airportRepository).delete(any(Airport.class));
 

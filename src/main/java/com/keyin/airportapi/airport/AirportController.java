@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.keyin.airportapi.airport.city.*;
+
 @RestController
 @CrossOrigin
 public class AirportController {
@@ -36,17 +38,17 @@ public class AirportController {
                 .orElseThrow(() -> new RuntimeException("City not found"));
         airport.setCity(city);
         return new ResponseEntity<>(airportRepository.save(airport), HttpStatus.CREATED);
-        // Add support for cityId
     }
 
     @PutMapping("/{airportId}")
-    public ResponseEntity<Airport> updateAirport(@RequestBody Airport airport) {
-        return new ResponseEntity<>(airportRepository.save(airport), HttpStatus.OK);
+    public ResponseEntity<Airport> updateAirport(@PathVariable int airportId, @RequestBody Airport airport) {
+        Airport updated = airportService.updateAirport(airportId, airport);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<Airport> deleteAirport(@PathVariable Airport airport) {
         airportRepository.delete(airport);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    } // May need to change to
 }

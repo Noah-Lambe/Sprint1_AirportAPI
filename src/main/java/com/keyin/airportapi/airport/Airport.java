@@ -63,6 +63,6 @@ public class Airport {
 
     @Override
     public String toString() {
-        return airportId + " " + airportName + " " + areaCode + " " + city.getName();
+        return "ID: " + airportId + " Name: " + airportName + " Area Code: " + areaCode + " City: " + city.getName();
     }
 }

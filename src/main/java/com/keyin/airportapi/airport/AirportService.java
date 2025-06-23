@@ -3,11 +3,13 @@ package com.keyin.airportapi.airport;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.city.CityRepository;
 
 @Service
 public class AirportService {
@@ -40,6 +42,9 @@ public class AirportService {
             airport.setAirportId(updatedAirport.getAirportId());
             airport.setAirportName(updatedAirport.getAirportName());
             airport.setAreaCode(updatedAirport.getAreaCode());
+            if (updatedAirport.getCity() != null) {
+                airport.setCity(updatedAirport.getCity());
+            }
             return airportRepository.save(airport);
         } else {
             updatedAirport.setAirportId(id);

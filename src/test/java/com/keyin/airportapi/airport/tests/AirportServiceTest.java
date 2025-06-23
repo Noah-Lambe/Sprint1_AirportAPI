@@ -1,5 +1,10 @@
 package com.keyin.airportapi.airport.tests;
 
+import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.airport.AirportRepository;
+import com.keyin.airportapi.airport.AirportService;
+import com.keyin.airportapi.city.City;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -9,10 +14,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import com.keyin.airportapi.airport.Airport;
-import com.keyin.airportapi.airport.AirportRepository;
-import com.keyin.airportapi.airport.AirportService;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,8 +32,11 @@ public class AirportServiceTest {
 
     @Test
     void testGetAllAirports() {
-        Airport airport1 = new Airport(1, "JFK", "123");
-        Airport airport2 = new Airport(2, "TRU", "456");
+        City city1 = new City(1, "New York", "NY", 1000000);
+        City city2 = new City(2, "Toronto", "ON", 1500000);
+
+        Airport airport1 = new Airport(1, "JFK", "123", city1);
+        Airport airport2 = new Airport(2, "TRU", "456", city2);
 
         when(airportRepository.findAll()).thenReturn(Arrays.asList(airport1, airport2));
         List<Airport> airports = airportService.getAllAirports();
@@ -45,7 +49,8 @@ public class AirportServiceTest {
 
     @Test
     void testGetAirportById() {
-        Airport airport = new Airport(2, "TRU", "456");
+        City city = new City(2, "Toronto", "ON", 1500000);
+        Airport airport = new Airport(2, "TRU", "456", city);
         when(airportRepository.findById(2)).thenReturn(Optional.of(airport));
 
         Optional<Airport> result = airportService.getAirportById(2);
@@ -57,7 +62,8 @@ public class AirportServiceTest {
 
     @Test
     void testCreateAirport() {
-        Airport airport = new Airport(2, "TRU", "456");
+        City city = new City(3, "Vancouver", "BC", 800000);
+        Airport airport = new Airport(2, "TRU", "456", city);
         when(airportRepository.save(airport)).thenReturn(airport);
 
         Airport result = airportService.createAirport(airport);
@@ -69,8 +75,10 @@ public class AirportServiceTest {
 
     @Test
     void testUpdateAirport_WhenExists() {
-        Airport existing = new Airport(1, "OldName", "111");
-        Airport updated = new Airport(1, "NewName", "999");
+        City city = new City(4, "Halifax", "NS", 600000);
+
+        Airport existing = new Airport(1, "OldName", "111", city);
+        Airport updated = new Airport(1, "NewName", "999", city);
 
         when(airportRepository.findById(1)).thenReturn(Optional.of(existing));
         when(airportRepository.save(any())).thenReturn(updated);
@@ -84,7 +92,9 @@ public class AirportServiceTest {
 
     @Test
     void testUpdateAirport_WhenNotExists() {
-        Airport updated = new Airport(1, "CreatedName", "555");
+        City city = new City(5, "Montreal", "QC", 1500000);
+
+        Airport updated = new Airport(1, "CreatedName", "555", city);
 
         when(airportRepository.findById(1)).thenReturn(Optional.empty());
         when(airportRepository.save(any())).thenReturn(updated);
@@ -97,7 +107,6 @@ public class AirportServiceTest {
 
     @Test
     void testDeleteAirport() {
-
         doNothing().when(airportRepository).deleteById(1);
 
         airportService.deleteAirport(1);
@@ -105,4 +114,3 @@ public class AirportServiceTest {
         verify(airportRepository, times(1)).deleteById(1);
     }
 }
-
