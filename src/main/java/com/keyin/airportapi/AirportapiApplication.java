@@ -9,3 +9,4 @@ public class AirportapiApplication {
 		SpringApplication.run(AirportapiApplication.class, args);
 	}
 }
+
