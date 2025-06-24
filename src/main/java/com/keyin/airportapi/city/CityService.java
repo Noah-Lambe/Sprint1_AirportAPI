@@ -23,11 +23,11 @@ public class CityService {
     }
 
     public List<City> getCitiesByAirportName(String name) {
-        return cityRepository.findByAirports_Name(name);
+        return cityRepository.findByAirports_AirportName(name);
     }
 
     public List<City> getCitiesByPassengerPhone(String phoneNumber) {
-        return cityRepository.findByPassengers_Phone(phoneNumber);
+        return cityRepository.findByPassengers_PhoneNumber(phoneNumber);
     }
 
     public void deleteCityById(long id) {

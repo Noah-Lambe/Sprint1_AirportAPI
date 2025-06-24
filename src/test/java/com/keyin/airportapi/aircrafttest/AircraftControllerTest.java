@@ -50,7 +50,7 @@ public class AircraftControllerTest {
             Aircraft a2 = createTestAircraft(2L, "Airbus A320", "WestJet", 180);
             Mockito.when(aircraftService.getAllAircraft()).thenReturn(List.of(a1, a2));
 
-            mockMvc.perform(get("/api/aircraft"))
+            mockMvc.perform(get("/aircraft"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.size()").value(2));
         }
@@ -60,7 +60,7 @@ public class AircraftControllerTest {
             Aircraft aircraft = createTestAircraft(1L, "Boeing 737", "Air Canada", 150);
             Mockito.when(aircraftService.getAircraftById(1L)).thenReturn(Optional.of(aircraft));
 
-            mockMvc.perform(get("/api/aircraft/1"))
+            mockMvc.perform(get("/aircraft/1"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.type").value("Boeing 737"));
         }
@@ -69,7 +69,7 @@ public class AircraftControllerTest {
         void testGetAircraftById_NotFound() throws Exception {
             Mockito.when(aircraftService.getAircraftById(99L)).thenReturn(Optional.empty());
 
-            mockMvc.perform(get("/api/aircraft/99"))
+            mockMvc.perform(get("/aircraft/99"))
                     .andExpect(status().is4xxClientError());
         }
     }
@@ -83,7 +83,7 @@ public class AircraftControllerTest {
             Aircraft saved = createTestAircraft(1L, "Boeing 737", "Air Canada", 150);
             Mockito.when(aircraftService.createAircraft(Mockito.any())).thenReturn(saved);
 
-            mockMvc.perform(post("/api/aircraft")
+            mockMvc.perform(post("/aircraft")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(input)))
                     .andExpect(status().isOk())
@@ -99,7 +99,7 @@ public class AircraftControllerTest {
             Aircraft updated = createTestAircraft(1L, "Airbus A320", "WestJet", 180);
             Mockito.when(aircraftService.updateAircraft(Mockito.eq(1L), Mockito.any())).thenReturn(updated);
 
-            mockMvc.perform(put("/api/aircraft/1")
+            mockMvc.perform(put("/aircraft/1")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(updated)))
                     .andExpect(status().isOk())
@@ -112,7 +112,7 @@ public class AircraftControllerTest {
     class DeleteOps {
         @Test
         void testDeleteAircraft() throws Exception {
-            mockMvc.perform(delete("/api/aircraft/1"))
+            mockMvc.perform(delete("/aircraft/1"))
                     .andExpect(status().isOk());
             Mockito.verify(aircraftService, Mockito.times(1)).deleteAircraft(1L);
         }

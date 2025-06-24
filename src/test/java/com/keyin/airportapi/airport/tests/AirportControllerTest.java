@@ -58,7 +58,7 @@ public class AirportControllerTest {
 
         Mockito.when(airportService.getAllAirports()).thenReturn(Arrays.asList(airport1, airport2));
 
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/airport"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(2))
                 .andExpect(jsonPath("$[0].airportId").value(1))
@@ -74,7 +74,7 @@ public class AirportControllerTest {
 
         Mockito.when(airportService.getAirportById(1L)).thenReturn(Optional.of(airport));
 
-        mockMvc.perform(get("/1"))
+        mockMvc.perform(get("/airport/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.airportId").value(1L))
                 .andExpect(jsonPath("$.airportName").value("Toronto Pearson"))
@@ -86,7 +86,7 @@ public class AirportControllerTest {
     public void testGetAirportById_NotFound() throws Exception {
         Mockito.when(airportService.getAirportById(999L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/999"))
+        mockMvc.perform(get("/airport/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -94,22 +94,28 @@ public class AirportControllerTest {
     @Test
     public void testCreateAirport() throws Exception {
         City city = createCity();
-        Airport airport = new Airport(3L, "Heathrow", "LHR", city);
+
+        Airport requestAirport = new Airport();
+        requestAirport.setAirportName("Heathrow");
+        requestAirport.setAreaCode("LHR");
+        requestAirport.setCity(city);
+
+        Airport savedAirport = new Airport(3L, "Heathrow", "LHR", city);
 
         Mockito.when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
+        Mockito.when(airportService.createAirport(any(Airport.class), eq(1L))).thenReturn(savedAirport);
 
-        Mockito.when(airportService.createAirport(any(Airport.class), eq(1L))).thenReturn(airport);
-
-        mockMvc.perform(post("/")
+        mockMvc.perform(post("/airport")
                         .param("cityId", "1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(airport)))
+                        .content(objectMapper.writeValueAsString(requestAirport)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.airportId").value(3L))
                 .andExpect(jsonPath("$.airportName").value("Heathrow"))
                 .andExpect(jsonPath("$.areaCode").value("LHR"))
                 .andExpect(jsonPath("$.city.name").value("Testville"));
     }
+
 
     @Test
     public void testUpdateAirport() throws Exception {
@@ -118,7 +124,7 @@ public class AirportControllerTest {
 
         Mockito.when(airportService.updateAirport(eq(3L), any(Airport.class))).thenReturn(airport);
 
-        mockMvc.perform(put("/3")
+        mockMvc.perform(put("/airport/3")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(airport)))
                 .andExpect(status().isOk())
@@ -132,7 +138,7 @@ public class AirportControllerTest {
     public void testDeleteAirport() throws Exception {
         Mockito.doNothing().when(airportRepository).deleteById(4L);
 
-        mockMvc.perform(delete("/4"))
+        mockMvc.perform(delete("/airport/4"))
                 .andExpect(status().isOk());
     }
 }

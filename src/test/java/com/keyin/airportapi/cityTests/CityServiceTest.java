@@ -101,7 +101,7 @@ public class CityServiceTest {
         mockCity.setAirports(List.of(airport));
         mockCity.setPassengers(Collections.emptyList());
 
-        Mockito.when(cityRepository.findByAirports_Name("St. John's International Airport"))
+        Mockito.when(cityRepository.findByAirports_AirportName("St. John's International Airport"))
                 .thenReturn(List.of(mockCity));
 
         List<City> result = cityService.getCitiesByAirportName("St. John's International Airport"); // method call
@@ -124,7 +124,7 @@ public class CityServiceTest {
         mockCity.setPassengers(List.of(passenger));
         mockCity.setAirports(Collections.emptyList());
 
-        Mockito.when(cityRepository.findByPassengers_Phone("123-456-7890"))
+        Mockito.when(cityRepository.findByPassengers_PhoneNumber("123-456-7890"))
                 .thenReturn(List.of(mockCity));
 
         List<City> result = cityService.getCitiesByPassengerPhone("123-456-7890"); // method call

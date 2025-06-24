@@ -117,7 +117,7 @@ public class CityControllerTest {
             Mockito.when(cityService.getCitiesByAirportName("St. John's International Airport"))
                     .thenReturn(List.of(city1));
 
-            mockMvc.perform(get("/city_search")
+            mockMvc.perform(get("/city/city_search")
                             .param("airport_name", "St. John's International Airport"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.size()").value(1))
@@ -135,7 +135,7 @@ public class CityControllerTest {
             Mockito.when(cityService.getCitiesByPassengerPhone("123-456-7890"))
                     .thenReturn(List.of(city1));
 
-            mockMvc.perform(get("/city_search")
+            mockMvc.perform(get("/city/city_search")
                             .param("passenger_phone", "123-456-7890"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.size()").value(1))
@@ -145,7 +145,7 @@ public class CityControllerTest {
         @Test
         @DisplayName("GET /city_search returns empty list when no search parameters provided")
         public void testSearchCities_NoParameters() throws Exception {
-            mockMvc.perform(get("/city_search"))
+            mockMvc.perform(get("/city/city_search"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.size()").value(0));
         }
@@ -156,7 +156,7 @@ public class CityControllerTest {
             Mockito.when(cityService.getCitiesByAirportName(Mockito.anyString())).thenReturn(Collections.emptyList());
             Mockito.when(cityService.getCitiesByPassengerPhone(Mockito.anyString())).thenReturn(Collections.emptyList());
 
-            mockMvc.perform(get("/city_search")
+            mockMvc.perform(get("/city/city_search")
                             .param("airport_name", "Non-Existent Airport"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.size()").value(0));
