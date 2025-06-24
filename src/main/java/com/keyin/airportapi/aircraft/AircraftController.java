@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/aircraft")
@@ -24,9 +25,9 @@ public class AircraftController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Aircraft> getAircraftById(@PathVariable Long id) {
-        Aircraft aircraft = aircraftService.getAircraftById(id)
-                .orElseThrow(() -> new RuntimeException("Aircraft not found"));
-        return ResponseEntity.ok(aircraft);
+        return aircraftService.getAircraftById(id)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
