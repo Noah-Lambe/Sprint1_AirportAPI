@@ -37,8 +37,8 @@ public class AirportController {
     }
 
     @PostMapping
-    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
-        Airport createdAirport = airportRepository.save(airport);
+    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam Long cityId) {
+        Airport createdAirport = airportService.createAirport(airport, cityId);
         return new ResponseEntity<>(createdAirport, HttpStatus.CREATED);
     }
 
