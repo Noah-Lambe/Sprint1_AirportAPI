@@ -10,11 +10,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/city")
 public class CityController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping("/city")
+    @GetMapping
     public ResponseEntity<List<City>> getAllCities() {
         try {
             return ResponseEntity.ok(cityService.getAllCities());
@@ -23,7 +24,7 @@ public class CityController {
         }
     }
 
-    @GetMapping("/city/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable long id) {
         try {
             City city = cityService.getCityById(id);
@@ -55,7 +56,7 @@ public class CityController {
         }
     }
 
-    @PostMapping("/city")
+    @PostMapping
     public ResponseEntity<City> createCity(@RequestBody City city) {
         try {
             City createdCity = cityService.createCity(city);
@@ -69,7 +70,7 @@ public class CityController {
     }
 
 
-    @PutMapping("/city/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<City> updateCity(@PathVariable long id, @RequestBody City city) {
         try {
             City updatedCity = cityService.updateCity(id, city);
@@ -83,7 +84,7 @@ public class CityController {
         }
     }
 
-    @DeleteMapping("/city/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCityById(@PathVariable long id) {
         try {
             cityService.deleteCityById(id);

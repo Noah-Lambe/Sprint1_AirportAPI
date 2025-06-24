@@ -13,6 +13,7 @@ import com.keyin.airportapi.city.City;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/airport")
 public class AirportController {
     @Autowired
     private AirportRepository airportRepository;
@@ -36,11 +37,10 @@ public class AirportController {
     }
 
     @PostMapping
-    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam Long cityId) {
-        Airport createdAirport = airportService.createAirport(airport, cityId);
+    public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
+        Airport createdAirport = airportRepository.save(airport);
         return new ResponseEntity<>(createdAirport, HttpStatus.CREATED);
     }
-
 
     @PutMapping("/{airportId}")
     public ResponseEntity<Airport> updateAirport(@PathVariable Long airportId, @RequestBody Airport airport) {

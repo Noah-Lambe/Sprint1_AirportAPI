@@ -1,12 +1,14 @@
 package com.keyin.airportapi.passenger;
 
-
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.aircraft.Aircraft;
+import com.keyin.airportapi.airport.Airport;
 
 @Entity
 public class Passenger {
@@ -14,6 +16,7 @@ public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -23,7 +26,6 @@ public class Passenger {
     @JoinColumn(name = "city_id")
     private City city;
 
-    // many-to-many relationship with aircraft
     @ManyToMany
     @JoinTable(
             name = "passenger_aircraft",
@@ -32,7 +34,6 @@ public class Passenger {
     )
     private Set<Aircraft> aircraft = new HashSet<>();
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/aircraft")
+@CrossOrigin
+@RequestMapping("/aircraft")
 public class AircraftController {
 
     private final AircraftService aircraftService;

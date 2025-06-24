@@ -6,6 +6,6 @@ import java.util.List;
 
 @Repository
 public interface CityRepository extends CrudRepository<City, Long> {
-    public List<City> findByAirports_Name(String name);
-    public List<City> findByPassengers_Phone(String phoneNumber);
+    public List<City> findByAirports_AirportName(String airportname);
+    List<City> findByPassengers_PhoneNumber(String phoneNumber);
 }
