@@ -1,16 +1,22 @@
 package com.keyin.airportapi.aircraft;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/aircraft")
 public class AircraftController {
 
+    private final AircraftService aircraftService;
+
     @Autowired
-    private AircraftService aircraftService;
+    public AircraftController(AircraftService aircraftService) {
+        this.aircraftService = aircraftService;
+    }
 
     @GetMapping
     public List<Aircraft> getAllAircraft() {
@@ -18,9 +24,10 @@ public class AircraftController {
     }
 
     @GetMapping("/{id}")
-    public Aircraft getAircraftById(@PathVariable Long id) {
+    public ResponseEntity<Aircraft> getAircraftById(@PathVariable Long id) {
         return aircraftService.getAircraftById(id)
-                .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping

@@ -29,7 +29,7 @@ public class AirportController {
 
     @GetMapping("/{airportId}")
     public ResponseEntity<Airport> getAirportById(@PathVariable Long airportId) {
-        Optional<Airport> airportOptional = airportRepository.findById(airportId);
+        Optional<Airport> airportOptional = airportService.getAirportById(airportId);
         return airportOptional
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -37,11 +37,10 @@ public class AirportController {
 
     @PostMapping
     public ResponseEntity<Airport> createAirport(@RequestBody Airport airport, @RequestParam Long cityId) {
-        City city = cityRepository.findById(cityId)
-                .orElseThrow(() -> new RuntimeException("City not found"));
-        airport.setCity(city);
-        return new ResponseEntity<>(airportRepository.save(airport), HttpStatus.CREATED);
+        Airport createdAirport = airportService.createAirport(airport, cityId);
+        return new ResponseEntity<>(createdAirport, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{airportId}")
     public ResponseEntity<Airport> updateAirport(@PathVariable Long airportId, @RequestBody Airport airport) {
@@ -49,9 +48,9 @@ public class AirportController {
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Airport> deleteAirport(@PathVariable Airport airport) {
-        airportRepository.delete(airport);
-        return new ResponseEntity<>(HttpStatus.OK);
-    } // May need to change to
+    @DeleteMapping("/{airportId}")
+    public ResponseEntity<Void> deleteAirport(@PathVariable Long airportId) {
+        airportRepository.deleteById(airportId);
+        return ResponseEntity.ok().build();
+    }
 }

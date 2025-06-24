@@ -18,6 +18,7 @@ public class AirportService {
     @Autowired
     private CityRepository cityRepository;
 
+
     public List<Airport> getAllAirports() {
         List<Airport> airports = new ArrayList<>();
         airportRepository.findAll().forEach(airports::add);

@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.airport.AirportController;
 import com.keyin.airportapi.airport.AirportService;
+import com.keyin.airportapi.airport.AirportRepository;
 import com.keyin.airportapi.city.City;
-
 import com.keyin.airportapi.city.CityRepository;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AirportControllerTest {
 
     @MockBean
     private CityRepository cityRepository;
+
+    @MockBean
+    private AirportRepository airportRepository;
 
     @MockBean
     private AirportService airportService;
@@ -72,7 +76,7 @@ public class AirportControllerTest {
 
         mockMvc.perform(get("/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.airportId").value(1))
+                .andExpect(jsonPath("$.airportId").value(1L))
                 .andExpect(jsonPath("$.airportName").value("Toronto Pearson"))
                 .andExpect(jsonPath("$.areaCode").value("YYZ"))
                 .andExpect(jsonPath("$.city.name").value("Testville"));
@@ -86,12 +90,14 @@ public class AirportControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+
     @Test
     public void testCreateAirport() throws Exception {
         City city = createCity();
         Airport airport = new Airport(3L, "Heathrow", "LHR", city);
 
-        // Simulate service behavior
+        Mockito.when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
+
         Mockito.when(airportService.createAirport(any(Airport.class), eq(1L))).thenReturn(airport);
 
         mockMvc.perform(post("/")
@@ -124,12 +130,9 @@ public class AirportControllerTest {
 
     @Test
     public void testDeleteAirport() throws Exception {
-        City city = createCity();
-        Airport airport = new Airport(4L, "Berlin Brandenburg", "BER", city);
+        Mockito.doNothing().when(airportRepository).deleteById(4L);
 
-        Mockito.doNothing().when(airportService).deleteAirport(eq(4L));
-
-        mockMvc.perform(delete("/4")) // Adjust the URI to match your controller mapping
+        mockMvc.perform(delete("/4"))
                 .andExpect(status().isOk());
     }
 }

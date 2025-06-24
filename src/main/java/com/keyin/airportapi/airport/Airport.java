@@ -7,13 +7,16 @@ import com.keyin.airportapi.city.City;
 @Table(name = "airport")
 public class Airport {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long airportId;
 
     private String airportName;
     private String areaCode;
-  
+
     @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
+
 
     public Airport() {
         // Empty constructor for testing. I read somewhere this is best practice.

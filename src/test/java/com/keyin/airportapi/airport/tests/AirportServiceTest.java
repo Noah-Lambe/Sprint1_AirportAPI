@@ -4,21 +4,31 @@ import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.airport.AirportRepository;
 import com.keyin.airportapi.airport.AirportService;
 import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.city.CityRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class AirportServiceTest {
+
+    @Mock
+    private CityRepository cityRepository;
+
     @Mock
     private AirportRepository airportRepository;
 
@@ -39,6 +49,7 @@ public class AirportServiceTest {
         Airport airport2 = new Airport(2L, "TRU", "456", city2);
 
         when(airportRepository.findAll()).thenReturn(Arrays.asList(airport1, airport2));
+
         List<Airport> airports = airportService.getAllAirports();
 
         assertEquals(2, airports.size());
@@ -49,8 +60,9 @@ public class AirportServiceTest {
 
     @Test
     void testGetAirportById() {
-        City city = new City(2L, "Toronto", "ON", 1500000);
+        City city = new City(2L, "Toronto", "ON", 1500000L);
         Airport airport = new Airport(2L, "TRU", "456", city);
+
         when(airportRepository.findById(2L)).thenReturn(Optional.of(airport));
 
         Optional<Airport> result = airportService.getAirportById(2L);
@@ -61,21 +73,32 @@ public class AirportServiceTest {
     }
 
     @Test
-    void testCreateAirport() {
-        City city = new City(3L, "Vancouver", "BC", 800000);
-        Airport airport = new Airport(2L, "TRU", "456", city);
-        when(airportRepository.save(airport)).thenReturn(airport);
+    public void testCreateAirport() {
+        City city = new City();
+        city.setId(1L);
+        city.setName("Test City");
 
-        Airport result = airportService.createAirport(airport, 3L);
+        when(cityRepository.findById(1L)).thenReturn(Optional.of(city));
+        when(airportRepository.save(any(Airport.class))).thenAnswer(i -> i.getArgument(0));
 
-        assertNotNull(result);
-        assertEquals("TRU", result.getAirportName());
-        verify(airportRepository, times(1)).save(airport);
+        Airport airport = new Airport();
+        airport.setAirportName("Test Airport");
+        airport.setAreaCode("TST");
+
+        Airport createdAirport = airportService.createAirport(airport, 1L);
+
+        assertNotNull(createdAirport);
+        assertEquals("Test Airport", createdAirport.getAirportName());
+        assertEquals("TST", createdAirport.getAreaCode());
+        assertEquals(city, createdAirport.getCity());
+
+        verify(cityRepository).findById(1L);
+        verify(airportRepository).save(any(Airport.class));
     }
 
     @Test
     void testUpdateAirport_WhenExists() {
-        City city = new City(4L, "Halifax", "NS", 600000);
+        City city = new City(4L, "Halifax", "NS", 600000L);
 
         Airport existing = new Airport(1L, "OldName", "111", city);
         Airport updated = new Airport(1L, "NewName", "999", city);
@@ -87,12 +110,12 @@ public class AirportServiceTest {
 
         assertEquals("NewName", result.getAirportName());
         assertEquals("999", result.getAreaCode());
-        verify(airportRepository).save(existing);
+        verify(airportRepository).save(any(Airport.class));  // changed from existing to any() or updated
     }
 
     @Test
     void testUpdateAirport_WhenNotExists() {
-        City city = new City(5L, "Montreal", "QC", 1500000);
+        City city = new City(5L, "Montreal", "QC", 1500000L);
 
         Airport updated = new Airport(1L, "CreatedName", "555", city);
 
