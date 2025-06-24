@@ -24,18 +24,18 @@ public class AirportService {
         return airports;
     }
 
-    public Optional<Airport> getAirportById(int id) {
+    public Optional<Airport> getAirportById(Long id) {
         return airportRepository.findById(id);
     }
 
-    public Airport createAirport(Airport airport, int cityId) {
+    public Airport createAirport(Airport airport, Long cityId) {
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() -> new RuntimeException("City not found"));
         airport.setCity(city);
         return airportRepository.save(airport);
     }
 
-    public Airport updateAirport(int id, Airport updatedAirport) {
+    public Airport updateAirport(Long id, Airport updatedAirport) {
         Optional<Airport> airportOptional = getAirportById(id);
         if (airportOptional.isPresent()) {
             Airport airport = airportOptional.get();
@@ -52,7 +52,7 @@ public class AirportService {
         }
     }
 
-    public void deleteAirport(int id) {
+    public void deleteAirport(Long id) {
         airportRepository.deleteById(id);
     }
 }

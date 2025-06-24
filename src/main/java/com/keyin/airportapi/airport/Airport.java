@@ -1,13 +1,13 @@
 package com.keyin.airportapi.airport;
 
 import jakarta.persistence.*;
-import com.keyin.airportapi.city.*;
+import com.keyin.airportapi.city.City;
 
 @Entity
 @Table(name = "airport")
 public class Airport {
     @Id
-    private int airportId;
+    private Long airportId;
 
     private String airportName;
     private String areaCode;
@@ -19,8 +19,7 @@ public class Airport {
         // Empty constructor for testing. I read somewhere this is best practice.
     }
 
-
-    public Airport(int airportId, String airportName, String areaCode, City city) {
+    public Airport(Long airportId, String airportName, String areaCode, City city) {
         this.airportId = airportId;
         this.airportName = airportName;
         this.areaCode = areaCode;
@@ -28,7 +27,7 @@ public class Airport {
     }
 
     // Getters
-    public int getAirportId() {
+    public Long getAirportId() {
         return airportId;
     }
 
@@ -45,7 +44,7 @@ public class Airport {
     }
 
     // Setters
-    public void setAirportId(int airportId) {
+    public void setAirportId(Long airportId) {
         this.airportId = airportId;
     }
 

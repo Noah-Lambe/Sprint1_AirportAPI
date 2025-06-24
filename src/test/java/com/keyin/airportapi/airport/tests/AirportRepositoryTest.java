@@ -1,5 +1,7 @@
 package com.keyin.airportapi.airport.tests;
 
+import com.keyin.airportapi.city.CityRepository;
+import com.keyin.airportapi.city.City;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ public class AirportRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        testCity = new City();
+
+        City testCity = new City();
         testCity.setName("Testville");
         testCity.setState("Testland");
         testCity.setPopulation(500000);

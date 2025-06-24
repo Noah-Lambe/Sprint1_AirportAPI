@@ -97,7 +97,7 @@ public class CityServiceTest {
         mockCity.setState("NL");
         mockCity.setPopulation(100000);
         Airport airport = new Airport();
-        airport.setName("St. John's International Airport");
+        airport.setAirportName("St. John's International Airport");
         mockCity.setAirports(List.of(airport));
         mockCity.setPassengers(Collections.emptyList());
 
@@ -120,7 +120,7 @@ public class CityServiceTest {
         mockCity.setState("NL");
         mockCity.setPopulation(100000);
         Passenger passenger = new Passenger();
-        passenger.setPhone("123-456-7890");
+        passenger.setPhoneNumber("123-456-7890");
         mockCity.setPassengers(List.of(passenger));
         mockCity.setAirports(Collections.emptyList());
 

@@ -1,5 +1,7 @@
 package com.keyin.airportapi.aircraft;
 
+import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.passenger.Passenger;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aircraftId;
 
-    private String name;
+    private String type;
     private String airlineName;
     private int numberOfPassengers;
 
@@ -27,8 +29,8 @@ public class Aircraft {
 
     public Aircraft() {}
 
-    public Aircraft(String name, String airlineName, int numberOfPassengers) {
-        this.name = name;
+    public Aircraft(String type, String airlineName, int numberOfPassengers) {
+        this.type = type;
         this.airlineName = airlineName;
         this.numberOfPassengers = numberOfPassengers;
     }
@@ -37,20 +39,16 @@ public class Aircraft {
         return aircraftId;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setAircraftId(Long aircraftId) {
         this.aircraftId = aircraftId;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAirlineName() {

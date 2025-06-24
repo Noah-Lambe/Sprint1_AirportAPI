@@ -32,11 +32,11 @@ public class AirportServiceTest {
 
     @Test
     void testGetAllAirports() {
-        City city1 = new City(1, "New York", "NY", 1000000);
-        City city2 = new City(2, "Toronto", "ON", 1500000);
+        City city1 = new City(1L, "New York", "NY", 1000000L);
+        City city2 = new City(2L, "Toronto", "ON", 1500000L);
 
-        Airport airport1 = new Airport(1, "JFK", "123", city1);
-        Airport airport2 = new Airport(2, "TRU", "456", city2);
+        Airport airport1 = new Airport(1L, "JFK", "123", city1);
+        Airport airport2 = new Airport(2L, "TRU", "456", city2);
 
         when(airportRepository.findAll()).thenReturn(Arrays.asList(airport1, airport2));
         List<Airport> airports = airportService.getAllAirports();
@@ -49,24 +49,24 @@ public class AirportServiceTest {
 
     @Test
     void testGetAirportById() {
-        City city = new City(2, "Toronto", "ON", 1500000);
-        Airport airport = new Airport(2, "TRU", "456", city);
-        when(airportRepository.findById(2)).thenReturn(Optional.of(airport));
+        City city = new City(2L, "Toronto", "ON", 1500000);
+        Airport airport = new Airport(2L, "TRU", "456", city);
+        when(airportRepository.findById(2L)).thenReturn(Optional.of(airport));
 
-        Optional<Airport> result = airportService.getAirportById(2);
+        Optional<Airport> result = airportService.getAirportById(2L);
 
         assertTrue(result.isPresent());
         assertEquals("TRU", result.get().getAirportName());
-        verify(airportRepository).findById(2);
+        verify(airportRepository).findById(2L);
     }
 
     @Test
     void testCreateAirport() {
-        City city = new City(3, "Vancouver", "BC", 800000);
-        Airport airport = new Airport(2, "TRU", "456", city);
+        City city = new City(3L, "Vancouver", "BC", 800000);
+        Airport airport = new Airport(2L, "TRU", "456", city);
         when(airportRepository.save(airport)).thenReturn(airport);
 
-        Airport result = airportService.createAirport(airport);
+        Airport result = airportService.createAirport(airport, 3L);
 
         assertNotNull(result);
         assertEquals("TRU", result.getAirportName());
@@ -75,15 +75,15 @@ public class AirportServiceTest {
 
     @Test
     void testUpdateAirport_WhenExists() {
-        City city = new City(4, "Halifax", "NS", 600000);
+        City city = new City(4L, "Halifax", "NS", 600000);
 
-        Airport existing = new Airport(1, "OldName", "111", city);
-        Airport updated = new Airport(1, "NewName", "999", city);
+        Airport existing = new Airport(1L, "OldName", "111", city);
+        Airport updated = new Airport(1L, "NewName", "999", city);
 
-        when(airportRepository.findById(1)).thenReturn(Optional.of(existing));
+        when(airportRepository.findById(1L)).thenReturn(Optional.of(existing));
         when(airportRepository.save(any())).thenReturn(updated);
 
-        Airport result = airportService.updateAirport(1, updated);
+        Airport result = airportService.updateAirport(1L, updated);
 
         assertEquals("NewName", result.getAirportName());
         assertEquals("999", result.getAreaCode());
@@ -92,14 +92,14 @@ public class AirportServiceTest {
 
     @Test
     void testUpdateAirport_WhenNotExists() {
-        City city = new City(5, "Montreal", "QC", 1500000);
+        City city = new City(5L, "Montreal", "QC", 1500000);
 
-        Airport updated = new Airport(1, "CreatedName", "555", city);
+        Airport updated = new Airport(1L, "CreatedName", "555", city);
 
-        when(airportRepository.findById(1)).thenReturn(Optional.empty());
+        when(airportRepository.findById(1L)).thenReturn(Optional.empty());
         when(airportRepository.save(any())).thenReturn(updated);
 
-        Airport result = airportService.updateAirport(1, updated);
+        Airport result = airportService.updateAirport(1L, updated);
 
         assertEquals("CreatedName", result.getAirportName());
         verify(airportRepository).save(updated);
@@ -107,10 +107,10 @@ public class AirportServiceTest {
 
     @Test
     void testDeleteAirport() {
-        doNothing().when(airportRepository).deleteById(1);
+        doNothing().when(airportRepository).deleteById(1L);
 
-        airportService.deleteAirport(1);
+        airportService.deleteAirport(1L);
 
-        verify(airportRepository, times(1)).deleteById(1);
+        verify(airportRepository, times(1)).deleteById(1L);
     }
 }

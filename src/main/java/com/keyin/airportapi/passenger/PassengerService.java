@@ -10,7 +10,7 @@ import java.util.Optional;
 public class PassengerService {
 
     @Autowired
-    private PassengerRepository passengerRepo;
+    PassengerRepository passengerRepo;
 
     public List<Passenger> getAllPassengers() {
         return passengerRepo.findAll();
