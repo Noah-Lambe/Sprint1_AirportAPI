@@ -1,5 +1,6 @@
 package com.keyin.airportapi.city;
 
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ public class CityController {
             return ResponseEntity.ok(cityService.getAllCities());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/{id}/airports")
+    public List<Airport> getAirportsByCityId(@PathVariable Long id) {
+        try {
+            return cityService.getAirportsByCityId(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving airports for city with ID: " + id, e);
         }
     }
 
