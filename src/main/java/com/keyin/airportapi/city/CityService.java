@@ -79,4 +79,13 @@ public class CityService {
 
         return cityRepository.save(city);
     }
+
+    public List<Airport> getAirportsByCityId(Long id) {
+        Optional<City> cityOptional = cityRepository.findById(id);
+        if (cityOptional.isPresent()) {
+            City city = cityOptional.get();
+            return city.getAirports();
+        }
+        return List.of();
+    }
 }
