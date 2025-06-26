@@ -1,5 +1,6 @@
 package com.keyin.airportapi.passenger;
 
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,11 @@ public class PassengerController {
     public Passenger getPassengerById(@PathVariable Long id) {
         return passengerService.getPassengerById(id)
                 .orElseThrow(() -> new RuntimeException("Passenger not found"));
+    }
+
+    @GetMapping("/{id}/airports")
+    public List<Airport> getAirportsByPassenger(@PathVariable Long id) {
+        return passengerService.getAirportsUsedByPassenger(id);
     }
 
     @PostMapping

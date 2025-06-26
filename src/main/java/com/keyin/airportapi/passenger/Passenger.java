@@ -81,4 +81,11 @@ public class Passenger {
     public void setAircraft(Set<Aircraft> aircraft) {
         this.aircraft = aircraft;
     }
+
+    public Aircraft[] getAircraftList() {
+        if (aircraft == null || aircraft.isEmpty()) {
+            return new Aircraft[0];
+        }
+        return aircraft.toArray(new Aircraft[0]);
+    }
 }
