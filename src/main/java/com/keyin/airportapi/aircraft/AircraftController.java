@@ -31,6 +31,11 @@ public class AircraftController {
         .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/passenger/{passengerId}")
+    public List<Aircraft> getAircraftByPassengerId(@PathVariable Long passengerId) {
+        return aircraftService.getAircraftByPassengerId(passengerId);
+    }
+
     @PostMapping
     public Aircraft createAircraft(@RequestBody Aircraft aircraft) {
         return aircraftService.createAircraft(aircraft);

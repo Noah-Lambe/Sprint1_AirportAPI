@@ -1,4 +1,3 @@
-// AircraftServiceTest.java
 package com.keyin.airportapi.aircrafttest;
 
 import com.keyin.airportapi.aircraft.Aircraft;
