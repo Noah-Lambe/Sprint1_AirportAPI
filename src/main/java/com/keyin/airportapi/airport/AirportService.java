@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,6 @@ public class AirportService {
     private AirportRepository airportRepository;
     @Autowired
     private CityRepository cityRepository;
-
 
     public List<Airport> getAllAirports() {
         List<Airport> airports = new ArrayList<>();

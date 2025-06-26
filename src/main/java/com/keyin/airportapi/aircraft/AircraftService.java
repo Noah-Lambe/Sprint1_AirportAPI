@@ -1,8 +1,10 @@
 package com.keyin.airportapi.aircraft;
 
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +13,19 @@ public class AircraftService {
 
     @Autowired
     private AircraftRepository aircraftRepository;
+
+    public List<Airport> getAirportsUsedByAircraft(Long aircraftId) throws Exception {
+        Aircraft aircraft = aircraftRepository.findById(aircraftId)
+                .orElseThrow(() -> new Exception("Aircraft not found with ID: " + aircraftId));
+
+        List<Airport> airports = aircraft.getAirports();
+
+        if (airports == null) {
+            return Collections.emptyList();
+        }
+
+        return airports;
+    }
 
     public List<Aircraft> getAllAircraft() {
         return (List<Aircraft>) aircraftRepository.findAll();
