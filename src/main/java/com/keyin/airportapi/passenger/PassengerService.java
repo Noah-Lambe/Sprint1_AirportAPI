@@ -1,10 +1,11 @@
 package com.keyin.airportapi.passenger;
 
+import com.keyin.airportapi.aircraft.Aircraft;
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PassengerService {
@@ -26,5 +27,17 @@ public class PassengerService {
 
     public void deletePassenger(Long id) {
         passengerRepo.deleteById(id);
+    }
+
+    public List<Airport> getAirportsUsedByPassenger(Long passengerId) {
+        Passenger passenger = passengerRepo.findById(passengerId)
+                .orElseThrow(() -> new RuntimeException("Passenger not found"));
+
+        Set<Airport> airports = new HashSet<>();
+        for (Aircraft aircraft : passenger.getAircraftList()) {
+            airports.addAll(aircraft.getAirports());
+        }
+
+        return new ArrayList<>(airports);
     }
 }
