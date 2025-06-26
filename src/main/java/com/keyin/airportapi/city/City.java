@@ -19,7 +19,6 @@ public class City {
     private long population;
 
     @OneToMany(mappedBy = "city")
-    @JsonIgnore
     private List<Airport> airports;
 
     @OneToMany(mappedBy = "city")

@@ -38,7 +38,7 @@ public class AircraftController {
         return aircraftService.getAircraftByPassengerId(passengerId);
     }
 
-    @GetMapping("/aircraft/{aircraftId}/airports")
+    @GetMapping("/{aircraftId}/airports")
     public ResponseEntity<List<Airport>> getAirportsUsedByAircraft(@PathVariable("aircraftId") Long aircraftId) {
         try {
             List<Airport> airports = aircraftService.getAirportsUsedByAircraft(aircraftId);
