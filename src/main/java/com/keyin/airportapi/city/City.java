@@ -1,6 +1,8 @@
 package com.keyin.airportapi.city;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.passenger.Passenger;
@@ -19,6 +21,7 @@ public class City {
     private long population;
 
     @OneToMany(mappedBy = "city")
+    @JsonIgnoreProperties("city")
     private List<Airport> airports;
 
     @OneToMany(mappedBy = "city")
