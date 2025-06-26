@@ -60,4 +60,7 @@ public class AircraftService {
 
         return null;
     }
+    public List<Aircraft> getAircraftByPassengerId(Long passengerId) {
+        return aircraftRepository.findAircraftByPassengerId(passengerId);
+    }
 }

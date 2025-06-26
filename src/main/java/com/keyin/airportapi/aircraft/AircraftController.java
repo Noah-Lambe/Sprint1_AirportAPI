@@ -32,6 +32,12 @@ public class AircraftController {
         .orElse(ResponseEntity.notFound().build());
     }
 
+
+    @GetMapping("/passenger/{passengerId}")
+    public List<Aircraft> getAircraftByPassengerId(@PathVariable Long passengerId) {
+        return aircraftService.getAircraftByPassengerId(passengerId);
+    }
+
     @GetMapping("/aircraft/{aircraftId}/airports")
     public ResponseEntity<List<Airport>> getAirportsUsedByAircraft(@PathVariable("aircraftId") Long aircraftId) {
         try {
@@ -40,6 +46,7 @@ public class AircraftController {
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
         }
+
     }
 
     @PostMapping
