@@ -1,5 +1,6 @@
 package com.keyin.airportapi.aircraft;
 
+import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,16 @@ public class AircraftController {
         return aircraftService.getAircraftById(id)
         .map(ResponseEntity::ok)
         .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/aircraft/{aircraftId}/airports")
+    public ResponseEntity<List<Airport>> getAirportsUsedByAircraft(@PathVariable("aircraftId") Long aircraftId) {
+        try {
+            List<Airport> airports = aircraftService.getAirportsUsedByAircraft(aircraftId);
+            return ResponseEntity.ok(airports);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @PostMapping
