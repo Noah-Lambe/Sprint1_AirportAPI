@@ -1,7 +1,10 @@
 package com.keyin.airportapi.airport;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import com.keyin.airportapi.city.City;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "airport")
@@ -15,6 +18,7 @@ public class Airport {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
+    @JsonIgnoreProperties("airports")
     private City city;
 
 
