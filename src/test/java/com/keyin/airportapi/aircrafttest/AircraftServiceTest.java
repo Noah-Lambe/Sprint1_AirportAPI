@@ -106,14 +106,18 @@ public class AircraftServiceTest {
     }
 
     @Test
-    @DisplayName("Should return null when updating non-existent aircraft")
-    public void testUpdateAircraft_NotFound() {
-        Aircraft updated = createTestAircraft(null, "Airbus A320", "WestJet", 180);
+    @DisplayName("Should throw RuntimeException when updating non-existent aircraft")
+    void testUpdateAircraft_NotFound() {
+        Long invalidId = 999L;
+        Aircraft updated = new Aircraft("Boeing 747", "Lufthansa", 300);
 
-        Mockito.when(aircraftRepository.findById(99L)).thenReturn(Optional.empty());
+        Mockito.when(aircraftRepository.findById(invalidId)).thenReturn(Optional.empty());
 
-        Aircraft result = aircraftService.updateAircraft(99L, updated);
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            aircraftService.updateAircraft(invalidId, updated);
+        });
 
-        assertNull(result);
+        assertEquals("Aircraft not found", exception.getMessage());
     }
+
 }
