@@ -1,11 +1,14 @@
 package com.keyin.airportapi.aircraft;
 
 import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.passenger.Passenger;
+import com.keyin.airportapi.passenger.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +22,13 @@ public class AircraftController {
     public AircraftController(AircraftService aircraftService) {
         this.aircraftService = aircraftService;
     }
+
+    @Autowired
+    private PassengerRepository passengerRepository;
+
+    @Autowired
+    private AircraftRepository aircraftRepository;
+
 
     @GetMapping
     public List<Aircraft> getAllAircraft() {
@@ -53,6 +63,23 @@ public class AircraftController {
     public Aircraft createAircraft(@RequestBody Aircraft aircraft) {
         return aircraftService.createAircraft(aircraft);
     }
+
+    @PostMapping("/passenger/{id}/aircraft")
+    public ResponseEntity<?> addAircraftToPassenger(
+            @PathVariable Long id,
+            @RequestBody Map<String, List<Long>> request) {
+
+        List<Long> aircraftIds = request.get("aircraftIds");
+
+        Passenger passenger = passengerRepository.findById(id).orElseThrow();
+        List<Aircraft> aircraftList = (List<Aircraft>) aircraftRepository.findAllById(aircraftIds);
+
+        passenger.getAircraft().addAll(aircraftList);
+        passengerRepository.save(passenger);
+
+        return ResponseEntity.ok(passenger);
+    }
+
 
     @PutMapping("/{id}")
     public Aircraft updateAircraft(@PathVariable Long id, @RequestBody Aircraft aircraft) {

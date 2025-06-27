@@ -88,4 +88,11 @@ public class Passenger {
         }
         return aircraft.toArray(new Aircraft[0]);
     }
+
+    @ManyToMany(mappedBy = "passengers")
+    private List<Aircraft> aircraftList = new ArrayList<>();
+
+    public void setAircraftList(List<Aircraft> aircraftList) {
+        this.aircraftList = aircraftList;
+    }
 }

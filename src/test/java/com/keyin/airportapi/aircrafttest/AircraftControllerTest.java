@@ -4,18 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.aircraft.AircraftController;
 import com.keyin.airportapi.aircraft.AircraftService;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +40,7 @@ public class AircraftControllerTest {
 
     private Aircraft createTestAircraft(Long id, String type, String airline, int numPassengers) {
         Aircraft a = new Aircraft(type, airline, numPassengers);
-        if (id != null) a.setType(type);
+        a.setAircraftId(id); // Corrected from setType
         return a;
     }
 
@@ -70,7 +73,7 @@ public class AircraftControllerTest {
             Mockito.when(aircraftService.getAircraftById(99L)).thenReturn(Optional.empty());
 
             mockMvc.perform(get("/aircraft/99"))
-                    .andExpect(status().is4xxClientError());
+                    .andExpect(status().isNotFound());
         }
     }
 
@@ -114,6 +117,7 @@ public class AircraftControllerTest {
         void testDeleteAircraft() throws Exception {
             mockMvc.perform(delete("/aircraft/1"))
                     .andExpect(status().isOk());
+
             Mockito.verify(aircraftService, Mockito.times(1)).deleteAircraft(1L);
         }
     }
