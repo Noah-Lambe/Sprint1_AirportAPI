@@ -21,8 +21,7 @@ public class Aircraft {
     @JsonIgnore
     private List<Passenger> passengers;
 
-    @ManyToMany
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "aircraft_airports",
             joinColumns = @JoinColumn(name = "aircraft_id"),

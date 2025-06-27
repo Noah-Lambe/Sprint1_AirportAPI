@@ -1,5 +1,6 @@
 package com.keyin.airportapi.passenger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,7 @@ public class Passenger {
         this.aircraft = aircraft;
     }
 
+    @JsonIgnore
     public Aircraft[] getAircraftList() {
         if (aircraft == null || aircraft.isEmpty()) {
             return new Aircraft[0];

@@ -1,12 +1,14 @@
 package com.keyin.airportapi.aircraft;
 
 import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.airport.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AircraftService {
@@ -14,18 +16,15 @@ public class AircraftService {
     @Autowired
     private AircraftRepository aircraftRepository;
 
+    @Autowired
+    private AirportRepository airportRepository;
+
     public List<Airport> getAirportsUsedByAircraft(Long aircraftId) throws Exception {
-        Aircraft aircraft = aircraftRepository.findById(aircraftId)
+        Aircraft aircraft = aircraftRepository.findByIdWithAirports(aircraftId)
                 .orElseThrow(() -> new Exception("Aircraft not found with ID: " + aircraftId));
-
-        List<Airport> airports = aircraft.getAirports();
-
-        if (airports == null) {
-            return Collections.emptyList();
-        }
-
-        return airports;
+        return aircraft.getAirports() != null ? aircraft.getAirports() : Collections.emptyList();
     }
+
 
     public List<Aircraft> getAllAircraft() {
         return (List<Aircraft>) aircraftRepository.findAll();
@@ -43,23 +42,26 @@ public class AircraftService {
         return aircraftRepository.save(newAircraft);
     }
 
-    public Aircraft updateAircraft(Long id, Aircraft updatedAircraft) {
-        Optional<Aircraft> existingAircraftOpt = aircraftRepository.findById(id);
+    public Aircraft updateAircraft(Long id, Aircraft aircraftData) {
+        Aircraft aircraft = aircraftRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aircraft not found"));
 
-        if (existingAircraftOpt.isPresent()) {
-            Aircraft existingAircraft = existingAircraftOpt.get();
+        aircraft.setType(aircraftData.getType());
+        aircraft.setAirlineName(aircraftData.getAirlineName());
+        aircraft.setNumberOfPassengers(aircraftData.getNumberOfPassengers());
 
-            existingAircraft.setType(updatedAircraft.getType());
-            existingAircraft.setAirlineName(updatedAircraft.getAirlineName());
-            existingAircraft.setNumberOfPassengers(updatedAircraft.getNumberOfPassengers());
-            existingAircraft.setAirports(updatedAircraft.getAirports()); // Optional
-            existingAircraft.setPassengers(updatedAircraft.getPassengers()); // Optional
-
-            return aircraftRepository.save(existingAircraft);
+        if (aircraftData.getAirports() != null) {
+            List<Airport> resolvedAirports = aircraftData.getAirports().stream()
+                    .map(a -> airportRepository.findById(a.getAirportId())
+                            .orElseThrow(() -> new RuntimeException("Airport not found: " + a.getAirportId())))
+                    .collect(Collectors.toList());  // mutable list here
+            aircraft.setAirports(resolvedAirports);
         }
 
-        return null;
+        return aircraftRepository.save(aircraft);
     }
+
+
     public List<Aircraft> getAircraftByPassengerId(Long passengerId) {
         return aircraftRepository.findAircraftByPassengerId(passengerId);
     }
