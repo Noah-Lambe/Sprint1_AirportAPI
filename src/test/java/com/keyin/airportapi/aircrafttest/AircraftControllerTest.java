@@ -3,8 +3,10 @@ package com.keyin.airportapi.aircrafttest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.aircraft.AircraftController;
+import com.keyin.airportapi.aircraft.AircraftRepository;
 import com.keyin.airportapi.aircraft.AircraftService;
 
+import com.keyin.airportapi.passenger.PassengerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,13 +32,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AircraftControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private MockMvc mockMvc;
 
     @MockBean
     private AircraftService aircraftService;
+
+    @MockBean
+    private PassengerRepository passengerRepository;
+
+    @MockBean
+    private AircraftRepository aircraftRepository;
 
     private Aircraft createTestAircraft(Long id, String type, String airline, int numPassengers) {
         Aircraft a = new Aircraft(type, airline, numPassengers);

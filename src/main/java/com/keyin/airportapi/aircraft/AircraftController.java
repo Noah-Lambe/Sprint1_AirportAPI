@@ -29,7 +29,6 @@ public class AircraftController {
     @Autowired
     private AircraftRepository aircraftRepository;
 
-
     @GetMapping
     public List<Aircraft> getAllAircraft() {
         return aircraftService.getAllAircraft();
