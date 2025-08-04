@@ -14,4 +14,6 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
 
     @Query("SELECT a FROM Aircraft a LEFT JOIN FETCH a.airports WHERE a.aircraftId = :id")
     Optional<Aircraft> findByIdWithAirports(@Param("id") Long id);
+
+    List<Aircraft> findByAirlineName(String airlineName);
 }

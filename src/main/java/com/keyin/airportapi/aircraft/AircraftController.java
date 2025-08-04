@@ -1,5 +1,6 @@
 package com.keyin.airportapi.aircraft;
 
+import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,11 @@ public class AircraftController {
             return ResponseEntity.status(500).build();
         }
 
+    }
+
+    @GetMapping("/airline/{airlineName}")
+    public List<Aircraft> getAircraftByAirlineName(@PathVariable String airlineName) {
+        return aircraftService.getAircraftByAirlineName(airlineName);
     }
 
     @PostMapping
