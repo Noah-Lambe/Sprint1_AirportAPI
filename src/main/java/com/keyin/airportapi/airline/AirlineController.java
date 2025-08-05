@@ -39,7 +39,7 @@ public class AirlineController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Airline>> getAirlinesByName(@PathVariable String airlineName) {
+    public ResponseEntity<List<Airline>> getAirlinesByName(@PathVariable("name") String airlineName) {
         try {
             List<Airline> airlines = airlineService.getAirlinesByName(airlineName);
             return ResponseEntity.ok(airlines);
