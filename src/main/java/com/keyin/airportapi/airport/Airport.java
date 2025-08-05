@@ -6,6 +6,8 @@ import com.keyin.airportapi.gate.Gate;
 import jakarta.persistence.*;
 import com.keyin.airportapi.city.City;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 

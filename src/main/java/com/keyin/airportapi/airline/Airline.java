@@ -1,5 +1,6 @@
 package com.keyin.airportapi.airline;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.flight.Flight;
 import jakarta.persistence.*;
@@ -17,9 +18,11 @@ public class Airline {
     private String airlineName;
 
     @OneToMany(mappedBy = "airline", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Aircraft> aircraftList;
 
     @OneToMany(mappedBy = "airline")
+    @JsonIgnore
     private List<Flight> flights;
 
     public Airline() {}

@@ -154,7 +154,7 @@ public class FlightController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Flight> createFlight(@RequestBody Flight flight) {
         try {
             Flight createdFlight = flightService.createFlight(flight);

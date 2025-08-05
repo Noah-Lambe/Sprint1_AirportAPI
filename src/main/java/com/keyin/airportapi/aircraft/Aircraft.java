@@ -18,7 +18,6 @@ public class Aircraft {
     private Long aircraftId;
 
     private String type;
-    private String airlineName;
     private int numberOfPassengers;
 
     @ManyToMany(mappedBy = "aircraft")

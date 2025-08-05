@@ -16,7 +16,7 @@ public class Gate {
 
     @ManyToOne
     @JoinColumn(name = "airport_id", nullable = false)
-    @JsonIgnoreProperties({"gates", "city"})
+    @JsonIgnore
     private Airport airport;
 
     public Gate() {}
