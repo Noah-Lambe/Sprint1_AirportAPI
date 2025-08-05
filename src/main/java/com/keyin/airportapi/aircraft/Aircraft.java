@@ -1,10 +1,14 @@
 package com.keyin.airportapi.aircraft;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.passenger.Passenger;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Aircraft {
@@ -14,7 +18,6 @@ public class Aircraft {
     private Long aircraftId;
 
     private String type;
-    private String airlineName;
     private int numberOfPassengers;
 
     @ManyToMany(mappedBy = "aircraft")
@@ -29,11 +32,15 @@ public class Aircraft {
     )
     private List<Airport> airports;
 
+    @ManyToOne
+    @JoinColumn(name="airline_id", nullable=false)
+    private Airline airline;
+
     public Aircraft() {}
 
-    public Aircraft(String type, String airlineName, int numberOfPassengers) {
+    public Aircraft(String type, Airline airline, int numberOfPassengers) {
         this.type = type;
-        this.airlineName = airlineName;
+        this.airline = airline;
         this.numberOfPassengers = numberOfPassengers;
     }
 
@@ -51,14 +58,6 @@ public class Aircraft {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getAirlineName() {
-        return airlineName;
-    }
-
-    public void setAirlineName(String airlineName) {
-        this.airlineName = airlineName;
     }
 
     public int getNumberOfPassengers() {
@@ -83,5 +82,13 @@ public class Aircraft {
 
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
     }
 }

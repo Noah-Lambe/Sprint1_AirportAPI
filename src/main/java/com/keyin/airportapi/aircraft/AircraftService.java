@@ -47,7 +47,7 @@ public class AircraftService {
                 .orElseThrow(() -> new RuntimeException("Aircraft not found"));
 
         aircraft.setType(aircraftData.getType());
-        aircraft.setAirlineName(aircraftData.getAirlineName());
+        aircraft.setAirline(aircraftData.getAirline());
         aircraft.setNumberOfPassengers(aircraftData.getNumberOfPassengers());
 
         if (aircraftData.getAirports() != null) {
@@ -64,5 +64,12 @@ public class AircraftService {
 
     public List<Aircraft> getAircraftByPassengerId(Long passengerId) {
         return aircraftRepository.findAircraftByPassengerId(passengerId);
+    }
+
+    public List<Aircraft> getAircraftByAirlineName(String airlineName) {
+        if (airlineName == null || airlineName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Airline name must not be empty");
+        }
+        return aircraftRepository.findByAirline_AirlineName(airlineName);
     }
 }

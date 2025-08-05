@@ -2,6 +2,7 @@ package com.keyin.airportapi.passenger;
 
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.flight.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ public class PassengerService {
 
     @Autowired
     PassengerRepository passengerRepo;
+
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     public List<Passenger> getAllPassengers() {
         return passengerRepo.findAll();
@@ -39,5 +43,11 @@ public class PassengerService {
         }
 
         return new ArrayList<>(airports);
+    }
+
+    public List<Flight> getFlightsByPassengerId(Long passengerId) {
+        Passenger passenger = passengerRepository.findById(passengerId)
+                .orElseThrow(() -> new RuntimeException("Passenger not found"));
+        return passenger.getFlights();
     }
 }

@@ -28,8 +28,8 @@ public class AircraftController {
     @GetMapping("/{id}")
     public ResponseEntity<Aircraft> getAircraftById(@PathVariable Long id) {
         return aircraftService.getAircraftById(id)
-        .map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
@@ -47,6 +47,11 @@ public class AircraftController {
             return ResponseEntity.status(500).build();
         }
 
+    }
+
+    @GetMapping("/airline/{airlineName}")
+    public List<Aircraft> getAircraftByAirlineName(@PathVariable String airlineName) {
+        return aircraftService.getAircraftByAirlineName(airlineName);
     }
 
     @PostMapping
