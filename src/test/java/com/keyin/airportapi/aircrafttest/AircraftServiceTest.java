@@ -3,6 +3,7 @@ package com.keyin.airportapi.aircrafttest;
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.aircraft.AircraftRepository;
 import com.keyin.airportapi.aircraft.AircraftService;
+import com.keyin.airportapi.airline.Airline;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,17 +25,25 @@ public class AircraftServiceTest {
     @InjectMocks
     private AircraftService aircraftService;
 
-    private Aircraft createTestAircraft(Long id, String type, String airline, int passengers) {
+    /**
+     * Now correctly sets id, type, airline and passengers.
+     */
+    private Aircraft createTestAircraft(Long id, String type, Airline airline, int passengers) {
         Aircraft aircraft = new Aircraft(type, airline, passengers);
-        if (id != null) aircraft.setType(type);
+        if (id != null) {
+            aircraft.setAircraftId(id);
+        }
         return aircraft;
     }
 
     @Test
     @DisplayName("Should return all aircraft from repository")
     public void testGetAllAircraft() {
-        Aircraft a1 = createTestAircraft(1L, "Boeing 737", "Air Canada", 150);
-        Aircraft a2 = createTestAircraft(2L, "Airbus A320", "WestJet", 180);
+        Airline airCanada = new Airline(1L, "Air Canada");
+        Airline westJet   = new Airline(2L, "WestJet");
+
+        Aircraft a1 = createTestAircraft(1L, "Boeing 737", airCanada, 150);
+        Aircraft a2 = createTestAircraft(2L, "Airbus A320", westJet, 180);
 
         Mockito.when(aircraftRepository.findAll()).thenReturn(List.of(a1, a2));
 
@@ -43,18 +51,22 @@ public class AircraftServiceTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
+        // optional extra sanity check:
+        assertEquals("Air Canada", result.get(0).getAirline().getAirlineName());
     }
 
     @Test
     @DisplayName("Should return aircraft by ID if exists")
     public void testGetAircraftById() {
-        Aircraft aircraft = createTestAircraft(1L, "Boeing 737", "Air Canada", 150);
+        Airline airCanada = new Airline(1L, "Air Canada");
+        Aircraft aircraft = createTestAircraft(1L, "Boeing 737", airCanada, 150);
+
         Mockito.when(aircraftRepository.findById(1L)).thenReturn(Optional.of(aircraft));
 
         Optional<Aircraft> result = aircraftService.getAircraftById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals("Air Canada", result.get().getAirlineName());
+        assertEquals("Air Canada", result.get().getAirline().getAirlineName());
     }
 
     @Test
@@ -70,14 +82,16 @@ public class AircraftServiceTest {
     @Test
     @DisplayName("Should create and return a new aircraft")
     public void testCreateAircraft() {
-        Aircraft aircraft = createTestAircraft(null, "Boeing 737", "Air Canada", 150);
+        Airline airCanada = new Airline(1L, "Air Canada");
+        Aircraft input = createTestAircraft(null, "Boeing 737", airCanada, 150);
 
-        Mockito.when(aircraftRepository.save(Mockito.any(Aircraft.class))).thenReturn(aircraft);
+        Mockito.when(aircraftRepository.save(Mockito.any(Aircraft.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
 
-        Aircraft result = aircraftService.createAircraft(aircraft);
+        Aircraft result = aircraftService.createAircraft(input);
 
         assertNotNull(result);
-        assertEquals("Air Canada", result.getAirlineName());
+        assertEquals("Air Canada", result.getAirline().getAirlineName());
     }
 
     @Test
@@ -93,31 +107,39 @@ public class AircraftServiceTest {
     @Test
     @DisplayName("Should update aircraft when it exists")
     public void testUpdateAircraft() {
-        Aircraft existing = createTestAircraft(1L, "Boeing 737", "Air Canada", 150);
-        Aircraft updated = createTestAircraft(null, "Airbus A320", "WestJet", 180);
+        Airline oldAirline = new Airline(1L, "Air Canada");
+        Airline newAirline = new Airline(2L, "WestJet");
+        Aircraft existing = createTestAircraft(1L, "Boeing 737", oldAirline, 150);
+        Aircraft updated  = createTestAircraft(null, "Airbus A320", newAirline, 180);
 
         Mockito.when(aircraftRepository.findById(1L)).thenReturn(Optional.of(existing));
-        Mockito.when(aircraftRepository.save(Mockito.any())).thenReturn(updated);
+        Mockito.when(aircraftRepository.save(Mockito.any(Aircraft.class)))
+                .thenAnswer(invocation -> {
+                    Aircraft toSave = invocation.getArgument(0);
+                    // Simulate JPA assigning the ID
+                    toSave.setAircraftId(1L);
+                    return toSave;
+                });
 
         Aircraft result = aircraftService.updateAircraft(1L, updated);
 
         assertNotNull(result);
-        assertEquals("WestJet", result.getAirlineName());
+        assertEquals("WestJet", result.getAirline().getAirlineName());
     }
 
     @Test
     @DisplayName("Should throw RuntimeException when updating non-existent aircraft")
     void testUpdateAircraft_NotFound() {
         Long invalidId = 999L;
-        Aircraft updated = new Aircraft("Boeing 747", "Lufthansa", 300);
+        Airline lufthansa = new Airline(3L, "Lufthansa");
+        Aircraft updated = new Aircraft("Boeing 747", lufthansa, 300);
 
         Mockito.when(aircraftRepository.findById(invalidId)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            aircraftService.updateAircraft(invalidId, updated);
-        });
+        RuntimeException ex = assertThrows(RuntimeException.class, () ->
+                aircraftService.updateAircraft(invalidId, updated)
+        );
 
-        assertEquals("Aircraft not found", exception.getMessage());
+        assertEquals("Aircraft not found", ex.getMessage());
     }
-
 }

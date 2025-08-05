@@ -1,6 +1,5 @@
 package com.keyin.airportapi.aircraft;
 
-import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airport.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +28,8 @@ public class AircraftController {
     @GetMapping("/{id}")
     public ResponseEntity<Aircraft> getAircraftById(@PathVariable Long id) {
         return aircraftService.getAircraftById(id)
-        .map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 

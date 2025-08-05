@@ -1,5 +1,6 @@
 package com.keyin.airportapi.gate;
 
+import com.keyin.airportapi.airport.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,9 @@ public class GateService {
     @Autowired
     private GateRepository gateRepository;
 
+    @Autowired
+    private AirportRepository airportRepository;
+
     public List<Gate> getAllGates() {
         return (List<Gate>)gateRepository.findAll();
     }
@@ -21,7 +25,7 @@ public class GateService {
     }
 
     public List<Gate> getGatesByAirportId(Long airportId) {
-        return gateRepository.findByAirport_Id(airportId);
+        return gateRepository.findByAirport_AirportId(airportId);
     }
 
     public List<Gate> getGatesByTerminal(String terminal) {
@@ -33,6 +37,15 @@ public class GateService {
     }
 
     public Gate createGate(Gate gate) {
+        if (gate.getAirport() != null && gate.getAirport().getAirportId() != null) {
+            Long airportId = gate.getAirport().getAirportId();
+            gate.setAirport(
+                    airportRepository.findById(airportId)
+                            .orElseThrow(() -> new RuntimeException("Airport not found"))
+            );
+        } else {
+            throw new RuntimeException("Airport ID is required for Gate creation");
+        }
         return gateRepository.save(gate);
     }
 

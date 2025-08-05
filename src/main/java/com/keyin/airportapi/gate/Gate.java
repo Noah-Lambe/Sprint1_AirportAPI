@@ -1,27 +1,22 @@
 package com.keyin.airportapi.gate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.keyin.airportapi.airport.Airport;
 import jakarta.persistence.*;
 
 @Entity
 public class Gate {
     @Id
-    @SequenceGenerator(
-            name = "gate_sequence",
-            sequenceName = "gate_sequence",
-            allocationSize = 1,
-            initialValue = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "gate_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long gateId;
     private String gateName;
     private String terminal;
 
     @ManyToOne
     @JoinColumn(name = "airport_id", nullable = false)
+    @JsonIgnoreProperties({"gates", "city"})
     private Airport airport;
 
     public Gate() {}

@@ -2,9 +2,12 @@ package com.keyin.airportapi.airport;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.keyin.airportapi.gate.Gate;
 import jakarta.persistence.*;
 import com.keyin.airportapi.city.City;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 @Entity
 @Table(name = "airport")
@@ -21,6 +24,8 @@ public class Airport {
     @JsonIgnoreProperties("airports")
     private City city;
 
+    @OneToMany(mappedBy = "airport")
+    private List<Gate> gates;
 
     public Airport() {
         // Empty constructor for testing. I read somewhere this is best practice.
@@ -50,6 +55,10 @@ public class Airport {
         return city;
     }
 
+    public List<Gate> getGates() {
+        return gates;
+    }
+
     // Setters
     public void setAirportId(Long airportId) {
         this.airportId = airportId;
@@ -65,6 +74,10 @@ public class Airport {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public void setGates(List<Gate> gates) {
+        this.gates = gates;
     }
 
     @Override

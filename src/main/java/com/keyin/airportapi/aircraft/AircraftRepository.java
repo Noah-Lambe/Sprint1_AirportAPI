@@ -1,5 +1,6 @@
 package com.keyin.airportapi.aircraft;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +16,5 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
     @Query("SELECT a FROM Aircraft a LEFT JOIN FETCH a.airports WHERE a.aircraftId = :id")
     Optional<Aircraft> findByIdWithAirports(@Param("id") Long id);
 
-    List<Aircraft> findByAirlineName(String airlineName);
+    List<Aircraft> findByAirline_AirlineName(String airlineName);
 }

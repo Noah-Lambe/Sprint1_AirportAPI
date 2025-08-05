@@ -1,6 +1,7 @@
 package com.keyin.airportapi.passenger;
 
 import com.keyin.airportapi.airport.Airport;
+import com.keyin.airportapi.flight.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,11 @@ public class PassengerController {
     @GetMapping("/{id}/airports")
     public List<Airport> getAirportsByPassenger(@PathVariable Long id) {
         return passengerService.getAirportsUsedByPassenger(id);
+    }
+
+    @GetMapping("/{id}/flights")
+    public List<Flight> getFlightsByPassenger(@PathVariable Long id) {
+        return passengerService.getFlightsByPassengerId(id);
     }
 
     @PostMapping

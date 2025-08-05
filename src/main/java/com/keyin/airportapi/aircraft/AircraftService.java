@@ -70,6 +70,6 @@ public class AircraftService {
         if (airlineName == null || airlineName.trim().isEmpty()) {
             throw new IllegalArgumentException("Airline name must not be empty");
         }
-        return aircraftRepository.findByAirlineName(airlineName);
+        return aircraftRepository.findByAirline_AirlineName(airlineName);
     }
 }

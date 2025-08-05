@@ -48,7 +48,7 @@ public class AirlineController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Airline> createAirline(@RequestBody Airline airline) {
         try {
             Airline createdAirline = airlineService.createAirline(airline);

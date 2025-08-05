@@ -1,5 +1,7 @@
 package com.keyin.airportapi.flight;
 
+import com.keyin.airportapi.passenger.Passenger;
+import com.keyin.airportapi.passenger.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ public class FlightService {
     @Autowired
     private FlightRepository flightRepository;
 
+    @Autowired
+    private PassengerRepository passengerRepository;
+
     public List<Flight> getAllFlights() {
         return (List<Flight>) flightRepository.findAll();
     }
@@ -21,19 +26,19 @@ public class FlightService {
     }
 
     public List<Flight> getFlightsByAirlineId(Long airlineId) {
-        return flightRepository.findByAirline_Id(airlineId);
+        return flightRepository.findByAirline_AirlineId(airlineId);
     }
 
     public List<Flight> getFlightsByOriginAirportId(Long originAirportId) {
-        return flightRepository.findByOriginAirport_Id(originAirportId);
+        return flightRepository.findByOriginAirport_AirportId(originAirportId);
     }
 
     public List<Flight> getFlightsByDestinationAirportId(Long destinationAirportId) {
-        return flightRepository.findByDestinationAirport_Id(destinationAirportId);
+        return flightRepository.findByDestinationAirport_AirportId(destinationAirportId);
     }
 
     public List<Flight> getFlightsByGateId(Long gateId) {
-        return flightRepository.findByGate_Id(gateId);
+        return flightRepository.findByGate_GateId(gateId);
     }
 
     public List<Flight> getFlightsByStatus(String status) {
@@ -45,7 +50,7 @@ public class FlightService {
     }
 
     public List<Flight> getFlightsByAircraftId(Long aircraftId) {
-        return flightRepository.findByAircraft_Id(aircraftId);
+        return flightRepository.findByAircraft_AircraftId(aircraftId);
     }
 
     public List<Flight> getFlightsByDepartureTime(LocalDateTime departureTime) {
@@ -87,4 +92,19 @@ public class FlightService {
     public void deleteFlight(Long id) {
         flightRepository.deleteById(id);
     }
+
+    public Flight addPassengerToFlight(Long flightId, Passenger passenger) {
+        Flight flight = getFlightById(flightId);
+
+        if (passenger.getId() != null) {
+            passenger = passengerRepository.findById(passenger.getId())
+                    .orElseThrow(() -> new RuntimeException("Passenger not found"));
+        } else {
+            passenger = passengerRepository.save(passenger);
+        }
+
+        flight.addPassenger(passenger);
+        return flightRepository.save(flight);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.keyin.airportapi.passenger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.keyin.airportapi.flight.Flight;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,20 @@ public class Passenger {
             inverseJoinColumns = @JoinColumn(name = "aircraft_id")
     )
     private Set<Aircraft> aircraft = new HashSet<>();
+
+    @ManyToMany(mappedBy = "passengers")
+    @JsonIgnore
+    private List<Flight> flights;
+
+    public Passenger() {}
+
+    public Passenger(Long id, String firstName, String lastName, String phoneNumber, City city) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+    }
 
     public Long getId() {
         return id;
@@ -89,5 +104,18 @@ public class Passenger {
             return new Aircraft[0];
         }
         return aircraft.toArray(new Aircraft[0]);
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
+        flight.getPassengers().add(this); // synchronize the relationship
     }
 }

@@ -1,6 +1,7 @@
 package com.keyin.airportapi.flight;
 
 
+import com.keyin.airportapi.passenger.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -136,6 +137,18 @@ public class FlightController {
         try {
             List<Flight> flights = flightService.getFlightsByDepartureTimeBetween(start, end);
             return ResponseEntity.ok(flights);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/{flightId}/addPassenger")
+    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long flightId, @RequestBody Passenger passenger) {
+        try {
+            Flight updatedFlight = flightService.addPassengerToFlight(flightId, passenger);
+            return ResponseEntity.ok(updatedFlight);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

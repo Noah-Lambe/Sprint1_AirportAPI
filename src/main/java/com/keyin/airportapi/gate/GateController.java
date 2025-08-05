@@ -64,15 +64,17 @@ public class GateController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Gate> createGate(@RequestBody Gate gate) {
         try {
             Gate createdGate = gateService.createGate(gate);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdGate);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Gate> updateGate(@PathVariable Long id, @RequestBody Gate gateData) {

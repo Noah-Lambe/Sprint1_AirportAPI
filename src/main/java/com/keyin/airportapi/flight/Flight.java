@@ -5,23 +5,16 @@ import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.gate.Gate;
+import com.keyin.airportapi.passenger.Passenger;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Flight {
     @Id
-    @SequenceGenerator(
-            name = "flight_sequence",
-            sequenceName = "flight_sequence",
-            allocationSize = 1,
-            initialValue = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "flight_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long flightId;
     private String flightNumber;
@@ -48,9 +41,18 @@ public class Flight {
     @ManyToOne
     private Airline airline;
 
+    @ManyToMany
+    @JoinTable(
+            name = "flight_passengers",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "passenger_id")
+    )
+    private List<Passenger> passengers;
+
+
     public Flight() {}
 
-    public Flight(Long flightId,
+    public Flight(
                   String flightNumber,
                   Airline airline,
                   String status,
@@ -59,9 +61,9 @@ public class Flight {
                   Airport originAirport,
                   Airport destinationAirport,
                   Gate gate,
-                  Aircraft aircraft)
+                  Aircraft aircraft
+    )
     {
-        this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.airline = airline;
         this.status = status;
@@ -151,5 +153,18 @@ public class Flight {
 
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
+    public void addPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
+        passenger.getFlights().add(this);
     }
 }

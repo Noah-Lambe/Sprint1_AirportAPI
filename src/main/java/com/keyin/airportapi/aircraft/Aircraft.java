@@ -1,11 +1,14 @@
 package com.keyin.airportapi.aircraft;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airport.Airport;
 import com.keyin.airportapi.passenger.Passenger;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Aircraft {
@@ -15,6 +18,7 @@ public class Aircraft {
     private Long aircraftId;
 
     private String type;
+    private String airlineName;
     private int numberOfPassengers;
 
     @ManyToMany(mappedBy = "aircraft")
@@ -30,7 +34,7 @@ public class Aircraft {
     private List<Airport> airports;
 
     @ManyToOne
-    @JoinColumn(name = "airline_id", nullable = false)
+    @JoinColumn(name="airline_id", nullable=false)
     private Airline airline;
 
     public Aircraft() {}
