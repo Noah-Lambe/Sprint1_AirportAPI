@@ -2,6 +2,7 @@ package com.keyin.airportapi.gate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.keyin.airportapi.airport.Airport;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ public class Gate {
 
     @ManyToOne
     @JoinColumn(name = "airport_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"gates"})
     private Airport airport;
 
     public Gate() {}
