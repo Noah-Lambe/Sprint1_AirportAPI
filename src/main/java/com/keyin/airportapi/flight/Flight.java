@@ -9,6 +9,7 @@ import com.keyin.airportapi.passenger.Passenger;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -164,7 +165,14 @@ public class Flight {
     }
 
     public void addPassenger(Passenger passenger) {
-        this.passengers.add(passenger);
+        if (passengers == null) {
+            passengers = new ArrayList<>();
+        }
+        passengers.add(passenger);
+
+        if (passenger.getFlights() == null) {
+            passenger.setFlights(new ArrayList<>());
+        }
         passenger.getFlights().add(this);
     }
 }

@@ -1,12 +1,15 @@
 package com.keyin.airportapi.flightTests;
 
 import com.keyin.airportapi.flight.FlightController;
+import com.keyin.airportapi.flight.FlightRepository;
 import com.keyin.airportapi.flight.FlightService;
 import com.keyin.airportapi.flight.Flight;
 import com.keyin.airportapi.passenger.Passenger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.keyin.airportapi.passenger.PassengerRepository;
+import com.keyin.airportapi.passenger.PassengerRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,11 +25,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Collections;
+import java.util.*;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -42,6 +43,12 @@ public class FlightControllerTest {
 
     @MockBean
     private FlightService flightService;
+
+    @MockBean
+    private FlightRepository flightRepository;
+
+    @MockBean
+    private PassengerRepository passengerRepository;
 
     // Helper to create minimal Flight
     private Flight createTestFlight(Long id, String flightNumber) {
@@ -215,7 +222,7 @@ public class FlightControllerTest {
         void testCreateFlight() throws Exception {
             Flight in = createTestFlight(null, "NEW1");
             Flight out = createTestFlight(9L, "NEW1");
-            Mockito.when(flightService.createFlight(Mockito.any(Flight.class)))
+            Mockito.when(flightService.createFlight(any(Flight.class)))
                     .thenReturn(out);
 
             mockMvc.perform(post("/flights")
@@ -227,19 +234,37 @@ public class FlightControllerTest {
         }
 
         @Test
-        @DisplayName("POST /flights/{flightId}/addPassenger adds passenger")
+        @DisplayName("POST /flights/{flightId}/addPassenger re-uses existing passenger")
         void testAddPassengerToFlight() throws Exception {
-            Passenger p = createTestPassenger(null);
-            Flight out = createTestFlight(1L, "FLX");
-            out.getPassengers().add(p);
-            Mockito.when(flightService.addPassengerToFlight(Mockito.eq(1L), Mockito.any(Passenger.class)))
-                    .thenReturn(out);
+            // 1) Create the PassengerRequest
+            PassengerRequest req = new PassengerRequest();
+            req.setPassengerId(99L);
 
+            // 2) Prepare the Flight you want your stubbed service to return:
+            Flight out = createTestFlight(1L, "FLX");
+
+            // *** CLEAR any seeded passengers so we only have the one we're testing ***
+            out.getPassengers().clear();
+
+            Passenger p = new Passenger();
+            p.setId(99L);
+            out.getPassengers().add(p);
+
+            // 3) Stub your service (or repos, depending on your controller setup)
+            Mockito.when(flightService.addPassengerToFlight(
+                    eq(1L),
+                    any(PassengerRequest.class)
+            )).thenReturn(out);
+
+            // 4) Perform the POST using the PassengerRequest as JSON:
             mockMvc.perform(post("/flights/1/addPassenger")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(p)))
+                            .content(objectMapper.writeValueAsString(req)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.passengers.length()").value(1));
+                    // now the JSONPath should see exactly one passenger
+                    .andExpect(jsonPath("$.passengers.length()").value(1))
+                    // and check that it's the one we stubbed:
+                    .andExpect(jsonPath("$.passengers[0].id").value(99));
         }
     }
 
@@ -251,7 +276,7 @@ public class FlightControllerTest {
         void testUpdateFlight() throws Exception {
             Flight in = createTestFlight(null, "UPD1");
             Flight out = createTestFlight(2L, "UPD1");
-            Mockito.when(flightService.updateFlight(Mockito.eq(2L), Mockito.any(Flight.class)))
+            Mockito.when(flightService.updateFlight(eq(2L), any(Flight.class)))
                     .thenReturn(out);
 
             mockMvc.perform(put("/flights/2")
@@ -265,7 +290,7 @@ public class FlightControllerTest {
         @Test
         @DisplayName("PUT /flights/{id} returns 404 for non-existent flight")
         void testUpdateFlight_NotFound() throws Exception {
-            Mockito.when(flightService.updateFlight(Mockito.eq(99L), Mockito.any(Flight.class)))
+            Mockito.when(flightService.updateFlight(eq(99L), any(Flight.class)))
                     .thenThrow(new RuntimeException("Flight not found"));
 
             mockMvc.perform(put("/flights/99")

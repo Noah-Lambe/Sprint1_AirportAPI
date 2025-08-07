@@ -19,5 +19,6 @@ public interface FlightRepository extends CrudRepository<Flight, Long> {
     List<Flight> findByDepartureTime(LocalDateTime departureTime);
     List<Flight> findByArrivalTime(LocalDateTime arrivalTime);
     List<Flight> findByDepartureTimeBetween(LocalDateTime start, LocalDateTime end);
+    List<Flight> findByPassengersId(Long passengerId);
 }
 

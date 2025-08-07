@@ -1,12 +1,17 @@
 package com.keyin.airportapi.flight;
 
+import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.city.CityRepository;
 import com.keyin.airportapi.passenger.Passenger;
 import com.keyin.airportapi.passenger.PassengerRepository;
+import com.keyin.airportapi.passenger.PassengerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class FlightService {
@@ -15,6 +20,9 @@ public class FlightService {
 
     @Autowired
     private PassengerRepository passengerRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
 
     public List<Flight> getAllFlights() {
         return (List<Flight>) flightRepository.findAll();
@@ -93,17 +101,44 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    public Flight addPassengerToFlight(Long flightId, Passenger passenger) {
+    public Flight addPassengerToFlight(Long flightId, PassengerRequest request) {
+        // 1. Load the flight (throws if not found)
         Flight flight = getFlightById(flightId);
 
-        if (passenger.getId() != null) {
-            passenger = passengerRepository.findById(passenger.getId())
-                    .orElseThrow(() -> new RuntimeException("Passenger not found"));
+        Passenger pax;
+        if (request.getPassengerId() != null) {
+            // 2a. Existing passenger: just fetch by ID
+            pax = passengerRepository.findById(request.getPassengerId())
+                    .orElseThrow(() -> new NoSuchElementException("Passenger not found"));
         } else {
-            passenger = passengerRepository.save(passenger);
+            // 2b. New passenger: build from DTO
+            pax = new Passenger();
+            pax.setFirstName(request.getFirstName());
+            pax.setLastName(request.getLastName());
+            pax.setPhoneNumber(request.getPhoneNumber());
+
+            // Only now do we need a city lookup
+            City city = cityRepository.findById(request.getCityId())
+                    .orElseThrow(() -> new NoSuchElementException("City not found"));
+            pax.setCity(city);
+
+            // Save the new passenger
+            pax = passengerRepository.save(pax);
         }
 
-        flight.addPassenger(passenger);
+        // 3. Add to flight side (initialize list if needed)
+        if (flight.getPassengers() == null) {
+            flight.setPassengers(new ArrayList<>());
+        }
+        flight.getPassengers().add(pax);
+
+        // 4. Maintain the reverse side of the relationship, too
+        if (pax.getFlights() == null) {
+            pax.setFlights(new ArrayList<>());
+        }
+        pax.getFlights().add(flight);
+
+        // 5. Persist the updated flight
         return flightRepository.save(flight);
     }
 
