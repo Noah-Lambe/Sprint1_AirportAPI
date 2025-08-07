@@ -1,6 +1,14 @@
 package com.keyin.airportapi.user;
 
+import com.keyin.airportapi.user.RegisterRequest;
+import com.keyin.airportapi.user.RegisterResponse;
+import com.keyin.airportapi.user.RegistrationService;
+import com.keyin.airportapi.user.User;
+import com.keyin.airportapi.passenger.Passenger;
+import com.keyin.airportapi.passenger.PassengerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -9,15 +17,21 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
+    @Autowired
+    RegistrationService registrationService;
 
-    public RegistrationController(RegistrationService rs) {
-        this.registrationService = rs;
-    }
+    @Autowired
+    PassengerRepository passengerRepository;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public User register(@RequestBody RegisterRequest req) {
-        return registrationService.register(req);
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest req) {
+        User u = registrationService.register(req);
+        Passenger p = passengerRepository.findByUserId(u.getId()).get();
+        RegisterResponse resp = new RegisterResponse(
+                u.getId(),
+                u.getUsername(),
+                p.getId()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 }

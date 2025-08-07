@@ -2,21 +2,31 @@ package com.keyin.airportapi.flight;
 
 
 import com.keyin.airportapi.passenger.Passenger;
+import com.keyin.airportapi.passenger.PassengerRepository;
+import com.keyin.airportapi.passenger.PassengerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/flights")
 public class FlightController {
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private FlightRepository flightRepository;
+
+    @Autowired
+    private PassengerRepository passengerRepository;
 
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlights() {
@@ -38,6 +48,11 @@ public class FlightController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/byPassenger/{passengerId}")
+    public List<Flight> getFlightsByPassenger(@PathVariable Long passengerId) {
+        return flightRepository.findByPassengersId(passengerId);
     }
 
     @GetMapping("/airline/{airlineId}")
@@ -143,15 +158,13 @@ public class FlightController {
     }
 
     @PostMapping("/{flightId}/addPassenger")
-    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long flightId, @RequestBody Passenger passenger) {
-        try {
-            Flight updatedFlight = flightService.addPassengerToFlight(flightId, passenger);
-            return ResponseEntity.ok(updatedFlight);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<Flight> addPassengerToFlight(
+            @PathVariable Long flightId,
+            @RequestBody PassengerRequest request
+    ) {
+        // Delegate to the service so your MockMvc stub is used
+        Flight updated = flightService.addPassengerToFlight(flightId, request);
+        return ResponseEntity.ok(updated);
     }
 
     @PostMapping

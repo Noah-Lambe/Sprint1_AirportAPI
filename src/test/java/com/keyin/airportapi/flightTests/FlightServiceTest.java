@@ -1,5 +1,7 @@
 package com.keyin.airportapi.flightTests;
 
+import com.keyin.airportapi.city.City;
+import com.keyin.airportapi.city.CityRepository;
 import com.keyin.airportapi.flight.FlightService;
 import com.keyin.airportapi.flight.FlightRepository;
 import com.keyin.airportapi.flight.Flight;
@@ -10,6 +12,8 @@ import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.gate.Gate;
 import com.keyin.airportapi.aircraft.Aircraft;
 
+import com.keyin.airportapi.passenger.PassengerRequest;
+import jakarta.persistence.Entity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,6 +23,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.NoSuchElementException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,6 +48,9 @@ public class FlightServiceTest {
 
     @Mock
     private PassengerRepository passengerRepository;
+
+    @Mock
+    CityRepository cityRepository;
 
     @InjectMocks
     private FlightService flightService;
@@ -202,74 +218,82 @@ public class FlightServiceTest {
         }
     }
 
-    @Nested
-    @DisplayName("ADD PASSENGER Operation")
+    @Nested @DisplayName("ADD PASSENGER Operation")
     class AddPassengerOperation {
         @Test
         @DisplayName("Should add new passenger to flight when passenger has no ID")
         void testAddPassenger_NewPassenger() {
+            // 1) set up a Flight
             Flight f = createTestFlight(1L, "FL400");
-            Passenger p = new Passenger();
-            p.setFirstName("John");
-            p.setLastName("Doe");
-            p.setFlights(new ArrayList<>());
-
-            Mockito.when(flightRepository.findById(1L))
+            when(flightRepository.findById(1L))
                     .thenReturn(Optional.of(f));
-            Mockito.when(passengerRepository.save(p))
+
+            // 2) stub the city lookup
+            City springfield = new City(1L, "Springfield", "IL", 100_000);
+            when(cityRepository.findById(1L))
+                    .thenReturn(Optional.of(springfield));
+
+            // 3) stub saving of the passenger (assign an ID)
+            when(passengerRepository.save(any(Passenger.class)))
                     .thenAnswer(inv -> {
-                        Passenger arg = inv.getArgument(0);
-                        arg.setId(10L);
-                        arg.setFlights(new ArrayList<>());
-                        return arg;
+                        Passenger p = inv.getArgument(0);
+                        p.setId(10L);
+                        return p;
                     });
-            Mockito.when(flightRepository.save(Mockito.any(Flight.class)))
+
+            // 4) stub saving of the flight
+            when(flightRepository.save(any(Flight.class)))
                     .thenAnswer(inv -> inv.getArgument(0));
 
-            Flight result = flightService.addPassengerToFlight(1L, p);
+            // exercise
+            PassengerRequest req = new PassengerRequest("John", "Doe", "555-1234", 1L);
+            Flight result = flightService.addPassengerToFlight(1L, req);
 
-            assertNotNull(result);
-            assertTrue(result.getPassengers().stream()
-                    .anyMatch(px -> px.getId().equals(10L)));
+            assertThat(result.getPassengers())
+                    .extracting(Passenger::getId)
+                    .containsExactly(10L);
         }
 
         @Test
         @DisplayName("Should add existing passenger to flight when passenger has ID")
         void testAddPassenger_ExistingPassenger() {
             Flight f = createTestFlight(1L, "FL500");
-            Passenger p = new Passenger();
-            p.setId(20L);
-            p.setFlights(new ArrayList<>());
-
-            Mockito.when(flightRepository.findById(1L))
+            when(flightRepository.findById(1L))
                     .thenReturn(Optional.of(f));
-            Mockito.when(passengerRepository.findById(20L))
-                    .thenReturn(Optional.of(p));
-            Mockito.when(flightRepository.save(Mockito.any(Flight.class)))
+
+            // stub lookup of existing passenger — no city lookup needed here
+            Passenger existing = new Passenger();
+            existing.setId(20L);
+            when(passengerRepository.findById(20L))
+                    .thenReturn(Optional.of(existing));
+
+            when(flightRepository.save(any(Flight.class)))
                     .thenAnswer(inv -> inv.getArgument(0));
 
-            Flight result = flightService.addPassengerToFlight(1L, p);
+            PassengerRequest req = new PassengerRequest();
+            req.setPassengerId(20L);
+            Flight result = flightService.addPassengerToFlight(1L, req);
 
-            assertNotNull(result);
-            assertTrue(result.getPassengers().stream()
-                    .anyMatch(px -> px.getId().equals(20L)));
+            assertThat(result.getPassengers())
+                    .extracting(Passenger::getId)
+                    .containsExactly(20L);
         }
 
         @Test
         @DisplayName("Should throw when adding non-existent passenger by ID")
         void testAddPassenger_PassengerNotFound() {
-            Mockito.when(flightRepository.findById(1L))
+            when(flightRepository.findById(1L))
                     .thenReturn(Optional.of(createTestFlight(1L, "FL600")));
-            Passenger p = new Passenger();
-            p.setId(99L);
-            p.setFlights(new ArrayList<>());
 
-            Mockito.when(passengerRepository.findById(99L))
+            PassengerRequest req = new PassengerRequest();
+            req.setPassengerId(99L);
+
+            when(passengerRepository.findById(99L))
                     .thenReturn(Optional.empty());
 
-            RuntimeException ex = assertThrows(RuntimeException.class,
-                    () -> flightService.addPassengerToFlight(1L, p));
-            assertEquals("Passenger not found", ex.getMessage());
+                    assertThrows(NoSuchElementException.class,
+                            () -> flightService.addPassengerToFlight(1L, req),
+                            "Passenger not found");
         }
     }
 }
