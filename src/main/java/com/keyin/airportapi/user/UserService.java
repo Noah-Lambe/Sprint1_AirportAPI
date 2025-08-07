@@ -19,11 +19,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Fetch your domain user
+        //Fetch domain user
         com.keyin.airportapi.user.User u = repo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        // Return Spring Security’s User implementation
+        //Return Spring Security’s User implementation
         return User.withUsername(u.getUsername())
                 .password(u.getPasswordHash())
                 .authorities(List.of(new SimpleGrantedAuthority(u.getRole())))

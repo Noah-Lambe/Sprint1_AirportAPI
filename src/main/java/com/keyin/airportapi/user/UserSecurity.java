@@ -29,14 +29,13 @@ public class UserSecurity {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        // 1) OPTIONS for everything (CORS preflight)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // 2) POST /auth/register and POST /auth/login
+                        //POST /auth/register and POST /auth/login
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
-                        // 3) everything else requires auth
+                        //everything else requires auth
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)

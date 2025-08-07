@@ -30,14 +30,14 @@ public class RegistrationService {
             throw new IllegalArgumentException("Username already taken");
         }
 
-        // 1) Create & save User
+        //Create & save User
         User u = new User();
         u.setUsername(req.getUsername());
         u.setPasswordHash(encoder.encode(req.getPassword()));
         u.setRole(req.getRole() == null ? "ROLE_USER" : req.getRole());
         u = userRepository.save(u);
 
-        // 2) Create & save Passenger with full profile
+        //Create & save Passenger with full profile
         Passenger p = new Passenger();
         p.setUserId(u.getId());
         p.setFirstName(req.getFirstName());

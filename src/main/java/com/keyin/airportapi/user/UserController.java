@@ -57,7 +57,8 @@ public class UserController {
         resp.put("roles",       user.getRole());
         resp.put("userId",      user.getId());
         resp.put("passengerId", p.getId());
-        // include other passenger fields if you want:
+
+
         resp.put("firstName",   p.getFirstName());
         resp.put("lastName",    p.getLastName());
         resp.put("phoneNumber", p.getPhoneNumber());
