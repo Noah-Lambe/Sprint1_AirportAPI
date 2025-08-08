@@ -38,17 +38,19 @@ public class RegistrationService {
         u = userRepository.save(u);
 
         //Create & save Passenger with full profile
-        Passenger p = new Passenger();
-        p.setUserId(u.getId());
-        p.setFirstName(req.getFirstName());
-        p.setLastName(req.getLastName());
-        p.setPhoneNumber(req.getPhoneNumber());
-        if (req.getCityId() != null) {
-            City city = cityRepository.findById(req.getCityId())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid cityId"));
-            p.setCity(city);
+        if (!"ROLE_ADMIN".equals(u.getRole())) {
+            Passenger p = new Passenger();
+            p.setUserId(u.getId());
+            p.setFirstName(req.getFirstName());
+            p.setLastName(req.getLastName());
+            p.setPhoneNumber(req.getPhoneNumber());
+            if (req.getCityId() != null) {
+                City city = cityRepository.findById(req.getCityId())
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid cityId"));
+                p.setCity(city);
+            }
+            passengerRepository.save(p);
         }
-        passengerRepository.save(p);
 
         return u;
     }
