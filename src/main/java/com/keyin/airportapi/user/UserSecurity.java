@@ -35,8 +35,13 @@ public class UserSecurity {
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 
-                        //Public Flight data access
+                        //Public data access
                         .requestMatchers(HttpMethod.GET, "/flights/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/passengers").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/passengers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/city").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/city/**").permitAll()
+
 
                         //everything else requires auth
                         .anyRequest().authenticated()
