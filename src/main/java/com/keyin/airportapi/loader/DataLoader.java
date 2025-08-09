@@ -43,35 +43,64 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args)  throws Exception {
+    public void run(String... args) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        InputStream aircraftStream = getClass().getResourceAsStream("/aircraft.json");
-        List<Aircraft> aircraft = Arrays.asList(mapper.readValue(aircraftStream, Aircraft[].class));
-        aircraftRepository.saveAll(aircraft);
+        if (aircraftRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/aircraft.json");
+            if (stream != null) {
+                List<Aircraft> aircraft = Arrays.asList(mapper.readValue(stream, Aircraft[].class));
+                aircraftRepository.saveAll(aircraft);
+            }
+        }
 
-        InputStream airlineStream = getClass().getResourceAsStream("/airline.json");
-        List<Airline> airlines = Arrays.asList(mapper.readValue(airlineStream, Airline[].class));
-        airlineRepository.saveAll(airlines);
+        if (airlineRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/airline.json");
+            if (stream != null) {
+                List<Airline> airlines = Arrays.asList(mapper.readValue(stream, Airline[].class));
+                airlineRepository.saveAll(airlines);
+            }
+        }
 
-        InputStream airportStream = getClass().getResourceAsStream("/airport.json");
-        List<Airport> airports = Arrays.asList(mapper.readValue(airportStream, Airport[].class));
-        airportRepository.saveAll(airports);
+        if (airportRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/airport.json");
+            if (stream != null) {
+                List<Airport> airports = Arrays.asList(mapper.readValue(stream, Airport[].class));
+                airportRepository.saveAll(airports);
+            }
+        }
 
-        InputStream cityStream = getClass().getResourceAsStream("/city.json");
-        List<City> cities = Arrays.asList(mapper.readValue(cityStream, City[].class));
-        cityRepository.saveAll(cities);
+        if (cityRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/city.json");
+            if (stream != null) {
+                List<City> cities = Arrays.asList(mapper.readValue(stream, City[].class));
+                cityRepository.saveAll(cities);
+            }
+        }
 
-        InputStream flightStream = getClass().getResourceAsStream("/flight.json");
-        List<Flight> flights = Arrays.asList(mapper.readValue(flightStream, Flight[].class));
-        flightRepository.saveAll(flights);
+        if (flightRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/flight.json");
+            if (stream != null) {
+                List<Flight> flights = Arrays.asList(mapper.readValue(stream, Flight[].class));
+                flightRepository.saveAll(flights);
+            }
+        }
 
-        InputStream gateStream = getClass().getResourceAsStream("/gate.json");
-        List<Gate> gates = Arrays.asList(mapper.readValue(gateStream, Gate[].class));
-        gateRepository.saveAll(gates);
+        if (gateRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/gate.json");
+            if (stream != null) {
+                List<Gate> gates = Arrays.asList(mapper.readValue(stream, Gate[].class));
+                gateRepository.saveAll(gates);
+            }
+        }
 
-        InputStream passengerStream = getClass().getResourceAsStream("/passenger.json");
-        List<Passenger> passengers = Arrays.asList(mapper.readValue(passengerStream, Passenger[].class));
-        passengerRepository.saveAll(passengers);
+        if (passengerRepository.count() == 0) {
+            InputStream stream = getClass().getResourceAsStream("/passenger.json");
+            if (stream != null) {
+                List<Passenger> passengers = Arrays.asList(mapper.readValue(stream, Passenger[].class));
+                passengerRepository.saveAll(passengers);
+            }
+        }
     }
+
 }
