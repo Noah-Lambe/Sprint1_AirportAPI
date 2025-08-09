@@ -1,13 +1,14 @@
 package com.keyin.airportapi.flight;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface FlightRepository extends CrudRepository<Flight, Long> {
+public interface FlightRepository extends JpaRepository<Flight, Long>, JpaSpecificationExecutor<Flight> {
 
     List<Flight> findByAirline_AirlineId(Long airlineId);
     List<Flight> findByOriginAirport_AirportId(Long originAirportId);
@@ -19,6 +20,6 @@ public interface FlightRepository extends CrudRepository<Flight, Long> {
     List<Flight> findByDepartureTime(LocalDateTime departureTime);
     List<Flight> findByArrivalTime(LocalDateTime arrivalTime);
     List<Flight> findByDepartureTimeBetween(LocalDateTime start, LocalDateTime end);
-    List<Flight> findByPassengersId(Long passengerId);
+    List<Flight> findByPassengers_Id(Long passengerId);
 }
 

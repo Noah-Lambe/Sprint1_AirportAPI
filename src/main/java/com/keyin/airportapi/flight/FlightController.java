@@ -1,18 +1,20 @@
 package com.keyin.airportapi.flight;
 
 
-import com.keyin.airportapi.passenger.Passenger;
 import com.keyin.airportapi.passenger.PassengerRepository;
 import com.keyin.airportapi.passenger.PassengerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -52,7 +54,7 @@ public class FlightController {
 
     @GetMapping("/byPassenger/{passengerId}")
     public List<Flight> getFlightsByPassenger(@PathVariable Long passengerId) {
-        return flightRepository.findByPassengersId(passengerId);
+        return flightRepository.findByPassengers_Id(passengerId);
     }
 
     @GetMapping("/airline/{airlineId}")
@@ -200,4 +202,58 @@ public class FlightController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Flight>> searchFlights(
+            @RequestParam(required = false) Long originAirportId,
+            @RequestParam(required = false) Long destinationAirportId,
+            @RequestParam(required = false) Long airlineId,
+            @RequestParam(required = false) Long gateId,
+            @RequestParam(required = false) Long aircraftId,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String flightNumber,
+            @RequestParam(required = false) LocalDateTime departStart,
+            @RequestParam(required = false) LocalDateTime departEnd,
+            @RequestParam(required = false) LocalDateTime arriveStart,
+            @RequestParam(required = false) LocalDateTime arriveEnd,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "departureTime,asc") String sort
+    ) {
+        try {
+            String[] parts = sort.split(",");
+            String sortField = parts[0];
+            Sort.Direction dir = (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+            Specification<Flight> spec = Specification
+                    .where(FlightSpecifications.hasOriginAirportId(originAirportId))
+                    .and(FlightSpecifications.hasDestinationAirportId(destinationAirportId))
+                    .and(FlightSpecifications.hasAirlineId(airlineId))
+                    .and(FlightSpecifications.hasGateId(gateId))
+                    .and(FlightSpecifications.hasAircraftId(aircraftId))
+                    .and(FlightSpecifications.hasStatus(status))
+                    .and(FlightSpecifications.flightNumberLike(flightNumber))
+                    .and(FlightSpecifications.departsOnOrAfter(departStart))
+                    .and(FlightSpecifications.departsOnOrBefore(departEnd))
+                    .and(FlightSpecifications.arrivesOnOrAfter(arriveStart))
+                    .and(FlightSpecifications.arrivesOnOrBefore(arriveEnd));
+
+            Page<Flight> pageResult = flightRepository.findAll(
+                    spec, PageRequest.of(page, size, Sort.by(dir, sortField))
+            );
+            return ResponseEntity.ok(pageResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{flightId}/passengers/{passengerId}")
+    public ResponseEntity<Void> removePassengerFromFlight(
+            @PathVariable Long flightId,
+            @PathVariable Long passengerId
+    ) {
+        flightService.removePassengerFromFlight(flightId, passengerId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
