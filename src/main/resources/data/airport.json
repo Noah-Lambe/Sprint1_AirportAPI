@@ -1,0 +1,170 @@
+{
+    "airports": [
+        {
+            "airportId": 1,
+            "airportName": "Springfield International",
+            "areaCode": "SPI",
+            "city": {
+                "id": 1,
+                "name": "Springfield",
+                "state": "Illinois",
+                "population": 116250
+            }
+        },
+        {
+            "airportId": 2,
+            "airportName": "Vancouver Harbour",
+            "areaCode": "YVR",
+            "city": {
+                "id": 2,
+                "name": "Vancouver",
+                "state": "British Columbia",
+                "population": 662248
+            }
+        },
+        {
+            "airportId": 3,
+            "airportName": "Keflavík International",
+            "areaCode": "KEF",
+            "city": {
+                "id": 3,
+                "name": "Reykjavík",
+                "state": "Capital Region",
+                "population": 131136
+            }
+        },
+        {
+            "airportId": 4,
+            "airportName": "Wellington Airport",
+            "areaCode": "WLG",
+            "city": {
+                "id": 4,
+                "name": "Wellington",
+                "state": "Wellington",
+                "population": 212700
+            }
+        },
+        {},
+        {
+            "airportId": 5,
+            "airportName": "Salgado Filho",
+            "areaCode": "POA",
+            "city": {
+                "id": 5,
+                "name": "Porto Alegre",
+                "state": "Rio Grande do Sul",
+                "population": 1484941
+            }
+        },
+        {
+            "airportId": 6,
+            "airportName": "Austin-Bergstrom",
+            "areaCode": "AUS",
+            "city": {
+                "id": 6,
+                "name": "Austin",
+                "state": "Texas",
+                "population": 978908
+            }
+        },
+        {
+            "airportId": 7,
+            "airportName": "Munich Airport",
+            "areaCode": "MUC",
+            "city": {
+                "id": 7,
+                "name": "Munich",
+                "state": "Bavaria",
+                "population": 1471508
+            }
+        },
+        {
+            "airportId": 8,
+            "airportName": "Cape Town Intl",
+            "areaCode": "CPT",
+            "city": {
+                "id": 8,
+                "name": "Cape Town",
+                "state": "Western Cape",
+                "population": 433688
+            }
+        },
+        {
+            "airportId": 9,
+            "airportName": "Oslo Gardermoen",
+            "areaCode": "OSL",
+            "city": {
+                "id": 9,
+                "name": "Oslo",
+                "state": "Oslo",
+                "population": 681067
+            }
+        },
+        {
+            "airportId": 10,
+            "airportName": "Buenos Aires Ezeiza",
+            "areaCode": "EZE",
+            "city": {
+                "id": 10,
+                "name": "Buenos Aires",
+                "state": "Buenos Aires",
+                "population": 2890151
+            }
+        },
+        {
+            "airportId": 11,
+            "airportName": "Tokyo Haneda",
+            "areaCode": "HND",
+            "city": {
+                "id": 11,
+                "name": "Tokyo",
+                "state": "Tokyo Metropolis",
+                "population": 13929286
+            }
+        },
+        {
+            "airportId": 12,
+            "airportName": "Melbourne Airport",
+            "areaCode": "MEL",
+            "city": {
+                "id": 12,
+                "name": "Melbourne",
+                "state": "Victoria",
+                "population": 5078193
+            }
+        },
+        {
+            "airportId": 13,
+            "airportName": "Zurich Airport",
+            "areaCode": "ZRH",
+            "city": {
+                "id": 13,
+                "name": "Zurich",
+                "state": "Zurich",
+                "population": 434008
+            }
+        },
+        {
+            "airportId": 14,
+            "airportName": "Dubai Intl",
+            "areaCode": "DXB",
+            "city": {
+                "id": 14,
+                "name": "Dubai",
+                "state": "Dubai",
+                "population": 3314200
+            }
+        },
+        {
+            "airportId": 15,
+            "airportName": "Singapore Changi",
+            "areaCode": "SIN",
+            "city": {
+                "id": 15,
+                "name": "Singapore",
+                "state": "Singapore",
+                "population": 5638700
+            }
+        }
+    ]
+}

@@ -1,0 +1,154 @@
+{
+    "gates": [
+        {
+            "gateId": 1,
+            "gateName": "A1",
+            "terminal": "North",
+            "airport": {
+                "airportId": 1,
+                "airportName": "Springfield International",
+                "areaCode": "SPI"
+            }
+        },
+        {
+            "gateId": 2,
+            "gateName": "B12",
+            "terminal": "South",
+            "airport": {
+                "airportId": 2,
+                "airportName": "Vancouver Harbour",
+                "areaCode": "YVR"
+            }
+        },
+        {
+            "gateId": 3,
+            "gateName": "C3",
+            "terminal": "West",
+            "airport": {
+                "airportId": 3,
+                "airportName": "Keflavík International",
+                "areaCode": "KEF"
+            }
+        },
+        {
+            "gateId": 4,
+            "gateName": "D7",
+            "terminal": "East",
+            "airport": {
+                "airportId": 4,
+                "airportName": "Wellington Airport",
+                "areaCode": "WLG"
+            }
+        },
+        {
+            "gateId": 5,
+            "gateName": "E2",
+            "terminal": "Central",
+            "airport": {
+                "airportId": 5,
+                "airportName": "Salgado Filho",
+                "areaCode": "POA"
+            }
+        },
+        {
+            "gateId": 6,
+            "gateName": "F9",
+            "terminal": "North",
+            "airport": {
+                "airportId": 6,
+                "airportName": "Austin-Bergstrom",
+                "areaCode": "AUS"
+            }
+        },
+        {
+            "gateId": 7,
+            "gateName": "G4",
+            "terminal": "East",
+            "airport": {
+                "airportId": 7,
+                "airportName": "Munich Airport",
+                "areaCode": "MUC"
+            }
+        },
+        {
+            "gateId": 8,
+            "gateName": "H11",
+            "terminal": "South",
+            "airport": {
+                "airportId": 8,
+                "airportName": "Cape Town Intl",
+                "areaCode": "CPT"
+            }
+        },
+        {
+            "gateId": 9,
+            "gateName": "I6",
+            "terminal": "West",
+            "airport": {
+                "airportId": 9,
+                "airportName": "Oslo Gardermoen",
+                "areaCode": "OSL"
+            }
+        },
+        {
+            "gateId": 10,
+            "gateName": "J15",
+            "terminal": "Central",
+            "airport": {
+                "airportId": 10,
+                "airportName": "Buenos Aires Ezeiza",
+                "areaCode": "EZE"
+            }
+        },
+        {
+            "gateId": 11,
+            "gateName": "A5",
+            "terminal": "North",
+            "airport": {
+                "airportId": 1,
+                "airportName": "Springfield International",
+                "areaCode": "SPI"
+            }
+        },
+        {
+            "gateId": 12,
+            "gateName": "B6",
+            "terminal": "South",
+            "airport": {
+                "airportId": 2,
+                "airportName": "Vancouver Harbour",
+                "areaCode": "YVR"
+            }
+        },
+        {
+            "gateId": 13,
+            "gateName": "C9",
+            "terminal": "East",
+            "airport": {
+                "airportId": 3,
+                "airportName": "Keflavík International",
+                "areaCode": "KEF"
+            }
+        },
+        {
+            "gateId": 14,
+            "gateName": "D4",
+            "terminal": "West",
+            "airport": {
+                "airportId": 4,
+                "airportName": "Wellington Airport",
+                "areaCode": "WLG"
+            }
+        },
+        {
+            "gateId": 15,
+            "gateName": "E8",
+            "terminal": "Central",
+            "airport": {
+                "airportId": 5,
+                "airportName": "Salgado Filho",
+                "areaCode": "POA"
+            }
+        }
+    ]
+}

@@ -3,6 +3,7 @@ package com.keyin.airportapi.loader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.aircraft.Aircraft;
 import com.keyin.airportapi.aircraft.AircraftRepository;
+import com.keyin.airportapi.airline.Airline;
 import com.keyin.airportapi.airline.AirlineRepository;
 import com.keyin.airportapi.airport.AirportRepository;
 import com.keyin.airportapi.city.CityRepository;
@@ -20,13 +21,13 @@ import java.util.List;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired private final AircraftRepository aircraftRepository;
-    @Autowired private final AirlineRepository airlineRepository;
-    @Autowired private final AirportRepository airportRepository;
-    @Autowired private final CityRepository cityRepository;
-    @Autowired private final FlightRepository flightRepository;
-    @Autowired private final GateRepository gateRepository;
-    @Autowired private final PassengerRepository passengerRepository;
+    private final AircraftRepository aircraftRepository;
+    private final AirlineRepository airlineRepository;
+    private final AirportRepository airportRepository;
+    private final CityRepository cityRepository;
+    private final FlightRepository flightRepository;
+    private final GateRepository gateRepository;
+    private final PassengerRepository passengerRepository;
 
     public DataLoader(AircraftRepository aircraftRepository,
                       AirlineRepository airlineRepository,
@@ -52,7 +53,11 @@ public class DataLoader implements CommandLineRunner {
         List<Aircraft> aircrafts = Arrays.asList(mapper.readValue(aircraftStream, Aircraft[].class));
         aircraftRepository.saveAll(aircrafts);
 
-        InputStream airlineStream = getClass()
+        InputStream airlineStream = getClass().getResourceAsStream("/data.json");
+        List<Airline> airlines = Arrays.asList(mapper.readValue(airlineStream, Airline[].class));
+        airlineRepository.saveAll(airlines);
+
+
     }
 
 

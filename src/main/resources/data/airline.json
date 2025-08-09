@@ -1,0 +1,64 @@
+{
+    "airlines": [
+        {
+            "airlineId": 1,
+            "airlineName": "Global Wings"
+        },
+        {
+            "airlineId": 2,
+            "airlineName": "Northern Skies"
+        },
+        {
+            "airlineId": 3,
+            "airlineName": "TransContinental Airways"
+        },
+        {
+            "airlineId": 4,
+            "airlineName": "Island Hopper Airlines"
+        },
+        {
+            "airlineId": 5,
+            "airlineName": "SkyLink Express"
+        },
+        {
+            "airlineId": 6,
+            "airlineName": "Continental Air"
+        },
+        {
+            "airlineId": 7,
+            "airlineName": "Eagle Aviation"
+        },
+        {
+            "airlineId": 8,
+            "airlineName": "Pacific Jet"
+        },
+        {
+            "airlineId": 9,
+            "airlineName": "Desert Wings"
+        },
+        {
+            "airlineId": 10,
+            "airlineName": "Arctic Airlines"
+        },
+        {
+            "airlineId": 11,
+            "airlineName": "Metro Flights"
+        },
+        {
+            "airlineId": 12,
+            "airlineName": "Coastal Air"
+        },
+        {
+            "airlineId": 13,
+            "airlineName": "SkyHigh Airways"
+        },
+        {
+            "airlineId": 14,
+            "airlineName": "Cloud Nine Aviation"
+        },
+        {
+            "airlineId": 15,
+            "airlineName": "Summit Air"
+        }
+    ]
+}
