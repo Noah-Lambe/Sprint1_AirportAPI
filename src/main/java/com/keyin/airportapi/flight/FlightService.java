@@ -5,6 +5,7 @@ import com.keyin.airportapi.city.CityRepository;
 import com.keyin.airportapi.passenger.Passenger;
 import com.keyin.airportapi.passenger.PassengerRepository;
 import com.keyin.airportapi.passenger.PassengerRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,22 +103,19 @@ public class FlightService {
     }
 
     public Flight addPassengerToFlight(Long flightId, PassengerRequest request) {
-        // 1. Load the flight (throws if not found)
         Flight flight = getFlightById(flightId);
 
         Passenger pax;
         if (request.getPassengerId() != null) {
-            // 2a. Existing passenger: just fetch by ID
+            // fetch by ID
             pax = passengerRepository.findById(request.getPassengerId())
                     .orElseThrow(() -> new NoSuchElementException("Passenger not found"));
         } else {
-            // 2b. New passenger: build from DTO
             pax = new Passenger();
             pax.setFirstName(request.getFirstName());
             pax.setLastName(request.getLastName());
             pax.setPhoneNumber(request.getPhoneNumber());
 
-            // Only now do we need a city lookup
             City city = cityRepository.findById(request.getCityId())
                     .orElseThrow(() -> new NoSuchElementException("City not found"));
             pax.setCity(city);
@@ -126,20 +124,36 @@ public class FlightService {
             pax = passengerRepository.save(pax);
         }
 
-        // 3. Add to flight side (initialize list if needed)
         if (flight.getPassengers() == null) {
             flight.setPassengers(new ArrayList<>());
         }
         flight.getPassengers().add(pax);
 
-        // 4. Maintain the reverse side of the relationship, too
         if (pax.getFlights() == null) {
             pax.setFlights(new ArrayList<>());
         }
         pax.getFlights().add(flight);
 
-        // 5. Persist the updated flight
         return flightRepository.save(flight);
     }
+
+    @Transactional
+    public void removePassengerFromFlight(Long flightId, Long passengerId) {
+        Flight flight = flightRepository.findById(flightId)
+                .orElseThrow(() -> new RuntimeException("Flight not found"));
+        Passenger passenger = passengerRepository.findById(passengerId)
+                .orElseThrow(() -> new RuntimeException("Passenger not found"));
+
+        // remove association on both sides
+        if (flight.getPassengers() != null) {
+            flight.getPassengers().remove(passenger);
+        }
+        if (passenger.getFlights() != null) {
+            passenger.getFlights().remove(flight);
+        }
+
+        flightRepository.save(flight);
+    }
+
 
 }
