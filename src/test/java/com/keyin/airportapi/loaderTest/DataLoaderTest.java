@@ -66,7 +66,7 @@ public class DataLoaderTest {
         ) {
             @Override
             public InputStream getResourceAsStream(String path) {
-                if ("/aircraft.json".equals(path)) {
+                if ("/data/aircraft.json".equals(path)) {
                     return stream;
                 }
                 return null;
@@ -83,10 +83,18 @@ public class DataLoaderTest {
     public void testDoesNotLoadAircraftWhenNotEmpty() throws Exception {
         when(aircraftRepository.count()).thenReturn(5L);
 
+        when(airlineRepository.count()).thenReturn(1L);
+        when(airportRepository.count()).thenReturn(1L);
+        when(cityRepository.count()).thenReturn(1L);
+        when(flightRepository.count()).thenReturn(1L);
+        when(gateRepository.count()).thenReturn(1L);
+        when(passengerRepository.count()).thenReturn(1L);
+
         dataLoader.run();
 
         verify(aircraftRepository, never()).saveAll(anyList());
     }
+
 
     @Test
     public void testLoadAllWhenEmpty() throws Exception {
@@ -103,13 +111,13 @@ public class DataLoaderTest {
 
         DataLoader spyLoader = Mockito.spy(dataLoader);
         
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/aircraft.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/airline.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/airport.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/city.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/flight.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/gate.json");
-        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/passenger.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/aircraft.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/airline.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/airport.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/city.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/flight.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/gate.json");
+        doReturn(new ByteArrayInputStream(dummyJson.getBytes())).when(spyLoader).getResourceAsStream("/data/passenger.json");
 
         spyLoader.run();
 

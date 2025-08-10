@@ -51,53 +51,8 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
-        if (aircraftRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/aircraft.json");
-            if (stream == null) {
-                System.out.println("aircraft.json NOT found!");
-            } else {
-                System.out.println("Loading aircraft.json...");
-                List<Aircraft> aircraft = Arrays.asList(mapper.readValue(stream, Aircraft[].class));
-                aircraftRepository.saveAll(aircraft);
-                aircraftRepository.flush();
-                System.out.println("Saved " + aircraft.size() + " aircraft.");
-            }
-        } else {
-            System.out.println("Aircraft data already present, skipping load.");
-        }
-
-        if (airlineRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/airline.json");
-            if (stream == null) {
-                System.out.println("airline.json NOT found!");
-            } else {
-                System.out.println("Loading airline.json...");
-                List<Airline> airlines = Arrays.asList(mapper.readValue(stream, Airline[].class));
-                airlineRepository.saveAll(airlines);
-                airlineRepository.flush();
-                System.out.println("Saved " + airlines.size() + " airlines.");
-            }
-        } else {
-            System.out.println("Airline data already present, skipping load.");
-        }
-
-        if (airportRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/airport.json");
-            if (stream == null) {
-                System.out.println("airport.json NOT found!");
-            } else {
-                System.out.println("Loading airport.json...");
-                List<Airport> airports = Arrays.asList(mapper.readValue(stream, Airport[].class));
-                airportRepository.saveAll(airports);
-                airportRepository.flush();
-                System.out.println("Saved " + airports.size() + " airports.");
-            }
-        } else {
-            System.out.println("Airport data already present, skipping load.");
-        }
-
         if (cityRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/city.json");
+            InputStream stream = getResourceAsStream("/data/city.json");
             if (stream == null) {
                 System.out.println("city.json NOT found!");
             } else {
@@ -111,8 +66,53 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("City data already present, skipping load.");
         }
 
+        if (airportRepository.count() == 0) {
+            InputStream stream = getResourceAsStream("/data/airport.json");
+            if (stream == null) {
+                System.out.println("airport.json NOT found!");
+            } else {
+                System.out.println("Loading airport.json...");
+                List<Airport> airports = Arrays.asList(mapper.readValue(stream, Airport[].class));
+                airportRepository.saveAll(airports);
+                airportRepository.flush();
+                System.out.println("Saved " + airports.size() + " airports.");
+            }
+        } else {
+            System.out.println("Airport data already present, skipping load.");
+        }
+
+        if (airlineRepository.count() == 0) {
+            InputStream stream = getResourceAsStream("/data/airline.json");
+            if (stream == null) {
+                System.out.println("airline.json NOT found!");
+            } else {
+                System.out.println("Loading airline.json...");
+                List<Airline> airlines = Arrays.asList(mapper.readValue(stream, Airline[].class));
+                airlineRepository.saveAll(airlines);
+                airlineRepository.flush();
+                System.out.println("Saved " + airlines.size() + " airlines.");
+            }
+        } else {
+            System.out.println("Airline data already present, skipping load.");
+        }
+
+        if (aircraftRepository.count() == 0) {
+            InputStream stream = getResourceAsStream("/data/aircraft.json");
+            if (stream == null) {
+                System.out.println("aircraft.json NOT found!");
+            } else {
+                System.out.println("Loading aircraft.json...");
+                List<Aircraft> aircraft = Arrays.asList(mapper.readValue(stream, Aircraft[].class));
+                aircraftRepository.saveAll(aircraft);
+                aircraftRepository.flush();
+                System.out.println("Saved " + aircraft.size() + " aircraft.");
+            }
+        } else {
+            System.out.println("Aircraft data already present, skipping load.");
+        }
+
         if (flightRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/flight.json");
+            InputStream stream = getResourceAsStream("/data/flight.json");
             if (stream == null) {
                 System.out.println("flight.json NOT found!");
             } else {
@@ -127,7 +127,7 @@ public class DataLoader implements CommandLineRunner {
         }
 
         if (gateRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/gate.json");
+            InputStream stream = getResourceAsStream("/data/gate.json");
             if (stream == null) {
                 System.out.println("gate.json NOT found!");
             } else {
@@ -142,7 +142,7 @@ public class DataLoader implements CommandLineRunner {
         }
 
         if (passengerRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/passenger.json");
+            InputStream stream = getResourceAsStream("/data/passenger.json");
             if (stream == null) {
                 System.out.println("passenger.json NOT found!");
             } else {

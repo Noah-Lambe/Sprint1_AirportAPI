@@ -1,315 +1,309 @@
-{
-    "passengers": [
-        {
-            "firstName": "Alice",
-            "lastName": "Thompson",
-            "phoneNumber": "555-1234",
-            "city": {
-                "id": 1,
-                "name": "Springfield",
-                "state": "Illinois",
-                "population": 116250
-            },
-            "aircraft": [
-                {
-                    "aircraftId": 1,
-                    "type": "Boeing 737"
-                },
-                {
-                    "aircraftId": 5,
-                    "type": "Bombardier Q400"
-                },
-                {
-                    "aircraftId": 7,
-                    "type": "Airbus A350"
-                }
-            ]
+[
+    {
+        "firstName": "Alice",
+        "lastName": "Thompson",
+        "phoneNumber": "555-1234",
+        "city": {
+            "id": 1,
+            "name": "Springfield",
+            "state": "Illinois",
+            "population": 116250
         },
-        {
-            "firstName": "Brandon",
-            "lastName": "Lee",
-            "phoneNumber": "604-555-8989",
-            "city": {
-                "id": 2,
-                "name": "Vancouver",
-                "state": "British Columbia",
-                "population": 662248
+        "aircraft": [
+            {
+                "aircraftId": 1,
+                "type": "Boeing 737"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 2,
-                    "type": "Airbus A320"
-                },
-                {
-                    "aircraftId": 6,
-                    "type": "Boeing 787"
-                },
-                {
-                    "aircraftId": 2,
-                    "type": "Airbus A320"
-                }
-            ]
+            {
+                "aircraftId": 5,
+                "type": "Bombardier Q400"
+            },
+            {
+                "aircraftId": 7,
+                "type": "Airbus A350"
+            }
+        ]
+    },
+    {
+        "firstName": "Brandon",
+        "lastName": "Lee",
+        "phoneNumber": "604-555-8989",
+        "city": {
+            "id": 2,
+            "name": "Vancouver",
+            "state": "British Columbia",
+            "population": 662248
         },
-        {
-            "firstName": "Cecilia",
-            "lastName": "Ólafsdóttir",
-            "phoneNumber": "+354-555-0000",
-            "city": {
-                "id": 3,
-                "name": "Reykjavík",
-                "state": "Capital Region",
-                "population": 131136
+        "aircraft": [
+            {
+                "aircraftId": 2,
+                "type": "Airbus A320"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 3,
-                    "type": "Boeing 777"
-                }
-            ]
+            {
+                "aircraftId": 6,
+                "type": "Boeing 787"
+            }
+        ]
+    },
+    {
+        "firstName": "Cecilia",
+        "lastName": "Ólafsdóttir",
+        "phoneNumber": "+354-555-0000",
+        "city": {
+            "id": 3,
+            "name": "Reykjavík",
+            "state": "Capital Region",
+            "population": 131136
         },
-        {
-            "firstName": "David",
-            "lastName": "Ngata",
-            "phoneNumber": "04-555-4321",
-            "city": {
-                "id": 4,
-                "name": "Wellington",
-                "state": "Wellington",
-                "population": 212700
-            },
-            "aircraft": [
-                {
-                    "aircraftId": 4,
-                    "type": "Embraer E175"
-                }
-            ]
+        "aircraft": [
+            {
+                "aircraftId": 3,
+                "type": "Boeing 777"
+            }
+        ]
+    },
+    {
+        "firstName": "David",
+        "lastName": "Ngata",
+        "phoneNumber": "04-555-4321",
+        "city": {
+            "id": 4,
+            "name": "Wellington",
+            "state": "Wellington",
+            "population": 212700
         },
-        {
-            "firstName": "Elena",
-            "lastName": "Silva",
-            "phoneNumber": "+55-51-555-8080",
-            "city": {
-                "id": 5,
-                "name": "Porto Alegre",
-                "state": "Rio Grande do Sul",
-                "population": 1484941
-            },
-            "aircraft": [
-                {
-                    "aircraftId": 5,
-                    "type": "Bombardier Q400"
-                },
-                {
-                    "aircraftId": 1,
-                    "type": "Boeing 737"
-                }
-            ]
+        "aircraft": [
+            {
+                "aircraftId": 4,
+                "type": "Embraer E175"
+            }
+        ]
+    },
+    {
+        "firstName": "Elena",
+        "lastName": "Silva",
+        "phoneNumber": "+55-51-555-8080",
+        "city": {
+            "id": 5,
+            "name": "Porto Alegre",
+            "state": "Rio Grande do Sul",
+            "population": 1484941
         },
-        {
-            "firstName": "Frank",
-            "lastName": "Müller",
-            "phoneNumber": "+49-89-555-1234",
-            "city": {
-                "id": 6,
-                "name": "Munich",
-                "state": "Bavaria",
-                "population": 1471508
+        "aircraft": [
+            {
+                "aircraftId": 5,
+                "type": "Bombardier Q400"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 6,
-                    "type": "Boeing 787"
-                },
-                {
-                    "aircraftId": 7,
-                    "type": "Airbus A350"
-                }
-            ]
+            {
+                "aircraftId": 1,
+                "type": "Boeing 737"
+            }
+        ]
+    },
+    {
+        "firstName": "Frank",
+        "lastName": "Müller",
+        "phoneNumber": "+49-89-555-1234",
+        "city": {
+            "id": 6,
+            "name": "Munich",
+            "state": "Bavaria",
+            "population": 1471508
         },
-        {
-            "firstName": "Grace",
-            "lastName": "Tan",
-            "phoneNumber": "+65-555-3210",
-            "city": {
-                "id": 7,
-                "name": "Singapore",
-                "state": "Singapore",
-                "population": 5638700
+        "aircraft": [
+            {
+                "aircraftId": 6,
+                "type": "Boeing 787"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 6,
-                    "type": "Boeing 787"
-                },
-                {
-                    "aircraftId": 10,
-                    "type": "McDonnell Douglas MD-88"
-                }
-            ]
+            {
+                "aircraftId": 7,
+                "type": "Airbus A350"
+            }
+        ]
+    },
+    {
+        "firstName": "Grace",
+        "lastName": "Tan",
+        "phoneNumber": "+65-555-3210",
+        "city": {
+            "id": 7,
+            "name": "Singapore",
+            "state": "Singapore",
+            "population": 5638700
         },
-        {
-            "firstName": "Hassan",
-            "lastName": "Al-Farsi",
-            "phoneNumber": "+971-4-555-1212",
-            "city": {
-                "id": 8,
-                "name": "Dubai",
-                "state": "Dubai",
-                "population": 3314200
+        "aircraft": [
+            {
+                "aircraftId": 6,
+                "type": "Boeing 787"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 8,
-                    "type": "CRJ900"
-                },
-                {
-                    "aircraftId": 9,
-                    "type": "ATR 72"
-                }
-            ]
+            {
+                "aircraftId": 10,
+                "type": "McDonnell Douglas MD-88"
+            }
+        ]
+    },
+    {
+        "firstName": "Hassan",
+        "lastName": "Al-Farsi",
+        "phoneNumber": "+971-4-555-1212",
+        "city": {
+            "id": 8,
+            "name": "Dubai",
+            "state": "Dubai",
+            "population": 3314200
         },
-        {
-            "firstName": "Irene",
-            "lastName": "Nguyen",
-            "phoneNumber": "03-5555-6789",
-            "city": {
-                "id": 9,
-                "name": "Melbourne",
-                "state": "Victoria",
-                "population": 5078193
+        "aircraft": [
+            {
+                "aircraftId": 8,
+                "type": "CRJ900"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 8,
-                    "type": "CRJ900"
-                },
-                {
-                    "aircraftId": 3,
-                    "type": "Boeing 777"
-                },
-                {
-                    "aircraftId": 9,
-                    "type": "ATR 72"
-                },
-                {
-                    "aircraftId": 2,
-                    "type": "Airbus A320"
-                }
-            ]
+            {
+                "aircraftId": 9,
+                "type": "ATR 72"
+            }
+        ]
+    },
+    {
+        "firstName": "Irene",
+        "lastName": "Nguyen",
+        "phoneNumber": "03-5555-6789",
+        "city": {
+            "id": 9,
+            "name": "Melbourne",
+            "state": "Victoria",
+            "population": 5078193
         },
-        {
-            "firstName": "Jonas",
-            "lastName": "Berg",
-            "phoneNumber": "+47-555-9090",
-            "city": {
-                "id": 10,
-                "name": "Oslo",
-                "state": "Oslo",
-                "population": 681067
+        "aircraft": [
+            {
+                "aircraftId": 8,
+                "type": "CRJ900"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 9,
-                    "type": "ATR 72"
-                },
-                {
-                    "aircraftId": 5,
-                    "type": "Bombardier Q400"
-                }
-            ]
+            {
+                "aircraftId": 3,
+                "type": "Boeing 777"
+            },
+            {
+                "aircraftId": 9,
+                "type": "ATR 72"
+            },
+            {
+                "aircraftId": 2,
+                "type": "Airbus A320"
+            }
+        ]
+    },
+    {
+        "firstName": "Jonas",
+        "lastName": "Berg",
+        "phoneNumber": "+47-555-9090",
+        "city": {
+            "id": 10,
+            "name": "Oslo",
+            "state": "Oslo",
+            "population": 681067
         },
-        {
-            "firstName": "Khaled",
-            "lastName": "Hassan",
-            "phoneNumber": "+20-2-555-7878",
-            "city": {
-                "id": 8,
-                "name": "Cairo",
-                "state": "Cairo Governorate",
-                "population": 9900000
+        "aircraft": [
+            {
+                "aircraftId": 9,
+                "type": "ATR 72"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 12,
-                    "type": "Sukhoi Superjet 100"
-                }
-            ]
+            {
+                "aircraftId": 5,
+                "type": "Bombardier Q400"
+            }
+        ]
+    },
+    {
+        "firstName": "Khaled",
+        "lastName": "Hassan",
+        "phoneNumber": "+20-2-555-7878",
+        "city": {
+            "id": 8,
+            "name": "Cairo",
+            "state": "Cairo Governorate",
+            "population": 9900000
         },
-        {
-            "firstName": "Lucía",
-            "lastName": "Gómez",
-            "phoneNumber": "+34-91-555-0101",
-            "city": {
-                "id": 10,
-                "name": "Madrid",
-                "state": "Madrid",
-                "population": 3266000
-            },
-            "aircraft": [
-                {
-                    "aircraftId": 11,
-                    "type": "Comac C919"
-                },
-                {
-                    "aircraftId": 15,
-                    "type": "Tupolev Tu-204"
-                }
-            ]
+        "aircraft": [
+            {
+                "aircraftId": 12,
+                "type": "Sukhoi Superjet 100"
+            }
+        ]
+    },
+    {
+        "firstName": "Lucía",
+        "lastName": "Gómez",
+        "phoneNumber": "+34-91-555-0101",
+        "city": {
+            "id": 10,
+            "name": "Madrid",
+            "state": "Madrid",
+            "population": 3266000
         },
-        {
-            "firstName": "Noah",
-            "lastName": "Smith",
-            "phoneNumber": "555-7890",
-            "city": {
-                "id": 1,
-                "name": "Springfield",
-                "state": "Illinois",
-                "population": 116250
+        "aircraft": [
+            {
+                "aircraftId": 11,
+                "type": "Comac C919"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 13,
-                    "type": "Airbus A310"
-                }
-            ]
+            {
+                "aircraftId": 15,
+                "type": "Tupolev Tu-204"
+            }
+        ]
+    },
+    {
+        "firstName": "Noah",
+        "lastName": "Smith",
+        "phoneNumber": "555-7890",
+        "city": {
+            "id": 1,
+            "name": "Springfield",
+            "state": "Illinois",
+            "population": 116250
         },
-        {
-            "firstName": "Sakura",
-            "lastName": "Yamamoto",
-            "phoneNumber": "+81-3-5555-4567",
-            "city": {
-                "id": 11,
-                "name": "Tokyo",
-                "state": "Tokyo",
-                "population": 13929286
-            },
-            "aircraft": [
-                {
-                    "aircraftId": 14,
-                    "type": "Lockheed L-1011 TriStar"
-                }
-            ]
+        "aircraft": [
+            {
+                "aircraftId": 13,
+                "type": "Airbus A310"
+            }
+        ]
+    },
+    {
+        "firstName": "Sakura",
+        "lastName": "Yamamoto",
+        "phoneNumber": "+81-3-5555-4567",
+        "city": {
+            "id": 11,
+            "name": "Tokyo",
+            "state": "Tokyo",
+            "population": 13929286
         },
-        {
-            "firstName": "Mikhail",
-            "lastName": "Ivanov",
-            "phoneNumber": "+7-495-555-9090",
-            "city": {
-                "id": 13,
-                "name": "Moscow",
-                "state": "Moscow",
-                "population": 11920000
+        "aircraft": [
+            {
+                "aircraftId": 14,
+                "type": "Lockheed L-1011 TriStar"
+            }
+        ]
+    },
+    {
+        "firstName": "Mikhail",
+        "lastName": "Ivanov",
+        "phoneNumber": "+7-495-555-9090",
+        "city": {
+            "id": 13,
+            "name": "Moscow",
+            "state": "Moscow",
+            "population": 11920000
+        },
+        "aircraft": [
+            {
+                "aircraftId": 15,
+                "type": "Tupolev Tu-204"
             },
-            "aircraft": [
-                {
-                    "aircraftId": 15,
-                    "type": "Tupolev Tu-204"
-                },
-                {
-                    "aircraftId": 13,
-                    "type": "Airbus A310"
-                }
-            ]
-        }
-    ]
-}
+            {
+                "aircraftId": 13,
+                "type": "Airbus A310"
+            }
+        ]
+    }
+]
