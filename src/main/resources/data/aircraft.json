@@ -1,0 +1,230 @@
+[
+    {
+        "type": "Boeing 737",
+        "numberOfPassengers": 160,
+        "airline": {
+            "airlineId": 1
+        },
+        "airports": [
+            {
+                "airportId": 1
+            },
+            {
+                "airportId": 2
+            }
+        ]
+    },
+    {
+        "type": "Airbus A320",
+        "numberOfPassengers": 150,
+        "airline": {
+            "airlineId": 2
+        },
+        "airports": [
+            {
+                "airportId": 2
+            },
+            {
+                "airportId": 3
+            }
+        ]
+    },
+    {
+        "type": "Boeing 777",
+        "numberOfPassengers": 300,
+        "airline": {
+            "airlineId": 3
+        },
+        "airports": [
+            {
+                "airportId": 3
+            },
+            {
+                "airportId": 4
+            }
+        ]
+    },
+    {
+        "type": "Embraer E175",
+        "numberOfPassengers": 88,
+        "airline": {
+            "airlineId": 4
+        },
+        "airports": [
+            {
+                "airportId": 4
+            },
+            {
+                "airportId": 5
+            }
+        ]
+    },
+    {
+        "type": "Bombardier Q400",
+        "numberOfPassengers": 78,
+        "airline": {
+            "airlineId": 5
+        },
+        "airports": [
+            {
+                "airportId": 3
+            },
+            {
+                "airportId": 4
+            },
+            {
+                "airportId": 5
+            }
+        ]
+    },
+    {
+        "type": "Boeing 787",
+        "numberOfPassengers": 242,
+        "airline": {
+            "airlineId": 6
+        },
+        "airports": [
+            {
+                "airportId": 6
+            },
+            {
+                "airportId": 7
+            }
+        ]
+    },
+    {
+        "type": "Airbus A350",
+        "numberOfPassengers": 300,
+        "airline": {
+            "airlineId": 7
+        },
+        "airports": [
+            {
+                "airportId": 7
+            },
+            {
+                "airportId": 8
+            }
+        ]
+    },
+    {
+        "type": "CRJ900",
+        "numberOfPassengers": 90,
+        "airline": {
+            "airlineId": 8
+        },
+        "airports": [
+            {
+                "airportId": 8
+            },
+            {
+                "airportId": 9
+            }
+        ]
+    },
+    {
+        "type": "ATR 72",
+        "numberOfPassengers": 70,
+        "airline": {
+            "airlineId": 9
+        },
+        "airports": [
+            {
+                "airportId": 9
+            },
+            {
+                "airportId": 10
+            }
+        ]
+    },
+    {
+        "type": "McDonnell Douglas MD-88",
+        "numberOfPassengers": 155,
+        "airline": {
+            "airlineId": 10
+        },
+        "airports": [
+            {
+                "airportId": 10
+            },
+            {
+                "airportId": 1
+            }
+        ]
+    },
+    {
+        "type": "Comac C919",
+        "numberOfPassengers": 168,
+        "airline": {
+            "airlineId": 1
+        },
+        "airports": [
+            {
+                "airportId": 6
+            },
+            {
+                "airportId": 9
+            }
+        ]
+    },
+    {
+        "type": "Sukhoi Superjet 100",
+        "numberOfPassengers": 108,
+        "airline": {
+            "airlineId": 3
+        },
+        "airports": [
+            {
+                "airportId": 4
+            },
+            {
+                "airportId": 7
+            }
+        ]
+    },
+    {
+        "type": "Airbus A310",
+        "numberOfPassengers": 280,
+        "airline": {
+            "airlineId": 6
+        },
+        "airports": [
+            {
+                "airportId": 7
+            },
+            {
+                "airportId": 10
+            }
+        ]
+    },
+    {
+        "type": "Lockheed L-1011 TriStar",
+        "numberOfPassengers": 256,
+        "airline": {
+            "airlineId": 9
+        },
+        "airports": [
+            {
+                "airportId": 10
+            },
+            {
+                "airportId": 5
+            }
+        ]
+    },
+    {
+        "type": "Tupolev Tu-204",
+        "numberOfPassengers": 210,
+        "airline": {
+            "airlineId": 10
+        },
+        "airports": [
+            {
+                "airportId": 3
+            },
+            {
+                "airportId": 6
+            }
+        ]
+    }
+]
