@@ -18,6 +18,7 @@ import java.util.List;
 @Component
 public class DataLoader implements CommandLineRunner {
 
+    private final ObjectMapper mapper;
     private final AircraftRepository aircraftRepository;
     private final AirlineRepository airlineRepository;
     private final AirportRepository airportRepository;
@@ -26,13 +27,15 @@ public class DataLoader implements CommandLineRunner {
     private final GateRepository gateRepository;
     private final PassengerRepository passengerRepository;
 
-    public DataLoader(AircraftRepository aircraftRepository,
+    public DataLoader(ObjectMapper mapper,
+                      AircraftRepository aircraftRepository,
                       AirlineRepository airlineRepository,
                       AirportRepository airportRepository,
                       CityRepository cityRepository,
                       FlightRepository flightRepository,
                       GateRepository gateRepository,
                       PassengerRepository passengerRepository) {
+        this.mapper = mapper;
         this.aircraftRepository = aircraftRepository;
         this.airlineRepository = airlineRepository;
         this.airportRepository = airportRepository;
@@ -49,7 +52,6 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
 
         if (cityRepository.count() == 0) {
             InputStream stream = getResourceAsStream("/data/city.json");
@@ -111,21 +113,6 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("Aircraft data already present, skipping load.");
         }
 
-        if (flightRepository.count() == 0) {
-            InputStream stream = getResourceAsStream("/data/flight.json");
-            if (stream == null) {
-                System.out.println("flight.json NOT found!");
-            } else {
-                System.out.println("Loading flight.json...");
-                List<Flight> flights = Arrays.asList(mapper.readValue(stream, Flight[].class));
-                flightRepository.saveAll(flights);
-                flightRepository.flush();
-                System.out.println("Saved " + flights.size() + " flights.");
-            }
-        } else {
-            System.out.println("Flight data already present, skipping load.");
-        }
-
         if (gateRepository.count() == 0) {
             InputStream stream = getResourceAsStream("/data/gate.json");
             if (stream == null) {
@@ -155,5 +142,21 @@ public class DataLoader implements CommandLineRunner {
         } else {
             System.out.println("Passenger data already present, skipping load.");
         }
+
+        if (flightRepository.count() == 0) {
+            InputStream stream = getResourceAsStream("/data/flight.json");
+            if (stream == null) {
+                System.out.println("flight.json NOT found!");
+            } else {
+                System.out.println("Loading flight.json...");
+                List<Flight> flights = Arrays.asList(mapper.readValue(stream, Flight[].class));
+                flightRepository.saveAll(flights);
+                flightRepository.flush();
+                System.out.println("Saved " + flights.size() + " flights.");
+            }
+        } else {
+            System.out.println("Flight data already present, skipping load.");
+        }
+
     }
 }

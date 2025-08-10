@@ -603,46 +603,5 @@
         "lastName": "Nguyen"
       }
     ]
-  },
-  {
-    "flightNumber": "EA415",
-    "status": "On Time",
-    "departureTime": "2025-09-03T09:30",
-    "arrivalTime": "2025-09-03T13:15",
-    "originAirport": {
-      "airportId": 4,
-      "airportName": "Toronto Pearson International",
-      "areaCode": "YYZ"
-    },
-    "destinationAirport": {
-      "airportId": 5,
-      "airportName": "London Heathrow",
-      "areaCode": "LHR"
-    },
-    "aircraft": {
-      "aircraftId": 4,
-      "type": "Embraer E175"
-    },
-    "gate": {
-      "gateId": 4,
-      "gateName": "C3",
-      "terminal": "East"
-    },
-    "airline": {
-      "airlineId": 4,
-      "airlineName": "Eastern Air"
-    },
-    "passengers": [
-      {
-        "id": 5,
-        "firstName": "Sophia",
-        "lastName": "Brown"
-      },
-      {
-        "id": 6,
-        "firstName": "Liam",
-        "lastName": "Nguyen"
-      }
-    ]
   }
 ]

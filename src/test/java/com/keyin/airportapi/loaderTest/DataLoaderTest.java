@@ -1,5 +1,6 @@
 package com.keyin.airportapi.loaderTest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keyin.airportapi.aircraft.AircraftRepository;
 import com.keyin.airportapi.airline.AirlineRepository;
 import com.keyin.airportapi.airport.AirportRepository;
@@ -24,6 +25,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class DataLoaderTest {
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     private AircraftRepository aircraftRepository = Mockito.mock(AircraftRepository.class);
     private AirlineRepository airlineRepository = Mockito.mock(AirlineRepository.class);
     private AirportRepository airportRepository = Mockito.mock(AirportRepository.class);
@@ -37,6 +40,7 @@ public class DataLoaderTest {
     @BeforeEach
     public void setUp() {
         dataLoader = new DataLoader(
+                mapper,
                 aircraftRepository,
                 airlineRepository,
                 airportRepository,
@@ -56,6 +60,7 @@ public class DataLoaderTest {
 
         // Subclass with overridden stream loader
         DataLoader testLoader = new DataLoader(
+                mapper,
                 aircraftRepository,
                 airlineRepository,
                 airportRepository,
