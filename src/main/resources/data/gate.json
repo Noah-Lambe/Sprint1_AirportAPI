@@ -1,7 +1,6 @@
 {
     "gates": [
         {
-            "gateId": 1,
             "gateName": "A1",
             "terminal": "North",
             "airport": {
@@ -11,7 +10,6 @@
             }
         },
         {
-            "gateId": 2,
             "gateName": "B12",
             "terminal": "South",
             "airport": {
@@ -21,7 +19,6 @@
             }
         },
         {
-            "gateId": 3,
             "gateName": "C3",
             "terminal": "West",
             "airport": {
@@ -31,7 +28,6 @@
             }
         },
         {
-            "gateId": 4,
             "gateName": "D7",
             "terminal": "East",
             "airport": {
@@ -41,7 +37,6 @@
             }
         },
         {
-            "gateId": 5,
             "gateName": "E2",
             "terminal": "Central",
             "airport": {
@@ -51,7 +46,6 @@
             }
         },
         {
-            "gateId": 6,
             "gateName": "F9",
             "terminal": "North",
             "airport": {
@@ -61,7 +55,6 @@
             }
         },
         {
-            "gateId": 7,
             "gateName": "G4",
             "terminal": "East",
             "airport": {
@@ -71,7 +64,6 @@
             }
         },
         {
-            "gateId": 8,
             "gateName": "H11",
             "terminal": "South",
             "airport": {
@@ -81,7 +73,6 @@
             }
         },
         {
-            "gateId": 9,
             "gateName": "I6",
             "terminal": "West",
             "airport": {
@@ -91,7 +82,6 @@
             }
         },
         {
-            "gateId": 10,
             "gateName": "J15",
             "terminal": "Central",
             "airport": {
@@ -101,7 +91,6 @@
             }
         },
         {
-            "gateId": 11,
             "gateName": "A5",
             "terminal": "North",
             "airport": {
@@ -111,7 +100,6 @@
             }
         },
         {
-            "gateId": 12,
             "gateName": "B6",
             "terminal": "South",
             "airport": {
@@ -121,7 +109,6 @@
             }
         },
         {
-            "gateId": 13,
             "gateName": "C9",
             "terminal": "East",
             "airport": {
@@ -131,7 +118,6 @@
             }
         },
         {
-            "gateId": 14,
             "gateName": "D4",
             "terminal": "West",
             "airport": {
@@ -141,7 +127,6 @@
             }
         },
         {
-            "gateId": 15,
             "gateName": "E8",
             "terminal": "Central",
             "airport": {

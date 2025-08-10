@@ -1,7 +1,6 @@
 {
     "airports": [
         {
-            "airportId": 1,
             "airportName": "Springfield International",
             "areaCode": "SPI",
             "city": {
@@ -12,7 +11,6 @@
             }
         },
         {
-            "airportId": 2,
             "airportName": "Vancouver Harbour",
             "areaCode": "YVR",
             "city": {
@@ -23,7 +21,6 @@
             }
         },
         {
-            "airportId": 3,
             "airportName": "Keflavík International",
             "areaCode": "KEF",
             "city": {
@@ -34,7 +31,6 @@
             }
         },
         {
-            "airportId": 4,
             "airportName": "Wellington Airport",
             "areaCode": "WLG",
             "city": {
@@ -44,9 +40,7 @@
                 "population": 212700
             }
         },
-        {},
         {
-            "airportId": 5,
             "airportName": "Salgado Filho",
             "areaCode": "POA",
             "city": {
@@ -57,7 +51,6 @@
             }
         },
         {
-            "airportId": 6,
             "airportName": "Austin-Bergstrom",
             "areaCode": "AUS",
             "city": {
@@ -68,7 +61,6 @@
             }
         },
         {
-            "airportId": 7,
             "airportName": "Munich Airport",
             "areaCode": "MUC",
             "city": {
@@ -79,7 +71,6 @@
             }
         },
         {
-            "airportId": 8,
             "airportName": "Cape Town Intl",
             "areaCode": "CPT",
             "city": {
@@ -90,7 +81,6 @@
             }
         },
         {
-            "airportId": 9,
             "airportName": "Oslo Gardermoen",
             "areaCode": "OSL",
             "city": {
@@ -101,7 +91,6 @@
             }
         },
         {
-            "airportId": 10,
             "airportName": "Buenos Aires Ezeiza",
             "areaCode": "EZE",
             "city": {
@@ -112,7 +101,6 @@
             }
         },
         {
-            "airportId": 11,
             "airportName": "Tokyo Haneda",
             "areaCode": "HND",
             "city": {
@@ -123,7 +111,6 @@
             }
         },
         {
-            "airportId": 12,
             "airportName": "Melbourne Airport",
             "areaCode": "MEL",
             "city": {
@@ -134,7 +121,6 @@
             }
         },
         {
-            "airportId": 13,
             "airportName": "Zurich Airport",
             "areaCode": "ZRH",
             "city": {
@@ -145,7 +131,6 @@
             }
         },
         {
-            "airportId": 14,
             "airportName": "Dubai Intl",
             "areaCode": "DXB",
             "city": {
@@ -156,7 +141,6 @@
             }
         },
         {
-            "airportId": 15,
             "airportName": "Singapore Changi",
             "areaCode": "SIN",
             "city": {

@@ -1,91 +1,76 @@
 {
     "cities": [
         {
-            "id": 1,
             "name": "Springfield",
             "state": "Illinois",
             "population": 116250
         },
         {
-            "id": 2,
             "name": "Vancouver",
             "state": "British Columbia",
             "population": 662248
         },
         {
-            "id": 3,
             "name": "Reykjavík",
             "state": "Capital Region",
             "population": 131136
         },
         {
-            "id": 4,
             "name": "Wellington",
             "state": "Wellington",
             "population": 212700
         },
         {
-            "id": 5,
             "name": "Porto Alegre",
             "state": "Rio Grande do Sul",
             "population": 1484941
         },
         {
-            "id": 6,
             "name": "Austin",
             "state": "Texas",
             "population": 978908
         },
         {
-            "id": 7,
             "name": "Munich",
             "state": "Bavaria",
             "population": 1471508
         },
         {
-            "id": 8,
             "name": "Cape Town",
             "state": "Western Cape",
             "population": 433688
         },
         {
-            "id": 9,
             "name": "Oslo",
             "state": "Oslo",
             "population": 681067
         },
         {
-            "id": 10,
             "name": "Buenos Aires",
             "state": "Buenos Aires",
             "population": 2890151
         },
         {
-            "id": 11,
             "name": "Tokyo",
             "state": "Tokyo Metropolis",
             "population": 13929286
         },
         {
-            "id": 12,
             "name": "Melbourne",
             "state": "Victoria",
             "population": 5078193
         },
         {
-            "id": 13,
             "name": "Zurich",
             "state": "Zurich",
             "population": 434008
         },
         {
-            "id": 14,
             "name": "Dubai",
             "state": "Dubai",
             "population": 3314200
         },
         {
-            "id": 15,
             "name": "Singapore",
             "state": "Singapore",
             "population": 5638700
