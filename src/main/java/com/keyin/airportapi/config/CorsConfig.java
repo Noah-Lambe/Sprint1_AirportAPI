@@ -14,21 +14,27 @@ import java.util.List;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
-    //MVC-level CORS for controllers (including @CrossOrigin)
+    // MVC-level CORS for controllers (including @CrossOrigin)
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
-                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS") // <- could switch to "*" but currently working so leaving it
+                .allowedOrigins(
+                        "http://localhost:5173",
+                        "http://airport-frontend.s3-website-us-east-1.amazonaws.com"
+                )
+                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
 
-    //Security-level CORS for Spring Security’s cors() filter
+    // Security-level CORS for Spring Security’s cors() filter
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(List.of("http://localhost:5173"));
+        cfg.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://airport-frontend.s3-website-us-east-1.amazonaws.com"
+        ));
         cfg.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setAllowCredentials(true);
