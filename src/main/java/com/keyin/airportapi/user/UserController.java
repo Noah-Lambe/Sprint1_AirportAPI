@@ -39,31 +39,43 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Map<String,Object> login(@RequestBody Map<String,String> creds) {
+    public Map<String, Object> login(@RequestBody Map<String, String> creds) {
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.get("username"), creds.get("password")));
+                        creds.get("username"), creds.get("password"))
+        );
 
         User user = userRepository.findByUsername(auth.getName())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR, "User not found"));
 
-        Passenger p = passengerRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.INTERNAL_SERVER_ERROR, "Passenger missing"));
+        String role = user.getRole(); // e.g., "USER" or "ADMIN" (or already "ROLE_USER")
+        boolean isUser  = "USER".equalsIgnoreCase(role)  || "ROLE_USER".equalsIgnoreCase(role);
+        boolean isAdmin = "ADMIN".equalsIgnoreCase(role) || "ROLE_ADMIN".equalsIgnoreCase(role);
 
-        Map<String,Object> resp = new HashMap<>();
+        Passenger p = null;
+        if (isUser) {
+            // For regular users we keep your original requirement:
+            // if they should be able to log in without a passenger, change to .orElse(null)
+            p = passengerRepository.findByUserId(user.getId())
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Passenger missing"));
+        }
+
+        Map<String, Object> resp = new HashMap<>();
         resp.put("username",    user.getUsername());
-        resp.put("roles",       user.getRole());
+        resp.put("roles",       role);           // keep your original shape (string)
         resp.put("userId",      user.getId());
-        resp.put("passengerId", p.getId());
+        resp.put("passengerId", p != null ? p.getId() : null);  // <-- always present
 
-
-        resp.put("firstName",   p.getFirstName());
-        resp.put("lastName",    p.getLastName());
-        resp.put("phoneNumber", p.getPhoneNumber());
-        resp.put("cityId",      p.getCity() != null ? p.getCity().getId() : null);
+        if (p != null) {
+            resp.put("firstName",   p.getFirstName());
+            resp.put("lastName",    p.getLastName());
+            resp.put("phoneNumber", p.getPhoneNumber());
+            resp.put("cityId",      p.getCity() != null ? p.getCity().getId() : null);
+        }
         return resp;
     }
+
 
 }
