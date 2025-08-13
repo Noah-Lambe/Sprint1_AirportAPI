@@ -1,0 +1,77 @@
+[
+    {
+        "name": "Springfield",
+        "state": "Illinois",
+        "population": 116250
+    },
+    {
+        "name": "Vancouver",
+        "state": "British Columbia",
+        "population": 662248
+    },
+    {
+        "name": "Reykjavík",
+        "state": "Capital Region",
+        "population": 131136
+    },
+    {
+        "name": "Wellington",
+        "state": "Wellington",
+        "population": 212700
+    },
+    {
+        "name": "Porto Alegre",
+        "state": "Rio Grande do Sul",
+        "population": 1484941
+    },
+    {
+        "name": "Austin",
+        "state": "Texas",
+        "population": 978908
+    },
+    {
+        "name": "Munich",
+        "state": "Bavaria",
+        "population": 1471508
+    },
+    {
+        "name": "Cape Town",
+        "state": "Western Cape",
+        "population": 433688
+    },
+    {
+        "name": "Oslo",
+        "state": "Oslo",
+        "population": 681067
+    },
+    {
+        "name": "Buenos Aires",
+        "state": "Buenos Aires",
+        "population": 2890151
+    },
+    {
+        "name": "Tokyo",
+        "state": "Tokyo Metropolis",
+        "population": 13929286
+    },
+    {
+        "name": "Melbourne",
+        "state": "Victoria",
+        "population": 5078193
+    },
+    {
+        "name": "Zurich",
+        "state": "Zurich",
+        "population": 434008
+    },
+    {
+        "name": "Dubai",
+        "state": "Dubai",
+        "population": 3314200
+    },
+    {
+        "name": "Singapore",
+        "state": "Singapore",
+        "population": 5638700
+    }
+]

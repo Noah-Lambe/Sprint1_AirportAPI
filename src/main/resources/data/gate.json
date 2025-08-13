@@ -1,0 +1,137 @@
+[
+    {
+        "gateName": "A1",
+        "terminal": "North",
+        "airport": {
+            "airportId": 1,
+            "airportName": "Springfield International",
+            "areaCode": "SPI"
+        }
+    },
+    {
+        "gateName": "B12",
+        "terminal": "South",
+        "airport": {
+            "airportId": 2,
+            "airportName": "Vancouver Harbour",
+            "areaCode": "YVR"
+        }
+    },
+    {
+        "gateName": "C3",
+        "terminal": "West",
+        "airport": {
+            "airportId": 3,
+            "airportName": "Keflavík International",
+            "areaCode": "KEF"
+        }
+    },
+    {
+        "gateName": "D7",
+        "terminal": "East",
+        "airport": {
+            "airportId": 4,
+            "airportName": "Wellington Airport",
+            "areaCode": "WLG"
+        }
+    },
+    {
+        "gateName": "E2",
+        "terminal": "Central",
+        "airport": {
+            "airportId": 5,
+            "airportName": "Salgado Filho",
+            "areaCode": "POA"
+        }
+    },
+    {
+        "gateName": "F9",
+        "terminal": "North",
+        "airport": {
+            "airportId": 6,
+            "airportName": "Austin-Bergstrom",
+            "areaCode": "AUS"
+        }
+    },
+    {
+        "gateName": "G4",
+        "terminal": "East",
+        "airport": {
+            "airportId": 7,
+            "airportName": "Munich Airport",
+            "areaCode": "MUC"
+        }
+    },
+    {
+        "gateName": "H11",
+        "terminal": "South",
+        "airport": {
+            "airportId": 8,
+            "airportName": "Cape Town Intl",
+            "areaCode": "CPT"
+        }
+    },
+    {
+        "gateName": "I6",
+        "terminal": "West",
+        "airport": {
+            "airportId": 9,
+            "airportName": "Oslo Gardermoen",
+            "areaCode": "OSL"
+        }
+    },
+    {
+        "gateName": "J15",
+        "terminal": "Central",
+        "airport": {
+            "airportId": 10,
+            "airportName": "Buenos Aires Ezeiza",
+            "areaCode": "EZE"
+        }
+    },
+    {
+        "gateName": "A5",
+        "terminal": "North",
+        "airport": {
+            "airportId": 1,
+            "airportName": "Springfield International",
+            "areaCode": "SPI"
+        }
+    },
+    {
+        "gateName": "B6",
+        "terminal": "South",
+        "airport": {
+            "airportId": 2,
+            "airportName": "Vancouver Harbour",
+            "areaCode": "YVR"
+        }
+    },
+    {
+        "gateName": "C9",
+        "terminal": "East",
+        "airport": {
+            "airportId": 3,
+            "airportName": "Keflavík International",
+            "areaCode": "KEF"
+        }
+    },
+    {
+        "gateName": "D4",
+        "terminal": "West",
+        "airport": {
+            "airportId": 4,
+            "airportName": "Wellington Airport",
+            "areaCode": "WLG"
+        }
+    },
+    {
+        "gateName": "E8",
+        "terminal": "Central",
+        "airport": {
+            "airportId": 5,
+            "airportName": "Salgado Filho",
+            "areaCode": "POA"
+        }
+    }
+]

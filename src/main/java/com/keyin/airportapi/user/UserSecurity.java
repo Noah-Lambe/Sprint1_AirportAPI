@@ -37,10 +37,20 @@ public class UserSecurity {
 
                         //Public data access
                         .requestMatchers(HttpMethod.GET, "/flights/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/flights").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/flights/search").permitAll()
                         .requestMatchers(HttpMethod.GET, "/passengers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/passengers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/city").permitAll()
                         .requestMatchers(HttpMethod.GET, "/city/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/airport").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/airport/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/aircraft").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/aircraft/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/airlines").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/airlines/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/gates/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/gates").permitAll()
 
 
                         //everything else requires auth

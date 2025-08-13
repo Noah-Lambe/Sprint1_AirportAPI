@@ -1,0 +1,607 @@
+[
+  {
+    "flightNumber": "GW101",
+    "status": "Scheduled",
+    "departureTime": "2025-09-01T08:00",
+    "arrivalTime": "2025-09-01T12:30",
+    "originAirport": {
+      "airportId": 1,
+      "airportName": "Springfield International",
+      "areaCode": "SPI"
+    },
+    "destinationAirport": {
+      "airportId": 2,
+      "airportName": "Vancouver Harbour",
+      "areaCode": "YVR"
+    },
+    "aircraft": {
+      "aircraftId": 1,
+      "type": "Boeing 737"
+    },
+    "gate": {
+      "gateId": 1,
+      "gateName": "A1",
+      "terminal": "North"
+    },
+    "airline": {
+      "airlineId": 1,
+      "airlineName": "Global Wings"
+    },
+    "passengers": [
+      {
+        "id": 1,
+        "firstName": "Alice",
+        "lastName": "Thompson"
+      },
+      {
+        "id": 2,
+        "firstName": "Brandon",
+        "lastName": "Lee"
+      }
+    ]
+  },
+  {
+    "flightNumber": "NS202",
+    "status": "Delayed",
+    "departureTime": "2025-09-02T14:15",
+    "arrivalTime": "2025-09-02T18:45",
+    "originAirport": {
+      "airportId": 2,
+      "airportName": "Vancouver Harbour",
+      "areaCode": "YVR"
+    },
+    "destinationAirport": {
+      "airportId": 3,
+      "airportName": "Keflavík International",
+      "areaCode": "KEF"
+    },
+    "aircraft": {
+      "aircraftId": 2,
+      "type": "Airbus A320"
+    },
+    "gate": {
+      "gateId": 2,
+      "gateName": "B12",
+      "terminal": "South"
+    },
+    "airline": {
+      "airlineId": 2,
+      "airlineName": "Northern Skies"
+    },
+    "passengers": [
+      {
+        "id": 2,
+        "firstName": "Brandon",
+        "lastName": "Lee"
+      },
+      {
+        "id": 3,
+        "firstName": "Cecilia",
+        "lastName": "Ólafsdóttir"
+      }
+    ]
+  },
+  {
+    "flightNumber": "TC303",
+    "status": "Cancelled",
+    "departureTime": "2025-09-03T06:00",
+    "arrivalTime": "2025-09-03T10:00",
+    "originAirport": {
+      "airportId": 3,
+      "airportName": "Keflavík International",
+      "areaCode": "KEF"
+    },
+    "destinationAirport": {
+      "airportId": 4,
+      "airportName": "Wellington Airport",
+      "areaCode": "WLG"
+    },
+    "aircraft": {
+      "aircraftId": 3,
+      "type": "Boeing 777"
+    },
+    "gate": {
+      "gateId": 3,
+      "gateName": "C3",
+      "terminal": "West"
+    },
+    "airline": {
+      "airlineId": 3,
+      "airlineName": "TransContinental Airways"
+    },
+    "passengers": [
+      {
+        "id": 3,
+        "firstName": "Cecilia",
+        "lastName": "Ólafsdóttir"
+      },
+      {
+        "id": 4,
+        "firstName": "David",
+        "lastName": "Ngata"
+      }
+    ]
+  },
+  {
+    "flightNumber": "IH404",
+    "status": "Boarding",
+    "departureTime": "2025-09-04T12:30",
+    "arrivalTime": "2025-09-04T16:45",
+    "originAirport": {
+      "airportId": 4,
+      "airportName": "Wellington Airport",
+      "areaCode": "WLG"
+    },
+    "destinationAirport": {
+      "airportId": 5,
+      "airportName": "Salgado Filho",
+      "areaCode": "POA"
+    },
+    "aircraft": {
+      "aircraftId": 4,
+      "type": "Embraer E175"
+    },
+    "gate": {
+      "gateId": 4,
+      "gateName": "D7",
+      "terminal": "East"
+    },
+    "airline": {
+      "airlineId": 4,
+      "airlineName": "Island Hopper Airlines"
+    },
+    "passengers": [
+      {
+        "id": 4,
+        "firstName": "David",
+        "lastName": "Ngata"
+      },
+      {
+        "id": 5,
+        "firstName": "Elena",
+        "lastName": "Silva"
+      }
+    ]
+  },
+  {
+    "flightNumber": "SL505",
+    "status": "On Time",
+    "departureTime": "2025-09-05T09:00",
+    "arrivalTime": "2025-09-05T13:15",
+    "originAirport": {
+      "airportId": 5,
+      "airportName": "Salgado Filho",
+      "areaCode": "POA"
+    },
+    "destinationAirport": {
+      "airportId": 1,
+      "airportName": "Springfield International",
+      "areaCode": "SPI"
+    },
+    "aircraft": {
+      "aircraftId": 5,
+      "type": "Bombardier Q400"
+    },
+    "gate": {
+      "gateId": 5,
+      "gateName": "E2",
+      "terminal": "Central"
+    },
+    "airline": {
+      "airlineId": 5,
+      "airlineName": "SkyLink Express"
+    },
+    "passengers": [
+      {
+        "id": 1,
+        "firstName": "Alice",
+        "lastName": "Thompson"
+      },
+      {
+        "id": 5,
+        "firstName": "Elena",
+        "lastName": "Silva"
+      }
+    ]
+  },
+  {
+    "flightNumber": "EW606",
+    "status": "Delayed",
+    "departureTime": "2025-09-06T11:20",
+    "arrivalTime": "2025-09-06T15:55",
+    "originAirport": {
+      "airportId": 6,
+      "airportName": "Oslo Airport",
+      "areaCode": "OSL"
+    },
+    "destinationAirport": {
+      "airportId": 7,
+      "airportName": "Berlin Brandenburg",
+      "areaCode": "BER"
+    },
+    "aircraft": {
+      "aircraftId": 6,
+      "type": "Boeing 787"
+    },
+    "gate": {
+      "gateId": 6,
+      "gateName": "F6",
+      "terminal": "Main"
+    },
+    "airline": {
+      "airlineId": 6,
+      "airlineName": "EastWind"
+    },
+    "passengers": [
+      {
+        "id": 6,
+        "firstName": "Frank",
+        "lastName": "Müller"
+      }
+    ]
+  },
+  {
+    "flightNumber": "SS707",
+    "status": "Scheduled",
+    "departureTime": "2025-09-07T07:45",
+    "arrivalTime": "2025-09-07T12:10",
+    "originAirport": {
+      "airportId": 7,
+      "airportName": "Berlin Brandenburg",
+      "areaCode": "BER"
+    },
+    "destinationAirport": {
+      "airportId": 8,
+      "airportName": "Cairo International",
+      "areaCode": "CAI"
+    },
+    "aircraft": {
+      "aircraftId": 7,
+      "type": "Airbus A350"
+    },
+    "gate": {
+      "gateId": 7,
+      "gateName": "G8",
+      "terminal": "International"
+    },
+    "airline": {
+      "airlineId": 7,
+      "airlineName": "SunStream Air"
+    },
+    "passengers": [
+      {
+        "id": 6,
+        "firstName": "Frank",
+        "lastName": "Müller"
+      },
+      {
+        "id": 7,
+        "firstName": "Grace",
+        "lastName": "Tan"
+      }
+    ]
+  },
+  {
+    "flightNumber": "CA808",
+    "status": "Scheduled",
+    "departureTime": "2025-09-08T13:00",
+    "arrivalTime": "2025-09-08T18:25",
+    "originAirport": {
+      "airportId": 8,
+      "airportName": "Cairo International",
+      "areaCode": "CAI"
+    },
+    "destinationAirport": {
+      "airportId": 9,
+      "airportName": "Dubai International",
+      "areaCode": "DXB"
+    },
+    "aircraft": {
+      "aircraftId": 8,
+      "type": "CRJ900"
+    },
+    "gate": {
+      "gateId": 8,
+      "gateName": "H2",
+      "terminal": "T3"
+    },
+    "airline": {
+      "airlineId": 8,
+      "airlineName": "Crescent Air"
+    },
+    "passengers": [
+      {
+        "id": 8,
+        "firstName": "Hassan",
+        "lastName": "Al-Farsi"
+      },
+      {
+        "id": 9,
+        "firstName": "Irene",
+        "lastName": "Nguyen"
+      }
+    ]
+  },
+  {
+    "flightNumber": "DA909",
+    "status": "On Time",
+    "departureTime": "2025-09-09T10:45",
+    "arrivalTime": "2025-09-09T15:00",
+    "originAirport": {
+      "airportId": 9,
+      "airportName": "Dubai International",
+      "areaCode": "DXB"
+    },
+    "destinationAirport": {
+      "airportId": 10,
+      "airportName": "Changi Airport",
+      "areaCode": "SIN"
+    },
+    "aircraft": {
+      "aircraftId": 9,
+      "type": "ATR 72"
+    },
+    "gate": {
+      "gateId": 9,
+      "gateName": "J5",
+      "terminal": "East Wing"
+    },
+    "airline": {
+      "airlineId": 9,
+      "airlineName": "Desert Air"
+    },
+    "passengers": [
+      {
+        "id": 8,
+        "firstName": "Hassan",
+        "lastName": "Al-Farsi"
+      },
+      {
+        "id": 10,
+        "firstName": "Jonas",
+        "lastName": "Berg"
+      }
+    ]
+  },
+  {
+    "flightNumber": "SE010",
+    "status": "Scheduled",
+    "departureTime": "2025-09-10T07:30",
+    "arrivalTime": "2025-09-10T13:10",
+    "originAirport": {
+      "airportId": 10,
+      "airportName": "Changi Airport",
+      "areaCode": "SIN"
+    },
+    "destinationAirport": {
+      "airportId": 1,
+      "airportName": "Springfield International",
+      "areaCode": "SPI"
+    },
+    "aircraft": {
+      "aircraftId": 10,
+      "type": "McDonnell Douglas MD-88"
+    },
+    "gate": {
+      "gateId": 10,
+      "gateName": "K1",
+      "terminal": "North Wing"
+    },
+    "airline": {
+      "airlineId": 10,
+      "airlineName": "Southeast Express"
+    },
+    "passengers": [
+      {
+        "id": 7,
+        "firstName": "Grace",
+        "lastName": "Tan"
+      }
+    ]
+  },
+  {
+    "flightNumber": "MN111",
+    "status": "Delayed",
+    "departureTime": "2025-09-11T15:00",
+    "arrivalTime": "2025-09-11T20:20",
+    "originAirport": {
+      "airportId": 2,
+      "airportName": "Vancouver Harbour",
+      "areaCode": "YVR"
+    },
+    "destinationAirport": {
+      "airportId": 6,
+      "airportName": "Oslo Airport",
+      "areaCode": "OSL"
+    },
+    "aircraft": {
+      "aircraftId": 6,
+      "type": "Boeing 787"
+    },
+    "gate": {
+      "gateId": 11,
+      "gateName": "L2",
+      "terminal": "North International"
+    },
+    "airline": {
+      "airlineId": 6,
+      "airlineName": "EastWind"
+    },
+    "passengers": [
+      {
+        "id": 6,
+        "firstName": "Frank",
+        "lastName": "Müller"
+      },
+      {
+        "id": 2,
+        "firstName": "Brandon",
+        "lastName": "Lee"
+      }
+    ]
+  },
+  {
+    "flightNumber": "WB212",
+    "status": "On Time",
+    "departureTime": "2025-09-12T08:20",
+    "arrivalTime": "2025-09-12T14:00",
+    "originAirport": {
+      "airportId": 4,
+      "airportName": "Wellington Airport",
+      "areaCode": "WLG"
+    },
+    "destinationAirport": {
+      "airportId": 8,
+      "airportName": "Cairo International",
+      "areaCode": "CAI"
+    },
+    "aircraft": {
+      "aircraftId": 3,
+      "type": "Boeing 777"
+    },
+    "gate": {
+      "gateId": 12,
+      "gateName": "M5",
+      "terminal": "Global"
+    },
+    "airline": {
+      "airlineId": 3,
+      "airlineName": "TransContinental Airways"
+    },
+    "passengers": [
+      {
+        "id": 3,
+        "firstName": "Cecilia",
+        "lastName": "Ólafsdóttir"
+      },
+      {
+        "id": 9,
+        "firstName": "Irene",
+        "lastName": "Nguyen"
+      }
+    ]
+  },
+  {
+    "flightNumber": "SN313",
+    "status": "Boarding",
+    "departureTime": "2025-09-13T17:40",
+    "arrivalTime": "2025-09-13T22:30",
+    "originAirport": {
+      "airportId": 5,
+      "airportName": "Salgado Filho",
+      "areaCode": "POA"
+    },
+    "destinationAirport": {
+      "airportId": 9,
+      "airportName": "Dubai International",
+      "areaCode": "DXB"
+    },
+    "aircraft": {
+      "aircraftId": 5,
+      "type": "Bombardier Q400"
+    },
+    "gate": {
+      "gateId": 13,
+      "gateName": "N1",
+      "terminal": "West Wing"
+    },
+    "airline": {
+      "airlineId": 5,
+      "airlineName": "SkyLink Express"
+    },
+    "passengers": [
+      {
+        "id": 5,
+        "firstName": "Elena",
+        "lastName": "Silva"
+      },
+      {
+        "id": 10,
+        "firstName": "Jonas",
+        "lastName": "Berg"
+      }
+    ]
+  },
+  {
+    "flightNumber": "SK414",
+    "status": "Scheduled",
+    "departureTime": "2025-09-14T11:55",
+    "arrivalTime": "2025-09-14T16:40",
+    "originAirport": {
+      "airportId": 1,
+      "airportName": "Springfield International",
+      "areaCode": "SPI"
+    },
+    "destinationAirport": {
+      "airportId": 7,
+      "airportName": "Berlin Brandenburg",
+      "areaCode": "BER"
+    },
+    "aircraft": {
+      "aircraftId": 7,
+      "type": "Airbus A350"
+    },
+    "gate": {
+      "gateId": 14,
+      "gateName": "P4",
+      "terminal": "West Terminal"
+    },
+    "airline": {
+      "airlineId": 7,
+      "airlineName": "SunStream Air"
+    },
+    "passengers": [
+      {
+        "id": 1,
+        "firstName": "Alice",
+        "lastName": "Thompson"
+      },
+      {
+        "id": 6,
+        "firstName": "Frank",
+        "lastName": "Müller"
+      }
+    ]
+  },
+  {
+    "flightNumber": "GA515",
+    "status": "Cancelled",
+    "departureTime": "2025-09-15T10:00",
+    "arrivalTime": "2025-09-15T15:30",
+    "originAirport": {
+      "airportId": 3,
+      "airportName": "Keflavík International",
+      "areaCode": "KEF"
+    },
+    "destinationAirport": {
+      "airportId": 6,
+      "airportName": "Oslo Airport",
+      "areaCode": "OSL"
+    },
+    "aircraft": {
+      "aircraftId": 2,
+      "type": "Airbus A320"
+    },
+    "gate": {
+      "gateId": 15,
+      "gateName": "Q2",
+      "terminal": "East Gate"
+    },
+    "airline": {
+      "airlineId": 2,
+      "airlineName": "Northern Skies"
+    },
+    "passengers": [
+      {
+        "id": 2,
+        "firstName": "Brandon",
+        "lastName": "Lee"
+      },
+      {
+        "id": 9,
+        "firstName": "Irene",
+        "lastName": "Nguyen"
+      }
+    ]
+  }
+]
