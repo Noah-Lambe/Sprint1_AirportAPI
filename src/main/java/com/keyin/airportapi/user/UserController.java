@@ -39,31 +39,45 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Map<String,Object> login(@RequestBody Map<String,String> creds) {
+    public Map<String, Object> login(@RequestBody Map<String, String> creds) {
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.get("username"), creds.get("password")));
+                        creds.get("username"), creds.get("password"))
+        );
 
         User user = userRepository.findByUsername(auth.getName())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR, "User not found"));
 
-        Passenger p = passengerRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.INTERNAL_SERVER_ERROR, "Passenger missing"));
+        String role = user.getRole();
+        boolean isUser =
+                "USER".equalsIgnoreCase(role) || "ROLE_USER".equalsIgnoreCase(role);
 
-        Map<String,Object> resp = new HashMap<>();
-        resp.put("username",    user.getUsername());
-        resp.put("roles",       user.getRole());
-        resp.put("userId",      user.getId());
-        resp.put("passengerId", p.getId());
+        Passenger p = null;
+        if (isUser) {
+            //regular users must have a Passenger ID
+            p = passengerRepository.findByUserId(user.getId())
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Passenger missing"));
+        }
 
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("username", user.getUsername());
+        resp.put("roles",    role);
+        resp.put("userId",   user.getId());
 
-        resp.put("firstName",   p.getFirstName());
-        resp.put("lastName",    p.getLastName());
-        resp.put("phoneNumber", p.getPhoneNumber());
-        resp.put("cityId",      p.getCity() != null ? p.getCity().getId() : null);
+        resp.put("passengerId", p != null ? p.getId() : null);
+
+        // Only include passenger fields when present
+        if (p != null) {
+            resp.put("firstName",   p.getFirstName());
+            resp.put("lastName",    p.getLastName());
+            resp.put("phoneNumber", p.getPhoneNumber());
+            resp.put("cityId",      p.getCity() != null ? p.getCity().getId() : null);
+        }
+
         return resp;
     }
+
 
 }
