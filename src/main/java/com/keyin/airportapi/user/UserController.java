@@ -49,14 +49,12 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR, "User not found"));
 
-        String role = user.getRole(); // e.g., "USER" or "ADMIN" (or already "ROLE_USER")
+        String role = user.getRole();
         boolean isUser  = "USER".equalsIgnoreCase(role)  || "ROLE_USER".equalsIgnoreCase(role);
         boolean isAdmin = "ADMIN".equalsIgnoreCase(role) || "ROLE_ADMIN".equalsIgnoreCase(role);
 
         Passenger p = null;
         if (isUser) {
-            // For regular users we keep your original requirement:
-            // if they should be able to log in without a passenger, change to .orElse(null)
             p = passengerRepository.findByUserId(user.getId())
                     .orElseThrow(() -> new ResponseStatusException(
                             HttpStatus.NOT_FOUND, "Passenger missing"));
@@ -64,9 +62,9 @@ public class UserController {
 
         Map<String, Object> resp = new HashMap<>();
         resp.put("username",    user.getUsername());
-        resp.put("roles",       role);           // keep your original shape (string)
+        resp.put("roles",       role);
         resp.put("userId",      user.getId());
-        resp.put("passengerId", p != null ? p.getId() : null);  // <-- always present
+        resp.put("passengerId", p != null ? p.getId() : null);
 
         if (p != null) {
             resp.put("firstName",   p.getFirstName());
